@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend juniors gym app",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzuppa/juniors-gym-app.git"
+  },
+  "author": "Gustavo Zuppa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gzuppa/juniors-gym-app/issues"
+  },
+  "homepage": "https://github.com/gzuppa/juniors-gym-app#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
