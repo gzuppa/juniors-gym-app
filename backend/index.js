@@ -1,7 +1,15 @@
-const express = require('express')
-const app = express()
+import express from 'express'
+import dotenv from 'dotenv'
+import connectDB from './config/db.js'
 
-app.listen(4000, () => {
-    console.log('corriendo server')
+const app = express()
+dotenv.config()
+
+connectDB()
+
+const PORT = process.env.PORT || 4000
+
+app.listen(PORT, () => {
+    console.log(`corriendo server en puerto ${PORT}`)
 })
 
