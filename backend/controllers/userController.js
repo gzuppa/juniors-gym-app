@@ -1,11 +1,11 @@
-import User from "../models/User.js"
+import User from '../models/User.js'
 
 const registerUser = async (req, res) => {
   const { email } = req.body
   const isUserExists = await User.findOne({ email: email })
 
   if (isUserExists) {
-    const error = new Error('usuario ya registrado')
+    const error = new Error('Usuario ya registrado')
     return res.status(400).json({ msg: error.message })
   }
 
@@ -13,11 +13,9 @@ const registerUser = async (req, res) => {
     const user = new User(req.body)
     const storedUser = await user.save()
     res.json(storedUser)
-  } catch (error){
+  } catch (error) {
     console.error(error)
   }
 }
 
-export {
-  registerUser
-}
+export { registerUser }
