@@ -74,7 +74,7 @@ const forgotPassword = async (req, res) => {
   try {
     user.token = createId()
     await user.save()
-    res.json({ msg: 'Hemos enviado un email con las instrucciones'})
+    res.json({ msg: 'Hemos enviado un email con las instrucciones' })
   } catch (error) {
     console.log(error)
   }
@@ -84,8 +84,8 @@ const confirmToken = async (req, res) => {
   const { token } = req.params
   const validToken = await User.findOne({ token })
 
-  if(validToken) {
-    res.json({msg: "Token valido y usuario existente"})
+  if (validToken) {
+    res.json({ msg: 'Token valido y usuario existente' })
   } else {
     const error = new Error('Token no valido')
     return res.status(404).json({ msg: error.message })
@@ -97,12 +97,12 @@ const newPassword = async (req, res) => {
   const { password } = req.body
   const user = await User.findOne({ token })
 
-  if(user) {
+  if (user) {
     user.password = password
     user.token = ''
     try {
       await user.save()
-      res.json({ msg: 'Password actualizado correctamente'})
+      res.json({ msg: 'Password actualizado correctamente' })
     } catch {
       console.log(error)
     }
@@ -112,4 +112,17 @@ const newPassword = async (req, res) => {
   }
 }
 
-export { authenticate, confirm, confirmToken, forgotPassword, newPassword, registerUser }
+const profile = async (req, res) => {
+  const { user } = req
+  res.json(user)
+}
+
+export {
+  authenticate,
+  confirm,
+  confirmToken,
+  forgotPassword,
+  newPassword,
+  profile,
+  registerUser,
+}
