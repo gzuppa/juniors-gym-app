@@ -63,4 +63,53 @@ const confirm = async (req, res) => {
   }
 }
 
-export { authenticate, confirm, registerUser }
+const forgotPassword = async (req, res) => {
+  const { email } = req.body
+  const user = await User.findOne({ email })
+  if (!user) {
+    const error = new Error('El usuario no existe')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  try {
+    user.token = createId()
+    await user.save()
+    res.json({ msg: 'Hemos enviado un email con las instrucciones'})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const confirmToken = async (req, res) => {
+  const { token } = req.params
+  const validToken = await User.findOne({ token })
+
+  if(validToken) {
+    res.json({msg: "Token valido y usuario existente"})
+  } else {
+    const error = new Error('Token no valido')
+    return res.status(404).json({ msg: error.message })
+  }
+}
+
+const newPassword = async (req, res) => {
+  const { token } = req.params
+  const { password } = req.body
+  const user = await User.findOne({ token })
+
+  if(user) {
+    user.password = password
+    user.token = ''
+    try {
+      await user.save()
+      res.json({ msg: 'Password actualizado correctamente'})
+    } catch {
+      console.log(error)
+    }
+  } else {
+    const error = new Error('Token no valido')
+    return res.status(404).json({ msg: error.message })
+  }
+}
+
+export { authenticate, confirm, confirmToken, forgotPassword, newPassword, registerUser }
