@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import createId from '../helpers/createId.js'
+import createJWT from '../helpers/createJWT.js'
 
 const registerUser = async (req, res) => {
   const { email } = req.body
@@ -22,26 +23,44 @@ const registerUser = async (req, res) => {
 
 const authenticate = async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({email})
-  if(!user) {
+  const user = await User.findOne({ email })
+  if (!user) {
     const error = new Error('El usuario no existe')
-    return res.status(404).json({msg: error.message})
+    return res.status(404).json({ msg: error.message })
   }
-  if(!user.confirmedAccount) {
+  if (!user.confirmedAccount) {
     const error = new Error('Tu cuenta no ha sido confirmada')
-    return res.status(403).json({msg: error.message})
+    return res.status(403).json({ msg: error.message })
   }
 
-  if(await user.checkPassword(password)) {
+  if (user.checkPassword(password)) {
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
+      token: createJWT(user._id),
     })
   } else {
-    const error = new Error('Password ')
-    return res.status(403).json({msg: error.message})
+    const error = new Error('Password incorrecto')
+    return res.status(403).json({ msg: error.message })
   }
 }
 
-export { authenticate, registerUser }
+const confirm = async (req, res) => {
+  const { token } = req.params
+  const confirmUser = await User.findOne({ token })
+  if (!confirmUser) {
+    const error = new Error('Token invalido')
+    return res.status(403).json({ msg: error.message })
+  }
+  try {
+    confirmUser.confirmedAccount = true
+    confirmUser.token = ''
+    await confirmUser.save()
+    res.json({ msg: 'Usuario confirmado' })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export { authenticate, confirm, registerUser }
