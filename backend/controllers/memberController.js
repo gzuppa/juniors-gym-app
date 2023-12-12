@@ -24,7 +24,7 @@ const getMember = async (req, res) => {
   const { id } = req.params
   const member = await Member.findById(id)
 
-  if(!member) {
+  if (!member) {
     const error = new Error('Cliente no encontrado')
     return res.status(404).json({ msg: error.message })
   }
@@ -35,7 +35,7 @@ const editMember = async (req, res) => {
   const { id } = req.params
   const member = await Member.findById(id)
 
-  if(!member) {
+  if (!member) {
     const error = new Error('Cliente no encontrado')
     return res.status(404).json({ msg: error.message })
   }
