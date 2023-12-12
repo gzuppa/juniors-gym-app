@@ -53,7 +53,22 @@ const editMember = async (req, res) => {
   }
 }
 
-const deleteMember = async (req, res) => {}
+const deleteMember = async (req, res) => {
+  const { id } = req.params
+  const member = await Member.findById(id)
+
+  if (!member) {
+    const error = new Error('Cliente no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  try {
+    await member.deleteOne()
+    res.json({ msg: 'Cliente eliminado' })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 const addMember = async (req, res) => {}
 
