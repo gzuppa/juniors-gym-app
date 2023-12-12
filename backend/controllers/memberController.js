@@ -70,6 +70,31 @@ const deleteMember = async (req, res) => {
   }
 }
 
+const changeStatus = async (req, res) => {
+  const { id } = req.params
+  const member = await Member.findById(id)
+
+  if (!member) {
+    const error = new Error('Cliente no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  try {
+    await member.deleteOne()
+    res.json({ msg: 'Cliente eliminado' })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const addMember = async (req, res) => {}
 
-export { addMember, deleteMember, editMember, getMember, getMembers, newMember }
+export {
+  addMember,
+  changeStatus,
+  deleteMember,
+  editMember,
+  getMember,
+  getMembers,
+  newMember,
+}

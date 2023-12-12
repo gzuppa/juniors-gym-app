@@ -2,6 +2,7 @@ import express from 'express'
 import { check } from 'prettier'
 import {
   addMember,
+  changeStatus,
   deleteMember,
   editMember,
   getMember,
@@ -18,5 +19,6 @@ router
   .get(checkAuth, getMember)
   .put(checkAuth, editMember)
   .delete(checkAuth, deleteMember)
+router.post('/changeStatus/:id', checkAuth, changeStatus)
 
 export default router

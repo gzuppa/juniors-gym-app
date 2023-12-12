@@ -24,6 +24,11 @@ const memberSchema = mongoose.Schema(
       type: String,
     },
     age: { type: Number, min: 15, max: 80 },
+    status: {
+      type: String,
+      required: true,
+      enum: ['Pagado', 'Por pagar', 'Bloqueado'],
+    },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
