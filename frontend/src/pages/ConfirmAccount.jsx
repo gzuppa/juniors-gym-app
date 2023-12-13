@@ -1,9 +1,7 @@
 import React from 'react'
 
 const ConfirmAccount = () => {
-  return (
-    <div>ConfirmAccount</div>
-  )
+  return <div>ConfirmAccount</div>
 }
 
 export default ConfirmAccount
