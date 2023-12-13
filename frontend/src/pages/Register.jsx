@@ -1,12 +1,27 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const Register = () => {
-  const [ name, setName] = useState('')
-  const [ email, setEmail] = useState('')
-  const [ password, setPassword] = useState('')
-  const [ confirmPassword, setConfirmPassword] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [alert, setAlert] = useState('')
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if ([name, email, password, confirmPassword].includes('')) {
+      setAlert({
+        msg: 'Todos los campos son obligatorios',
+        error: true,
+      })
+      return
+    }
+  }
+
+  const { msg } = alert
 
   return (
     <>
@@ -17,7 +32,13 @@ const Register = () => {
           <span className="text-yellow-300"> de administración</span>
         </h1>
       </div>
-      <form className="my-10 bg-white shadow rounded-lg p-10">
+
+      {msg && <Alert alert={alert} />}
+
+      <form
+        onSubmit={handleSubmit}
+        className="my-10 bg-white shadow rounded-lg p-10"
+      >
         <div className="my-5">
           <label
             htmlFor="name"
