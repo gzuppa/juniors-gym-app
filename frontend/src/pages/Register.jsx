@@ -37,7 +37,7 @@ const Register = () => {
     setAlert({})
 
     try {
-      const { data } = await axios.post('http://localhost:4000/api/users', {
+      const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
         name,
         password,
         email,
@@ -46,6 +46,10 @@ const Register = () => {
         msg: data.msg,
         error: false,
       })
+      setName('')
+      setEmail('')
+      setPassword('')
+      setConfirmPassword('')
     } catch (error) {
       setAlert({
         msg: error.response.data.msg,
