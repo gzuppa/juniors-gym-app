@@ -1,1 +1,0 @@
-# Frontend Junior's gym app
