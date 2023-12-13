@@ -12,7 +12,6 @@ const ForgotPassword = () => {
         </h1>
       </div>
       <form className="my-10 bg-white shadow rounded-lg p-10">
-
         <div className="my-5">
           <label
             htmlFor="email"
@@ -52,7 +51,6 @@ const ForgotPassword = () => {
       </nav>
     </>
   )
-  
 }
 
 export default ForgotPassword

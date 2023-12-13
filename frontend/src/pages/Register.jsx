@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const Register = () => {
+  const [ name, setName] = useState('')
+  const [ email, setEmail] = useState('')
+  const [ password, setPassword] = useState('')
+  const [ confirmPassword, setConfirmPassword] = useState('')
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -24,6 +30,8 @@ const Register = () => {
             type="name"
             placeholder="Tu nombre"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={name}
+            onChange={e => setName(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -38,6 +46,8 @@ const Register = () => {
             type="email"
             placeholder="Email de registro"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -52,6 +62,8 @@ const Register = () => {
             type="password"
             placeholder="Tu password"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -66,6 +78,8 @@ const Register = () => {
             type="password"
             placeholder="Tu password"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
           />
         </div>
         <input
