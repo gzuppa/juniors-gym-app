@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios'
 import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
@@ -10,7 +11,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [alert, setAlert] = useState('')
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
     if ([name, email, password, confirmPassword].includes('')) {
       setAlert({
@@ -18,6 +19,38 @@ const Register = () => {
         error: true,
       })
       return
+    }
+    if (password !== confirmPassword) {
+      setAlert({
+        msg: 'Los passwords no coinciden',
+        error: true,
+      })
+      return
+    }
+    if (password.length < 6) {
+      setAlert({
+        msg: 'El password es muy corto, agrega mínimo 8 caracteres',
+        error: true,
+      })
+      return
+    }
+    setAlert({})
+
+    try {
+      const { data } = await axios.post('http://localhost:4000/api/users', {
+        name,
+        password,
+        email,
+      })
+      setAlert({
+        msg: data.msg,
+        error: false,
+      })
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true,
+      })
     }
   }
 

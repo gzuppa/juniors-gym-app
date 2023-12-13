@@ -3,8 +3,8 @@ const Alert = ({ alert }) => {
     <div
       className={`${
         alert.error
-          ? 'from-orange-400 to-orange-600'
-          : 'from-violet-400 to-violet-600'
+          ? 'from-yellow-300 to-orange-800'
+          : 'from-purple-300 to-purple-800'
       } bg-gradient-to-br text-center p-3 rounded-xl text-white font-bold text-sm my-10`}
     >
       {alert.msg}
