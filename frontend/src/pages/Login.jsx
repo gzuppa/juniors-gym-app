@@ -49,14 +49,14 @@ const Login = () => {
 
       <nav className="lg:flex lg:justify-between">
         <Link
-          to="register"
+          to="/register"
           className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
         >
           {' '}
           Registrar cuenta
         </Link>
         <Link
-          to="forgot-password"
+          to="/forgot-password"
           className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
         >
           {' '}

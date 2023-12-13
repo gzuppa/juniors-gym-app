@@ -84,7 +84,7 @@ const Register = () => {
           ¿Ya tienes cuenta? Iniciar sesión
         </Link>
         <Link
-          to="forgot-password"
+          to="/forgot-password"
           className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
         >
           {' '}
