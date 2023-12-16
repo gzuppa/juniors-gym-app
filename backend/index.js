@@ -11,7 +11,7 @@ dotenv.config()
 
 connectDB()
 
-const whitelist = [process.env.FRONTEND_URL]
+const whitelist = ["http://localhost:5173"]
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.includes(origin)) {

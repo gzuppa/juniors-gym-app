@@ -1,6 +1,37 @@
+import { useEffect, useState } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import axios from 'axios'
+import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const ConfirmAccount = () => {
+  const params = useParams()
+  const { id } = params
+  const [ alert, setAlert ] = useState({})
+  const [ confirmedAccount, setConfirmedAccount ] = useState(false)
+
+  useEffect(() => {
+    const confAccount = async () => {
+      try {
+        const url = `http://localhost:4000/api/users/confirm/${id}`
+        const { data } = await axios.get(url)
+        setAlert({
+          msg: data.msg,
+          error: false
+        })
+        setConfirmedAccount(true)
+      } catch (error) {
+        setAlert({
+          msg: error.response.data.msg,
+          error: true
+        })
+      }
+    }
+    confAccount()
+  }, [])
+
+  const { msg } = alert
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -9,6 +40,16 @@ const ConfirmAccount = () => {
           Confirma tu
           <span className="text-yellow-300"> cuenta</span>
         </h1>
+      </div>
+      <div>
+        {msg && <Alert alert={alert} />}
+        {confirmedAccount && (<Link
+          to="/"
+          className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
+        >
+          {' '}
+          Iniciar sesión
+        </Link>)}
       </div>
     </>
   )
