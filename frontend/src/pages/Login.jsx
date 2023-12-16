@@ -9,7 +9,11 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alert, setAlert] = useState({})
-  const { } = useAuth()
+  const { auth, loading, setAuth } = useAuth()
+
+  console.log(auth)
+  console.log(loading)
+
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -27,6 +31,7 @@ const Login = () => {
         password,
       })
       localStorage.setItem('token', data.token)
+      setAuth(data)
     } catch (error) {
       setAlert({
         msg: error.response.data.msg,
