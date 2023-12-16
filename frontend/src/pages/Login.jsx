@@ -1,7 +1,37 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import axiosClient from '../config/axiosClient'
+import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [alert, setAlert] = useState({})
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if([email, password].includes('')) {
+      setAlert({
+        msg: 'Todos los campos son obligatorios',
+        error: true
+      })
+      return
+    }
+    try {
+      const { data } = await axiosClient.post('/users/login', {email, password})
+      localStorage.setItem('token', data.token)
+    } catch (error) {
+      setAlert({
+        msg: error.response.data.msg,
+        error: true
+      })
+    }
+  }
+
+  const {msg} = alert
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -11,7 +41,10 @@ const Login = () => {
           <span className="text-yellow-300"> administrar usuarios</span>
         </h1>
       </div>
-      <form className="my-10 bg-white shadow rounded-lg p-10">
+
+      {msg && <Alert alert={alert} />}
+
+      <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
         <div className="my-5">
           <label
             htmlFor="email"
@@ -24,6 +57,8 @@ const Login = () => {
             type="email"
             placeholder="Email de registro"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={email}
+            onChange={ e => setEmail(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -38,6 +73,8 @@ const Login = () => {
             type="password"
             placeholder="Tu password"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={password}
+            onChange={ e => setPassword(e.target.value)}
           />
         </div>
         <input
