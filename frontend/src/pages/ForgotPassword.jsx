@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import axios from 'axios'
+import axiosClient from '../config/axiosClient'
 import { Link } from 'react-router-dom'
 import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
@@ -17,8 +17,8 @@ const ForgotPassword = () => {
       return
     }
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users/forgot-password`,
+      const { data } = await axiosClient.post(
+        `/users/forgot-password`,
         { email },
       )
       console.log(data, 'data')

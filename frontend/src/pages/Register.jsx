@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
-import axios from 'axios'
+import axiosClient from '../config/axiosClient'
 import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
@@ -37,8 +37,8 @@ const Register = () => {
     setAlert({})
 
     try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+      const { data } = await axiosClient.post(
+        `/users`,
         {
           name,
           password,
