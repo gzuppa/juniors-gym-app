@@ -1,10 +1,10 @@
-import '../../../../frontend/src/App.css';
+import '../../../../frontend/src/App.css'
 
 const Loader = () => {
   return (
     <div id="preloader">
-  <div id="loader"></div>
-</div>
+      <div id="loader"></div>
+    </div>
   )
 }
 

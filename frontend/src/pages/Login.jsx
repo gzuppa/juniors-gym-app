@@ -14,7 +14,6 @@ const Login = () => {
   console.log(auth)
   console.log(loading)
 
-
   const handleSubmit = async e => {
     e.preventDefault()
 
