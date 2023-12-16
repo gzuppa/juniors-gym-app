@@ -37,11 +37,14 @@ const Register = () => {
     setAlert({})
 
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/users`, {
-        name,
-        password,
-        email,
-      })
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/users`,
+        {
+          name,
+          password,
+          email,
+        },
+      )
       setAlert({
         msg: data.msg,
         error: false,

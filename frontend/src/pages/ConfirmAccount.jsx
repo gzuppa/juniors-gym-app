@@ -7,8 +7,8 @@ import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 const ConfirmAccount = () => {
   const params = useParams()
   const { id } = params
-  const [ alert, setAlert ] = useState({})
-  const [ confirmedAccount, setConfirmedAccount ] = useState(false)
+  const [alert, setAlert] = useState({})
+  const [confirmedAccount, setConfirmedAccount] = useState(false)
 
   useEffect(() => {
     const confAccount = async () => {
@@ -17,13 +17,13 @@ const ConfirmAccount = () => {
         const { data } = await axios.get(url)
         setAlert({
           msg: data.msg,
-          error: false
+          error: false,
         })
         setConfirmedAccount(true)
       } catch (error) {
         setAlert({
           msg: error.response.data.msg,
-          error: true
+          error: true,
         })
       }
     }
@@ -43,13 +43,15 @@ const ConfirmAccount = () => {
       </div>
       <div>
         {msg && <Alert alert={alert} />}
-        {confirmedAccount && (<Link
-          to="/"
-          className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
-        >
-          {' '}
-          Iniciar sesión
-        </Link>)}
+        {confirmedAccount && (
+          <Link
+            to="/"
+            className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
+          >
+            {' '}
+            Iniciar sesión
+          </Link>
+        )}
       </div>
     </>
   )
