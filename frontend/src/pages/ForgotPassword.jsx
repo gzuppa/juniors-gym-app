@@ -1,7 +1,23 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import Alert from '../components/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState('')
+  const [ alert, setAlert ] = useState({})
+  const handleSubmit = async e => {
+    e.preventDefault()
+    if(email === '' || email.length < 6) {
+      setAlert({
+        msg: "El email es obligatorio",
+        error: true
+      })
+      return
+    }
+  }
+  const { msg } = alert
+
   return (
     <>
       <div className="flex justify-center items-center">
@@ -11,7 +27,10 @@ const ForgotPassword = () => {
           <span className="text-yellow-300"> cuenta</span>
         </h1>
       </div>
-      <form className="my-10 bg-white shadow rounded-lg p-10">
+
+      {msg && <Alert alert={alert} />}
+
+      <form className="my-10 bg-white shadow rounded-lg p-10" onSubmit={handleSubmit}>
         <div className="my-5">
           <label
             htmlFor="email"
@@ -24,6 +43,8 @@ const ForgotPassword = () => {
             type="email"
             placeholder="Email de registro"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
+            value={email}
+            onChange={ e => setEmail(e.target.value)}
           />
         </div>
         <input
