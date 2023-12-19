@@ -4,11 +4,13 @@ import axiosClient from "../config/axiosClient";
 const MembersContext = createContext()
 
 const MembersProvider = ({children}) => {
-    return(
-        <MembersContext.Provider value={{}}>
-          {children}
-        </MembersContext.Provider>
-    )
+  const [members, setMembers] = useState([])
+
+  return(
+      <MembersContext.Provider value={{members}}>
+        {children}
+      </MembersContext.Provider>
+  )
 }
 
 export { MembersProvider }
