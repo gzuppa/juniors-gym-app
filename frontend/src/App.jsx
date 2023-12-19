@@ -9,24 +9,27 @@ import ConfirmAccount from './pages/ConfirmAccount'
 import Members from './pages/Members'
 import NewMember from './pages/NewMember'
 import { AuthProvider } from './context/AuthProvider'
+import { MembersProvider } from './context/MembersProvider'
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Routes>
-          <Route path="/" element={<AuthLayout />}>
-            <Route index element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="forgot-password/:token" element={<NewPassword />} />
-            <Route path="confirm-account/:token" element={<ConfirmAccount />} />
-          </Route>
-          <Route path="/members" element={<ProtectedRoutes />}>
-            <Route index element={<Members />} />
-            <Route path="create-member" element={<NewMember />} />
-          </Route>
-        </Routes>
+        <MembersProvider>
+          <Routes>
+            <Route path="/" element={<AuthLayout />}>
+              <Route index element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="forgot-password/:token" element={<NewPassword />} />
+              <Route path="confirm-account/:token" element={<ConfirmAccount />} />
+            </Route>
+            <Route path="/members" element={<ProtectedRoutes />}>
+              <Route index element={<Members />} />
+              <Route path="create-member" element={<NewMember />} />
+            </Route>
+          </Routes>
+        </MembersProvider>
       </AuthProvider>
     </BrowserRouter>
   )
