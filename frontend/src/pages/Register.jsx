@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import axiosClient from '../config/axiosClient'
-import Alert from '../components/Alert'
+import Alert from '../components/shared/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const Register = () => {

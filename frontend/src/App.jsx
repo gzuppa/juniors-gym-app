@@ -22,7 +22,10 @@ function App() {
               <Route path="register" element={<Register />} />
               <Route path="forgot-password" element={<ForgotPassword />} />
               <Route path="forgot-password/:token" element={<NewPassword />} />
-              <Route path="confirm-account/:token" element={<ConfirmAccount />} />
+              <Route
+                path="confirm-account/:token"
+                element={<ConfirmAccount />}
+              />
             </Route>
             <Route path="/members" element={<ProtectedRoutes />}>
               <Route index element={<Members />} />

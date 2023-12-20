@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axiosClient from '../config/axiosClient'
-import Alert from '../components/Alert'
+import Alert from '../components/shared/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const NewPassword = () => {

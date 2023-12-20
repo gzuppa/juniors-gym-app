@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axiosClient from '../config/axiosClient'
-import Alert from '../components/Alert'
+import Alert from '../components/shared/Alert'
 import useAuth from '../hooks/useAuth'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 

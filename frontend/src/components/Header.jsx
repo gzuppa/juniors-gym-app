@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
-import SharedButton from './SharedButton'
+import SharedButton from './shared/SharedButton'
 
 const Header = () => {
   return (
@@ -15,7 +15,7 @@ const Header = () => {
           placeholder="Buscar usuario"
           className="rounded-lg lg:w-96 p-2 border"
         />
-        <div className='flex items-center gap-6'>
+        <div className="flex items-center gap-6">
           <Link to="/members" className="font-bold uppercase text-yellow-300">
             {' '}
             Usuarios{' '}
