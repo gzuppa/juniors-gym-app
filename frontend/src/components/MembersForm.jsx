@@ -38,7 +38,15 @@ const MembersForm = () => {
       })
       return
     }
-    await submitMember({ name, lastName, ingressDate, payAmount, phone, age, status })
+    await submitMember({
+      name,
+      lastName,
+      ingressDate,
+      payAmount,
+      phone,
+      age,
+      status,
+    })
     setName('')
     setLastName('')
     setIngressDate('')

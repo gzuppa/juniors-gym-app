@@ -7,6 +7,7 @@ import ForgotPassword from './pages/ForgotPassword'
 import NewPassword from './pages/NewPassword'
 import ConfirmAccount from './pages/ConfirmAccount'
 import Members from './pages/Members'
+import Member from './pages/Member'
 import NewMember from './pages/NewMember'
 import { AuthProvider } from './context/AuthProvider'
 import { MembersProvider } from './context/MembersProvider'
@@ -30,6 +31,7 @@ function App() {
             <Route path="/members" element={<ProtectedRoutes />}>
               <Route index element={<Members />} />
               <Route path="create-member" element={<NewMember />} />
+              <Route path=":id" element={<Member />} />
             </Route>
           </Routes>
         </MembersProvider>

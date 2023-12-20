@@ -9,6 +9,26 @@ const MembersProvider = ({ children }) => {
   const [alert, setAlert] = useState([])
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const getMembers = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        if (!token) return
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        const { data } = await axiosClient('/members', config)
+        setMembers(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getMembers()
+  }, [])
+
   const showAlert = alert => {
     setAlert(alert)
     setTimeout(() => {
@@ -19,22 +39,22 @@ const MembersProvider = ({ children }) => {
   const submitMember = async member => {
     try {
       const token = localStorage.getItem('token')
-      if(!token) return
+      if (!token) return
       const config = {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
       }
       const { data } = await axiosClient.post('/members', member, config)
       setAlert({
         msg: 'Usuario creado correctamente',
-        error: false
+        error: false,
       })
       setTimeout(() => {
         setAlert({})
         navigate('/members')
-      }, 3000);
+      }, 3000)
     } catch (error) {
       console.log(error)
     }
