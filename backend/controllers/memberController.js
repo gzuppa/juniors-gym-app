@@ -8,12 +8,8 @@ const getMembers = async (req, res) => {
 const newMember = async (req, res) => {
   const member = new Member(req.body)
   member.createdBy = req.user._id
-
-  console.log(member)
-
   try {
     const savedMember = await member.save()
-    console.log(savedMember)
     res.json(savedMember)
   } catch (error) {
     console.log(error)

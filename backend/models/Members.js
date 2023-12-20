@@ -7,13 +7,22 @@ const memberSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    payDate: {
+    lastName : {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    ingressDate : {
       type: Date,
       default: Date.now(),
       required: true,
     },
+    payDate: {
+      type: Date,
+      default: Date.now(),
+    },
     payAmount: {
-      type: Number,
+      type: String,
       required: true,
     },
     phone: {

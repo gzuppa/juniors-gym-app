@@ -11,9 +11,6 @@ const Login = () => {
   const [alert, setAlert] = useState({})
   const { auth, loading, setAuth } = useAuth()
 
-  console.log(auth)
-  console.log(loading)
-
   const handleSubmit = async e => {
     e.preventDefault()
 

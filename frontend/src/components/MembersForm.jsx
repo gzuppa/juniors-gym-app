@@ -5,13 +5,16 @@ import {
   FormControl,
   InputAdornment,
   InputLabel,
-  NativeSelect,
+  MenuItem,
+  Select,
   TextField,
 } from '@mui/material'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone'
 import CakeIcon from '@mui/icons-material/Cake'
 import { onlyNumberRegex } from '../shared/constants'
+import useMembers from '../hooks/useMembers'
+import Alert from './shared/Alert'
 
 const MembersForm = () => {
   const [name, setName] = useState('')
@@ -22,10 +25,38 @@ const MembersForm = () => {
   const [age, setAge] = useState('')
   const [status, setStatus] = useState('')
 
-  console.log(name, lastName)
+  const { alert, showAlert, submitMember } = useMembers()
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    if (
+      [name, lastName, ingressDate, payAmount, phone, age, status].includes('')
+    ) {
+      showAlert({
+        msg: 'Todos los campos son obligatorios',
+        error: true,
+      })
+      return
+    }
+    await submitMember({ name, lastName, ingressDate, payAmount, phone, age, status })
+    setName('')
+    setLastName('')
+    setIngressDate('')
+    setPayAmount('')
+    setPhone('')
+    setAge('')
+    setStatus('')
+  }
+
+  const { msg } = alert
 
   return (
-    <form className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow">
+    <form
+      className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
+      onSubmit={handleSubmit}
+    >
+      {msg && <Alert alert={alert} />}
+
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <TextField
@@ -186,31 +217,30 @@ const MembersForm = () => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth sx={{ marginTop: 3 }}>
-            <InputLabel variant="standard" htmlFor="status">
-              Status
-            </InputLabel>
-            <NativeSelect
-              defaultValue="Por pagar"
-              inputProps={{
-                name: 'status',
-                id: 'uncontrolled-native',
-              }}
+            <InputLabel htmlFor="status">Status</InputLabel>
+            <Select
+              variant="standard"
+              labelId="status"
+              id="status"
+              value={status}
+              label="Status"
               onChange={e => setStatus(e.target.value)}
               sx={{
                 color: '#6b21a8',
-                label: { color: '#6b21a8' },
-                '& MuiInputLabel-formControl': {
-                  color: '#6b21a8',
-                },
               }}
             >
-              <option value="Pagado">Pagado</option>
-              <option value="Por pagar">Por pagar</option>
-              <option value="Bloqueado">Bloqueado</option>
-            </NativeSelect>
+              <MenuItem value="Pagado">Pagado</MenuItem>
+              <MenuItem value="Por pagar">Por pagar</MenuItem>
+              <MenuItem value="Bloqueado">Bloqueado</MenuItem>
+            </Select>
           </FormControl>
         </Grid>
       </Grid>
+      <input
+        type="submit"
+        value="Registrar usuario"
+        className="mt-9 bg-purple-800 text-yellow-300 w-full py-3 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-yellow-300 hover:text-purple-800 transition-colors"
+      />
     </form>
   )
 }
