@@ -47,6 +47,7 @@ const MembersProvider = ({ children }) => {
         },
       }
       const { data } = await axiosClient.post('/members', member, config)
+      setMembers([...members, data])
       setAlert({
         msg: 'Usuario creado correctamente',
         error: false,
