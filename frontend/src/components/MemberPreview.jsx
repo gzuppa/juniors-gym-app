@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import Chip from '@mui/material/Chip'
-import PriceCheckIcon from '@mui/icons-material/PriceCheck';
-import MoneyOffIcon from '@mui/icons-material/MoneyOff';
-import DangerousIcon from '@mui/icons-material/Dangerous';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck'
+import MoneyOffIcon from '@mui/icons-material/MoneyOff'
+import DangerousIcon from '@mui/icons-material/Dangerous'
 
 const MemberPreview = ({ member }) => {
   const { name, _id, lastName } = member
@@ -35,13 +35,19 @@ const MemberPreview = ({ member }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member.status])
-    
+
   return (
     <div className="border-b p-5 flex text-purple-800 font-raleway">
       <p className="flex-1">
         {name} {lastName}{' '}
         <span>
-          <Chip label={member.status} color={chipColor} icon={chipIcon} size="small" variant="elevated"/>
+          <Chip
+            label={member.status}
+            color={chipColor}
+            icon={chipIcon}
+            size="small"
+            variant="elevated"
+          />
         </span>{' '}
       </p>
       <Link

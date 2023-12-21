@@ -6,7 +6,10 @@ const MembersContext = createContext()
 
 const MembersProvider = ({ children }) => {
   const [members, setMembers] = useState([])
-  const [alert, setAlert] = useState([])
+  const [alert, setAlert] = useState({})
+  const [member, setMember] = useState({})
+  const [loading, setLoading] = useState(false)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -61,9 +64,37 @@ const MembersProvider = ({ children }) => {
     }
   }
 
+  const getMember = async id => {
+    setLoading(true)
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+
+      const { data } = await axiosClient(`/members/${id}`, config)
+      setMember(data)
+    } catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
   return (
     <MembersContext.Provider
-      value={{ alert, members, showAlert, submitMember }}
+      value={{
+        alert,
+        getMember,
+        loading,
+        member,
+        members,
+        showAlert,
+        submitMember,
+      }}
     >
       {children}
     </MembersContext.Provider>

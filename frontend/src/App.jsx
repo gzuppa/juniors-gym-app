@@ -9,6 +9,7 @@ import ConfirmAccount from './pages/ConfirmAccount'
 import Members from './pages/Members'
 import Member from './pages/Member'
 import NewMember from './pages/NewMember'
+import EditMember from './pages/EditMember'
 import { AuthProvider } from './context/AuthProvider'
 import { MembersProvider } from './context/MembersProvider'
 
@@ -32,6 +33,7 @@ function App() {
               <Route index element={<Members />} />
               <Route path="create-member" element={<NewMember />} />
               <Route path=":id" element={<Member />} />
+              <Route path="edit/:id" element={<EditMember />} />
             </Route>
           </Routes>
         </MembersProvider>

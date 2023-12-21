@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
+import LogoTransparent from '../assets/images/logo-transparent.png'
 import SharedButton from './shared/SharedButton'
 
 const Header = () => {
   return (
-    <header className="px-4 py-5 border-b">
+    <header className="px-4 py-5 border-b bg-purple-950">
       <div className="md:flex md:justify-between items-center">
-        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-20 mr-2" />
+        <img src={LogoTransparent} alt="JuniorsLogo" className="h-20 mr-2" />
         <h2 className="text-4xl text-yellow-300 text-center font-raleway">
           Junior's Gym Admin
         </h2>
