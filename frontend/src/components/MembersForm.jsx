@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import CurrencyInput from 'react-currency-input-field'
 import {
   Grid,
@@ -17,6 +18,7 @@ import useMembers from '../hooks/useMembers'
 import Alert from './shared/Alert'
 
 const MembersForm = () => {
+  const [id, setId] = useState(null)
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
   const [ingressDate, setIngressDate] = useState('')
@@ -25,7 +27,22 @@ const MembersForm = () => {
   const [age, setAge] = useState('')
   const [status, setStatus] = useState('')
 
-  const { alert, showAlert, submitMember } = useMembers()
+  const params = useParams()
+
+  const { alert, member, showAlert, submitMember } = useMembers()
+
+  useEffect(() => {
+    if(member.name) {
+      setId(member._id)
+      setName(member.name)
+      setLastName(member.lastName)
+      setIngressDate(member.ingressDate.split('T')[0])
+      setPayAmount(member.payAmount)
+      setPhone(member.phone)
+      setAge(member.age)
+      setStatus(member.status)
+    }
+  }, [params])
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -246,7 +263,7 @@ const MembersForm = () => {
       </Grid>
       <input
         type="submit"
-        value="Registrar usuario"
+        value={id ? 'Actualizar usuario' : 'Crear usuario'}  
         className="mt-9 bg-purple-800 text-yellow-300 w-full py-3 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-yellow-300 hover:text-purple-800 transition-colors"
       />
     </form>
