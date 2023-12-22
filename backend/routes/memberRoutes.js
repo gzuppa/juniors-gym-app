@@ -6,6 +6,7 @@ import {
   editMember,
   getMember,
   getMembers,
+  getTrainings,
   newMember,
 } from '../controllers/memberController.js'
 import checkAuth from '../middleware/checkAuth.js'
@@ -18,6 +19,7 @@ router
   .get(checkAuth, getMember)
   .put(checkAuth, editMember)
   .delete(checkAuth, deleteMember)
+  router.get('/trainings/:id', checkAuth, getTrainings)
 router.post('/changeStatus/:id', checkAuth, changeStatus)
 
 export default router

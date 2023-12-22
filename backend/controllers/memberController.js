@@ -1,4 +1,5 @@
 import Member from '../models/Members.js'
+import Training from '../models/Training.js'
 
 const getMembers = async (req, res) => {
   const members = await Member.find()
@@ -74,19 +75,29 @@ const changeStatus = async (req, res) => {
   const member = await Member.findById(id)
 
   if (!member) {
-    const error = new Error('Cliente no encontrado')
+    const error = new Error('Usuario no encontrado')
     return res.status(404).json({ msg: error.message })
   }
 
   try {
     await member.deleteOne()
-    res.json({ msg: 'Cliente eliminado' })
+    res.json({ msg: 'Usuario eliminado' })
   } catch (error) {
     console.log(error)
   }
 }
 
-const getTraining = async (req, res) => {}
+const getTrainings = async (req, res) => {
+  const {id} = req.params
+  const existsMember = await Member.findById(id) 
+  if(!existsMember) {
+    const error = new Error('Usuario no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+  //Tal vez debe borrarse esta comprobacion
+  const trainings = await Training.find().where('member').equals(id)
+  res.json(trainings)
+}
 
 export {
   changeStatus,
@@ -94,6 +105,6 @@ export {
   editMember,
   getMember,
   getMembers,
-  getTraining,
+  getTrainings,
   newMember,
 }
