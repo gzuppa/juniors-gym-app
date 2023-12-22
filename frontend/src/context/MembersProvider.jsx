@@ -40,6 +40,31 @@ const MembersProvider = ({ children }) => {
   }
 
   const submitMember = async member => {
+    if(member.id) {
+      editMember(member)
+    } else {
+      newMember(member)
+    }
+  }
+
+  const editMember = async member => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.put(`/members/${member.id}`, member, config)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const newMember = async member => {
     try {
       const token = localStorage.getItem('token')
       if (!token) return

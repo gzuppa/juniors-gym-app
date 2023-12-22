@@ -32,11 +32,11 @@ const MembersForm = () => {
   const { alert, member, showAlert, submitMember } = useMembers()
 
   useEffect(() => {
-    if(member.name) {
+    if(params.id) {
       setId(member._id)
       setName(member.name)
       setLastName(member.lastName)
-      setIngressDate(member.ingressDate.split('T')[0])
+      setIngressDate(member.ingressDate?.split('T')[0])
       setPayAmount(member.payAmount)
       setPhone(member.phone)
       setAge(member.age)
@@ -56,6 +56,7 @@ const MembersForm = () => {
       return
     }
     await submitMember({
+      id,
       name,
       lastName,
       ingressDate,
@@ -64,6 +65,7 @@ const MembersForm = () => {
       age,
       status,
     })
+    setId(null)
     setName('')
     setLastName('')
     setIngressDate('')
