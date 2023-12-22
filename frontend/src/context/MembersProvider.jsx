@@ -138,7 +138,9 @@ const MembersProvider = ({ children }) => {
 
       const { data } = await axiosClient.delete(`/members/${id}`, config)
 
-      const updatedMembers = members.filter(memberState => memberState._id !== id)
+      const updatedMembers = members.filter(
+        memberState => memberState._id !== id,
+      )
       setMembers(updatedMembers)
       setAlert({
         msg: data.msg,

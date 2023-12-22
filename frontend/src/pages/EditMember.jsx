@@ -14,7 +14,7 @@ const EditMember = () => {
   }, [])
 
   const handleClick = () => {
-    if(confirm('Deseas eliminar este usuario?')) {
+    if (confirm('Deseas eliminar este usuario?')) {
       deleteMember(params.id)
     }
   }
@@ -30,7 +30,10 @@ const EditMember = () => {
           Editar Usuario: {name} {lastName}
         </h1>
         <div className="flex items-center gap-2 text-yellow-300 hover:text-red-600">
-          <button className="p-2 font-raleway block text-center rounded-lg" onClick={handleClick}>
+          <button
+            className="p-2 font-raleway block text-center rounded-lg"
+            onClick={handleClick}
+          >
             <DeleteForeverIcon className="mr-4 mb-1" fontSize="large" />
             Eliminar usuario
           </button>
