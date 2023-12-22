@@ -1,16 +1,16 @@
-import Member from "../models/Members.js"
-import Training from "../models/Training.js"
+import Member from '../models/Members.js'
+import Training from '../models/Training.js'
 
 const addTraining = async (req, res) => {
-  const {member} = req.body
+  const { member } = req.body
   const existsMember = await Member.findById(member)
-  if(!existsMember) {
+  if (!existsMember) {
     const error = new Error('El usuario no existe')
-    return res.status(400).json({msg: error.message})
+    return res.status(400).json({ msg: error.message })
   }
-  if(existsTraining.member.toString() !== req.user._id.toString()) {
+  if (existsTraining.member.toString() !== req.user._id.toString()) {
     const error = new Error('Entrenamiento no corresponde a este usuario')
-    return res.status(404).json({msg: error.message})
+    return res.status(404).json({ msg: error.message })
   }
   try {
     const savedTraining = await Training.create(req.body)
@@ -23,13 +23,13 @@ const addTraining = async (req, res) => {
 const getTraining = async (req, res) => {
   const { id } = req.params
   const training = await Training.findById(id).populate('member')
-  if(!training) {
+  if (!training) {
     const error = new Error('Entrenamiento no encontrado')
-    return res.status(404).json({msg: error.message})
+    return res.status(404).json({ msg: error.message })
   }
-  if(training.member.toString() !== req.user._id.toString()) {
+  if (training.member.toString() !== req.user._id.toString()) {
     const error = new Error('Acción no válida')
-    return res.status(403).json({msg: error.message})
+    return res.status(403).json({ msg: error.message })
   }
   res.json(training)
 }
@@ -37,14 +37,14 @@ const getTraining = async (req, res) => {
 const updateTraining = async (req, res) => {
   const { id } = req.params
   const training = await Training.findById(id).populate('member')
-  if(!training) {
+  if (!training) {
     const error = new Error('Entrenamiento no encontrado')
-    return res.status(404).json({msg: error.message})
+    return res.status(404).json({ msg: error.message })
   }
   //TODO: TAL VEZ HAYA QUE BORRAR ESTA VALIDACION
-  if(training.member.toString() !== req.user._id.toString()) {
+  if (training.member.toString() !== req.user._id.toString()) {
     const error = new Error('Acción no válida')
-    return res.status(403).json({msg: error.message})
+    return res.status(403).json({ msg: error.message })
   }
 
   training.name = req.body.name || training.name
@@ -65,19 +65,19 @@ const updateTraining = async (req, res) => {
 const deleteTraining = async (req, res) => {
   const { id } = req.params
   const training = await Training.findById(id).populate('member')
-  if(!training) {
+  if (!training) {
     const error = new Error('Entrenamiento no encontrado')
-    return res.status(404).json({msg: error.message})
+    return res.status(404).json({ msg: error.message })
   }
   //TODO: TAL VEZ HAYA QUE BORRAR ESTA VALIDACION
-  if(training.member.toString() !== req.user._id.toString()) {
+  if (training.member.toString() !== req.user._id.toString()) {
     const error = new Error('Acción no válida')
-    return res.status(403).json({msg: error.message})
+    return res.status(403).json({ msg: error.message })
   }
 
   try {
     await training.deleteOne()
-    res.json({msg: 'Entrenamiento eliminado'})
+    res.json({ msg: 'Entrenamiento eliminado' })
   } catch (error) {
     console.log(error)
   }
@@ -90,8 +90,5 @@ export {
   changeTrainingStatus,
   deleteTraining,
   getTraining,
-  updateTraining
+  updateTraining,
 }
-
-
-

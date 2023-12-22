@@ -7,12 +7,12 @@ const memberSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    lastName : {
+    lastName: {
       type: String,
       trim: true,
       required: true,
     },
-    ingressDate : {
+    ingressDate: {
       type: Date,
       default: Date.now(),
       required: true,

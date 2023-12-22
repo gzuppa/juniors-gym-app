@@ -25,7 +25,9 @@ const getMember = async (req, res) => {
     const error = new Error('Cliente no encontrado')
     return res.status(404).json({ msg: error.message })
   }
-  res.json(member)
+  const trainings = await Training.find().where('member').equals(member._id)
+
+  res.json({ member, trainings })
 }
 
 const editMember = async (req, res) => {
@@ -87,17 +89,17 @@ const changeStatus = async (req, res) => {
   }
 }
 
-const getTrainings = async (req, res) => {
-  const {id} = req.params
-  const existsMember = await Member.findById(id) 
-  if(!existsMember) {
-    const error = new Error('Usuario no encontrado')
-    return res.status(404).json({ msg: error.message })
-  }
-  //Tal vez debe borrarse esta comprobacion
-  const trainings = await Training.find().where('member').equals(id)
-  res.json(trainings)
-}
+// const getTrainings = async (req, res) => {
+//   const {id} = req.params
+//   const existsMember = await Member.findById(id)
+//   if(!existsMember) {
+//     const error = new Error('Usuario no encontrado')
+//     return res.status(404).json({ msg: error.message })
+//   }
+//   //Tal vez debe borrarse esta comprobacion
+//   const trainings = await Training.find().where('member').equals(id)
+//   res.json(trainings)
+// }
 
 export {
   changeStatus,
@@ -105,6 +107,6 @@ export {
   editMember,
   getMember,
   getMembers,
-  getTrainings,
+  // getTrainings,
   newMember,
 }

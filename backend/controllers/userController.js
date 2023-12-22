@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
     registerMail({
       email: user.email,
       name: user.name,
-      token: user.token
+      token: user.token,
     })
     res.json({
       msg: 'Usuario creado correctamente, revisa tu email para confirmar la cuenta',
@@ -85,9 +85,9 @@ const forgotPassword = async (req, res) => {
     forgotPasswordMail({
       email: user.email,
       name: user.name,
-      token: user.token
+      token: user.token,
     })
-    res.json({ msg: "Hemos enviado un email con las instrucciones"})
+    res.json({ msg: 'Hemos enviado un email con las instrucciones' })
   } catch (error) {
     console.log(error)
   }
