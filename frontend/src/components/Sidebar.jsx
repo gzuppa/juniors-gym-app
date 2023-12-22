@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
 const Sidebar = () => {
   const { auth } = useAuth()
@@ -14,7 +14,7 @@ const Sidebar = () => {
         to="create-member"
         className="bg-yellow-300 text-purple-800 hover:bg-purple-800 hover:text-yellow-300 w-full p-3 font-raleway font-bold mt-5 text-center rounded-lg flex items-center justify-center transition-colors"
       >
-        <AddCircleOutlineIcon className='mr-2'/> Crear nuevo usuario
+        <AddCircleOutlineIcon className="mr-2" /> Crear nuevo usuario
       </Link>
     </aside>
   )

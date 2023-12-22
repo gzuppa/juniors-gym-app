@@ -9,6 +9,7 @@ const MembersProvider = ({ children }) => {
   const [alert, setAlert] = useState({})
   const [member, setMember] = useState({})
   const [loading, setLoading] = useState(false)
+  const [trainingFormModal, setTrainingFormModal] = useState(false)
 
   const navigate = useNavigate()
 
@@ -155,17 +156,23 @@ const MembersProvider = ({ children }) => {
     }
   }
 
+  const handleTrainingModal = () => {
+    setTrainingFormModal(!trainingFormModal)
+  }
+
   return (
     <MembersContext.Provider
       value={{
         alert,
         deleteMember,
         getMember,
+        handleTrainingModal,
         loading,
         member,
         members,
         showAlert,
         submitMember,
+        trainingFormModal,
       }}
     >
       {children}

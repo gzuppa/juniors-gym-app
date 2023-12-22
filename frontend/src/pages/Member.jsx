@@ -1,13 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import useMembers from '../hooks/useMembers'
 import Loader from '../assets/files/Loader'
+import TrainingFormModal from '../components/modals/TrainingFormModal'
 
 const Member = () => {
   const params = useParams()
-  const { getMember, loading, member } = useMembers()
+  const { getMember, handleTrainingModal, loading, member } = useMembers()
+  const [ modal, setModal ] = useState(false)
 
   useEffect(() => {
     getMember(params.id)
@@ -34,9 +36,15 @@ const Member = () => {
         </div>
       </div>
       <button
+        onClick={handleTrainingModal}
         type="button"
         className="text-sm px-5 py-3 w-full md:w-auto rounded-lg font-raleway bg-yellow-300 text-purple-800 mt-5 hover:bg-purple-800 hover:text-yellow-300 flex items-center transition-colors"
-      ><AddCircleOutlineIcon className='mr-2'/>Agregar plan de entrenamiento</button>
+      >
+        <AddCircleOutlineIcon className="mr-2" />
+        Agregar plan de entrenamiento
+      </button>
+
+      <TrainingFormModal modal={modal} setModal={setModal}/>
     </>
   )
 }
