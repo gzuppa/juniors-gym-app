@@ -86,14 +86,14 @@ const changeStatus = async (req, res) => {
   }
 }
 
-const addMember = async (req, res) => {}
+const getTraining = async (req, res) => {}
 
 export {
-  addMember,
   changeStatus,
   deleteMember,
   editMember,
   getMember,
   getMembers,
+  getTraining,
   newMember,
 }

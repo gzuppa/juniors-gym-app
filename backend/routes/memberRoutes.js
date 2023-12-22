@@ -1,7 +1,6 @@
 import express from 'express'
-import { check } from 'prettier'
+
 import {
-  addMember,
   changeStatus,
   deleteMember,
   editMember,
