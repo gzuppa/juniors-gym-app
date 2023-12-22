@@ -34,9 +34,37 @@ const getTraining = async (req, res) => {
   res.json(training)
 }
 
-const updateTraining = async (req, res) => {}
+const updateTraining = async (req, res) => {
+  const { id } = req.params
+  const training = await Training.findById(id).populate('member')
+  if(!training) {
+    const error = new Error('Entrenamiento no encontrado')
+    return res.status(404).json({msg: error.message})
+  }
+  //TODO: TAL VEZ HAYA QUE BORRAR ESTA VALIDACION
+  if(training.member.toString() !== req.user._id.toString()) {
+    const error = new Error('Acción no válida')
+    return res.status(403).json({msg: error.message})
+  }
 
-const deleteTraining = async (req, res) => {}
+  training.name = req.body.name || training.name
+  training.description = req.body.description || training.description
+  training.level = req.body.level || training.level
+  training.member = req.body.member || training.member
+  training.startDate = req.body.startDate || training.startDate
+  training.status = req.body.status || training.status
+
+  try {
+    const savedTraining = await training.save()
+    res.json(savedTraining)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteTraining = async (req, res) => {
+  
+}
 
 const changeTrainingStatus = async (req, res) => {}
 
