@@ -32,7 +32,7 @@ const MembersForm = () => {
   const { alert, member, showAlert, submitMember } = useMembers()
 
   useEffect(() => {
-    if(params.id) {
+    if (params.id) {
       setId(member._id)
       setName(member.name)
       setLastName(member.lastName)
@@ -265,7 +265,7 @@ const MembersForm = () => {
       </Grid>
       <input
         type="submit"
-        value={id ? 'Actualizar usuario' : 'Crear usuario'}  
+        value={id ? 'Actualizar usuario' : 'Crear usuario'}
         className="mt-9 bg-purple-800 text-yellow-300 w-full py-3 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-yellow-300 hover:text-purple-800 transition-colors"
       />
     </form>

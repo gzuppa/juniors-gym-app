@@ -40,7 +40,7 @@ const MembersProvider = ({ children }) => {
   }
 
   const submitMember = async member => {
-    if(member.id) {
+    if (member.id) {
       await editMember(member)
     } else {
       await newMember(member)
@@ -57,8 +57,14 @@ const MembersProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       }
-      const { data } = await axiosClient.put(`/members/${member.id}`, member, config)
-      const updatedMembers = members.map(memberState => memberState._id === data._id ? data : memberState)
+      const { data } = await axiosClient.put(
+        `/members/${member.id}`,
+        member,
+        config,
+      )
+      const updatedMembers = members.map(memberState =>
+        memberState._id === data._id ? data : memberState,
+      )
       setMembers(updatedMembers)
 
       setAlert({
@@ -69,7 +75,6 @@ const MembersProvider = ({ children }) => {
         setAlert({})
         navigate('/members')
       }, 3000)
-
     } catch (error) {
       console.log(error)
     }
@@ -120,10 +125,39 @@ const MembersProvider = ({ children }) => {
     setLoading(false)
   }
 
+  const deleteMember = async id => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+
+      const { data } = await axiosClient.delete(`/members/${id}`, config)
+
+      const updatedMembers = members.filter(memberState => memberState._id !== id)
+      setMembers(updatedMembers)
+      setAlert({
+        msg: data.msg,
+        error: false,
+      })
+      setTimeout(() => {
+        setAlert({})
+        navigate('/members')
+      }, 3000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <MembersContext.Provider
       value={{
         alert,
+        deleteMember,
         getMember,
         loading,
         member,
