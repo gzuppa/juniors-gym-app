@@ -41,9 +41,9 @@ const MembersProvider = ({ children }) => {
 
   const submitMember = async member => {
     if(member.id) {
-      editMember(member)
+      await editMember(member)
     } else {
-      newMember(member)
+      await newMember(member)
     }
   }
 
@@ -58,7 +58,18 @@ const MembersProvider = ({ children }) => {
         },
       }
       const { data } = await axiosClient.put(`/members/${member.id}`, member, config)
-      console.log(data)
+      const updatedMembers = members.map(memberState => memberState._id === data._id ? data : memberState)
+      setMembers(updatedMembers)
+
+      setAlert({
+        msg: 'Usuario actualizado correctamente',
+        error: false,
+      })
+      setTimeout(() => {
+        setAlert({})
+        navigate('/members')
+      }, 3000)
+
     } catch (error) {
       console.log(error)
     }

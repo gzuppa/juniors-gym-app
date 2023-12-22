@@ -36,10 +36,13 @@ const editMember = async (req, res) => {
     return res.status(404).json({ msg: error.message })
   }
   member.name = req.body.name || member.name
+  member.lastName = req.body.lastName || member.lastName
   member.payDate = req.body.payDate || member.payDate
+  member.ingressDate = req.body.ingressDate || member.ingressDate
   member.payAmount = req.body.payAmount || member.payAmount
   member.phone = req.body.phone || member.phone
   member.age = req.body.age || member.age
+  member.status = req.body.status || member.status
 
   try {
     const updatedMember = await member.save()
