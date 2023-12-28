@@ -160,6 +160,10 @@ const MembersProvider = ({ children }) => {
     setTrainingFormModal(!trainingFormModal)
   }
 
+  const submitTraining = async training => {
+    console.log(training)
+  }
+
   return (
     <MembersContext.Provider
       value={{
@@ -172,6 +176,7 @@ const MembersProvider = ({ children }) => {
         members,
         showAlert,
         submitMember,
+        submitTraining,
         trainingFormModal,
       }}
     >

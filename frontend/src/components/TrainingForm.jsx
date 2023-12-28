@@ -2,16 +2,37 @@ import { useState } from 'react'
 import { Grid, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import UpgradeIcon from '@mui/icons-material/Upgrade'
+import useMembers from '../hooks/useMembers'
+import Alert from './shared/Alert'
 
 const TrainingForm = () => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  // TO DO: ver si necesito el status
   const [status, setStatus] = useState('')
   const [startDate, setStartDate] = useState('')
   const [level, setLevel] = useState('')
 
+  const { alert, showAlert, submitTraining } = useMembers()
+
+  const handleSubmit = e => {
+    e.preventDefault()
+
+    if([name, description, startDate, level].includes('')) {
+      showAlert({
+        msg: "Todos los campos son obligatorios",
+        error: true
+      })
+      return
+    }
+    submitTraining({name, description, startDate, level})
+  }
+
+  const { msg } = alert
+
   return (
-    <form className="my-10">
+    <form className="my-10" onSubmit={handleSubmit}>
+      {msg && <Alert alert={alert}/> }
       <div className="mb-5">
         <Grid container spacing={2}>
           <TextField
