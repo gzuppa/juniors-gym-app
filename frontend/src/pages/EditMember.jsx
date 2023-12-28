@@ -19,15 +19,13 @@ const EditMember = () => {
     }
   }
 
-  const { name, lastName } = member
-
   if (loading) return <Loader />
 
   return (
     <>
       <div className="flex justify-between">
         <h1 className="text-4xl text-yellow-300 font-raleway">
-          Editar Usuario: {name} {lastName}
+          Editar Usuario: {member.member.name} {member.member.lastName}
         </h1>
         <div className="flex items-center gap-2 text-yellow-300 hover:text-red-600">
           <button

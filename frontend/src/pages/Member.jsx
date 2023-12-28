@@ -9,22 +9,24 @@ import TrainingFormModal from '../components/modals/TrainingFormModal'
 const Member = () => {
   const params = useParams()
   const { getMember, handleTrainingModal, loading, member } = useMembers()
-  const [ modal, setModal ] = useState(false)
+  const [modal, setModal] = useState(false)
 
   useEffect(() => {
     getMember(params.id)
   }, [])
-
-  const { name, lastName } = member
-
+  console.log(member)
   return loading ? (
     <Loader />
   ) : (
     <>
       <div className="flex justify-between">
-        <h1 className="text-4xl text-yellow-300 font-raleway">
-          {name} {lastName}
+        {/* {member !== {} ? (
+          <h1 className="text-4xl text-yellow-300 font-raleway">
+          {member.member.name}
         </h1>
+        ) :  (<h1 className="text-4xl text-yellow-300 font-raleway">
+        hola
+      </h1>)} */}
         <div className="flex items-center gap-2 text-yellow-100 hover:text-yellow-300">
           <Link
             to={`/members/edit/${params.id}`}
@@ -44,7 +46,7 @@ const Member = () => {
         Agregar plan de entrenamiento
       </button>
 
-      <TrainingFormModal modal={modal} setModal={setModal}/>
+      <TrainingFormModal modal={modal} setModal={setModal} />
     </>
   )
 }

@@ -47,7 +47,7 @@ const MemberPreview = ({ member }) => {
             icon={chipIcon}
             size="small"
             variant="elevated"
-            sx={{marginLeft: 2}}
+            sx={{ marginLeft: 2 }}
           />
         </span>{' '}
       </p>

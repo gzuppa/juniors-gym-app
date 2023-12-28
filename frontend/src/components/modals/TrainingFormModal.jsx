@@ -1,15 +1,19 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import CloseIcon from '@mui/icons-material/Close';
-import useMembers from '../../hooks/useMembers';
+import CloseIcon from '@mui/icons-material/Close'
+import useMembers from '../../hooks/useMembers'
+import TrainingForm from '../TrainingForm'
 
 const TrainingFormModal = () => {
+  const { handleTrainingModal, trainingFormModal } = useMembers()
 
-  const { handleTrainingModal, trainingFormModal} = useMembers()
- 
   return (
-    <Transition.Root show={ trainingFormModal } as={Fragment}>
-      <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleTrainingModal}>
+    <Transition.Root show={trainingFormModal} as={Fragment}>
+      <Dialog
+        as="div"
+        className="fixed z-10 inset-0 overflow-y-auto"
+        onClose={handleTrainingModal}
+      >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
             as={Fragment}
@@ -20,12 +24,13 @@ const TrainingFormModal = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay 
-                className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" 
-            />
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
-          <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">
+          <span
+            className="hidden sm:inline-block sm:align-middle sm:h-screen"
+            aria-hidden="true"
+          >
             &#8203;
           </span>
 
@@ -45,15 +50,19 @@ const TrainingFormModal = () => {
                   className="bg-white rounded-md text-purple-400 hover:text-purple-600 focus:outline-none"
                   onClick={handleTrainingModal}
                 >
-                <span className="sr-only"></span>
+                  <span className="sr-only"></span>
                   <CloseIcon />
                 </button>
               </div>
               <div className="sm:flex sm:items-start">
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                  <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                    
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg leading-6 text-purple-800 font-raleway"
+                  >
+                    Crear nuevo entrenamiento
                   </Dialog.Title>
+                  <TrainingForm />
                 </div>
               </div>
             </div>
