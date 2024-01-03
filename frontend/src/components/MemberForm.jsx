@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import {
   FormControl,
   Grid,
@@ -21,6 +22,7 @@ import Swal from 'sweetalert2'
 import useMembers from '../hooks/useMembers'
 
 const MemberForm = () => {
+  const [id, setId] = useState(null)
   const [name, setName] = useState('')
   const [lastName, setLastName] = useState('')
   const [payDate, setPayDate] = useState('')
@@ -30,7 +32,22 @@ const MemberForm = () => {
   const [memberLevel, setMemberLevel] = useState('')
   const [status, setStatus] = useState('')
 
-  const { submitMember } = useMembers()
+  const { member, submitMember } = useMembers()
+
+  const params = useParams()
+
+  useEffect(() => {
+    if (params.id) {
+      setId(member._id)
+      setName(member.name)
+      setLastName(member.lastName)
+      setPayAmount(member.payAmount)
+      setPhone(member.phone)
+      setAge(member.age)
+      setMemberLevel(member.memberLevel)
+      setStatus(member.status)
+    }
+  }, [params])
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -56,6 +73,7 @@ const MemberForm = () => {
       return
     }
     await submitMember({
+      id,
       name,
       lastName,
       payDate,
@@ -65,7 +83,7 @@ const MemberForm = () => {
       memberLevel,
       status,
     })
-
+    setId(null)
     setName('')
     setLastName('')
     setPayDate('')
@@ -254,7 +272,7 @@ const MemberForm = () => {
       <input
         className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"
         type="submit"
-        value="Crear usuario"
+        value={id ? 'Actualizar usuario' : 'Crear usuario'}
       />
     </form>
   )

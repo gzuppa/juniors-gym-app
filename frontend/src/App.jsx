@@ -7,6 +7,7 @@ import AuthLayout from './layouts/AuthLayout'
 import ProtectedRoute from './layouts/ProtectedRoute'
 import AdminWelcome from './pages/AdminWelcome'
 import ConfirmAccount from './pages/ConfirmAccount'
+import EditMember from './pages/EditMember'
 import ForgotPassword from './pages/ForgotPassword'
 import Login from './pages/Login'
 import Member from './pages/Member'
@@ -39,6 +40,7 @@ function App() {
                 <Route path="members" element={<Members />} />
                 <Route path="create-member" element={<NewMember />} />
                 <Route path="members/:id" element={<Member />} />
+                <Route path="members/edit/:id" element={<EditMember />} />
               </Route>
             </Routes>
           </MemberProvider>
