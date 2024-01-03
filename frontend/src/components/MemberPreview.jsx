@@ -1,14 +1,28 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import Chip from '@mui/material/Chip'
-import PriceCheckIcon from '@mui/icons-material/PriceCheck'
-import MoneyOffIcon from '@mui/icons-material/MoneyOff'
+import { Chip, Stack } from '@mui/material'
 import DangerousIcon from '@mui/icons-material/Dangerous'
+import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
+import MoneyOffIcon from '@mui/icons-material/MoneyOff'
+import PriceCheckIcon from '@mui/icons-material/PriceCheck'
 
 const MemberPreview = ({ member }) => {
-  const { name, _id, lastName } = member
+  const { name, lastName, _id, memberLevel, status, payDate } = member
 
-  const chipColor = useMemo(() => {
+  const addDaysToDate = () => {
+    const date = new Date(payDate)
+    date.setDate(date.getDate() + 30)
+    const day = date.getDate()
+    const month = date.getMonth()
+    const futureMonth = month + 1
+    const year = date.getFullYear()
+    const formattedDate = day + '/' + futureMonth + '/' + year
+    return formattedDate
+  }
+
+  const chipStatusColor = useMemo(() => {
     switch (member.status) {
       case 'Pagado':
         return 'secondary'
@@ -22,7 +36,21 @@ const MemberPreview = ({ member }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member.status])
 
-  const chipIcon = useMemo(() => {
+  const chipLevelColor = useMemo(() => {
+    switch (member.memberLevel) {
+      case 'Principiante':
+        return 'info'
+      case 'Intermedio':
+        return 'secondary'
+      case 'Avanzado':
+        return 'error'
+      default:
+        return 'secondary'
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [member.memberLevel])
+
+  const chipStatusIcon = useMemo(() => {
     switch (member.status) {
       case 'Pagado':
         return <PriceCheckIcon />
@@ -36,26 +64,46 @@ const MemberPreview = ({ member }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member.status])
 
+  const chipLevelIcon = useMemo(() => {
+    switch (member.memberLevel) {
+      case 'Principiante':
+        return <DirectionsBikeIcon />
+      case 'Intermedio':
+        return <FitnessCenterIcon />
+      case 'Avanzado':
+        return <EmojiEventsIcon />
+      default:
+        return <PriceCheckIcon />
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [member.memberLevel])
+
   return (
-    <div className="border-b p-5 flex text-purple-800 font-raleway">
-      <p className="flex-1">
-        {name} {lastName}{' '}
-        <span>
-          <Chip
-            label={member.status}
-            color={chipColor}
-            icon={chipIcon}
-            size="small"
-            variant="elevated"
-            sx={{ marginLeft: 2 }}
-          />
-        </span>{' '}
-      </p>
+    <div className="border-b p-5 flex">
+      <Stack className="flex-1" direction="row" spacing={1}>
+        <p className="font-raleway text-purple-800">
+          {name} {lastName}
+        </p>
+        <Chip
+          label={memberLevel}
+          size="small"
+          color={chipLevelColor}
+          icon={chipLevelIcon}
+        />
+        <Chip
+          label={status}
+          size="small"
+          variant="outlined"
+          color={chipStatusColor}
+          icon={chipStatusIcon}
+        />
+        <Chip label={addDaysToDate()} size="small" variant="outlined" />
+      </Stack>
       <Link
         to={`${_id}`}
-        className="text-purple-800 hover:text-purple-500 uppercase text-sm font-bold"
+        className="text-purple-800 hover:text-purple-600 uppercase cursor-pointer text-sm font-raleway font-bold"
       >
-        Ver usuario
+        Ver detalles
       </Link>
     </div>
   )

@@ -1,13 +1,14 @@
-import { Outlet, Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
-import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
 import Loader from '../assets/files/Loader'
+import Sidebar from '../components/Sidebar'
+import Header from '../components/Header'
 
-const ProtectedRoutes = () => {
+const ProtectedRoute = () => {
   const { auth, loading } = useAuth()
 
   if (loading) return <Loader />
+
   return (
     <>
       {auth._id ? (
@@ -27,4 +28,4 @@ const ProtectedRoutes = () => {
   )
 }
 
-export default ProtectedRoutes
+export default ProtectedRoute

@@ -1,58 +1,54 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 import axiosClient from '../config/axiosClient'
-import Alert from '../components/shared/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const ConfirmAccount = () => {
+  const [confirmedAccount, setConfirmedAccount] = useState(false)
   const params = useParams()
   const { id } = params
-  const [alert, setAlert] = useState({})
-  const [confirmedAccount, setConfirmedAccount] = useState(false)
 
   useEffect(() => {
-    const confAccount = async () => {
+    const confirmAccount = async () => {
       try {
         const url = `/users/confirm/${id}`
-        const { data } = await axiosClient.get(url)
-        setAlert({
-          msg: data.msg,
-          error: false,
+        const { data } = await axiosClient(url)
+
+        Swal.fire({
+          title: 'Éxito!',
+          text: data.msg,
+          icon: success,
+          confirmButtonText: 'Reintentar',
         })
+
         setConfirmedAccount(true)
       } catch (error) {
-        setAlert({
-          msg: error.response.data.msg,
-          error: true,
+        Swal.fire({
+          title: 'Atención!',
+          text: error.response.data.msg,
+          icon: 'warning',
+          confirmButtonText: 'Cerrar',
         })
       }
     }
-    confAccount()
+    confirmAccount()
   }, [])
-
-  const { msg } = alert
 
   return (
     <>
       <div className="flex justify-center items-center">
-        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-32 mr-2" />
-        <h1 className="text-purple-800 font-black text-4xl font-raleway">
-          Confirma tu
-          <span className="text-yellow-300"> cuenta</span>
+        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-32 mr-5" />
+        <h1 className="text-yellow-300 font-black text-5xl">
+          Tu cuenta ha sido<span className="text-purple-800"> confirmada</span>
         </h1>
       </div>
-      <div>
-        {msg && <Alert alert={alert} />}
-        {confirmedAccount && (
-          <Link
-            to="/"
-            className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
-          >
-            {' '}
-            Iniciar sesión
-          </Link>
-        )}
-      </div>
+      <Link
+        to="/"
+        className="block text-center my-5 text-yellow-300 uppercase text-sm"
+      >
+        Iniciar sesión
+      </Link>
     </>
   )
 }

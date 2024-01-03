@@ -1,16 +1,28 @@
-import { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import axiosClient from '../config/axiosClient'
-import Alert from '../components/shared/Alert'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const NewPassword = () => {
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = () => setShowPassword(show => !show)
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
+  const [validToken, setValidToken] = useState(false)
+  const [password, setPassword] = useState('')
   const params = useParams()
   const { token } = params
-  const [validToken, setValidToken] = useState(false)
-  const [alert, setAlert] = useState({})
-  const [password, setPassword] = useState('')
-  const [modifiedPassword, setModifiedPassword] = useState(false)
 
   useEffect(() => {
     const checkToken = async () => {
@@ -18,38 +30,46 @@ const NewPassword = () => {
         await axiosClient(`/users/forgot-password/${token}`)
         setValidToken(true)
       } catch (error) {
-        setAlert({
-          msg: error.response.data.msg,
-          error: true,
+        Swal.fire({
+          title: 'Atención!',
+          text: error.response.data.msg,
+          icon: 'warning',
+          confirmButtonText: 'Reintentar',
         })
       }
     }
     checkToken()
   }, [])
 
-  const { msg } = alert
-
   const handleSubmit = async e => {
     e.preventDefault()
+
     if (password.length < 6) {
-      setAlert({
-        msg: 'El password debe tener minimo 6 caracteres',
-        error: true,
+      Swal.fire({
+        title: 'Error!',
+        text: 'El password debe tener al menos 6 caracteres',
+        icon: 'error',
+        confirmButtonText: 'Reintentar',
       })
-      return
     }
+
     try {
-      const url = `/users/forgot-password/${token}`
+      const url = `http://localhost:4000/api/users/forgot-password/${token}`
       const { data } = await axiosClient.post(url, { password })
-      setAlert({
-        msg: data.msg,
-        error: false,
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito!',
+        text: data.msg,
+        confirmButtonText: 'Cerrar',
+        footer: '<a href="/">Iniciar sesión</a>',
       })
-      setModifiedPassword(true)
     } catch (error) {
-      setAlert({
-        msg: error.response.data.msg,
-        error: true,
+      Swal.fire({
+        title: 'Error!',
+        text: error.response.data.msg,
+        icon: 'error',
+        confirmButtonText: 'Reintentar',
       })
     }
   }
@@ -57,50 +77,45 @@ const NewPassword = () => {
   return (
     <>
       <div className="flex justify-center items-center">
-        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-32 mr-2" />
-        <h1 className="text-purple-800 font-black text-4xl font-raleway">
-          Reestablece tu
-          <span className="text-yellow-300"> password</span>
+        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-32 mr-5" />
+        <h1 className="text-yellow-300 font-black text-5xl">
+          Reestablece tu<span className="text-purple-800"> password</span>
         </h1>
       </div>
-      {msg && <Alert alert={alert} />}
+
       {validToken && (
         <form
-          className="my-10 bg-white shadow rounded-lg p-10"
+          className="bg-white my-10 shadow-yellow-400 rounded-lg p-10"
           onSubmit={handleSubmit}
         >
-          <div className="my-5">
-            <label
-              htmlFor="password"
-              className="uppercase text-purple-800 block text-xl font-nunito"
-            >
-              Nuevo password
-            </label>
-            <input
+          <FormControl sx={{ width: '100%', mt: 3 }}>
+            <InputLabel htmlFor="password">Nuevo Password</InputLabel>
+            <OutlinedInput
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    sx={{ color: '#6b21a8' }}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
               id="password"
-              type="password"
-              placeholder="Escribe tu nuevo password"
-              className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
-              value={password}
               onChange={e => setPassword(e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              value={password}
             />
-          </div>
+          </FormControl>
+
           <input
             type="submit"
             value="Guardar nuevo password"
-            className="mb-5 bg-purple-800 text-yellow-300 w-full py-3 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-yellow-300 hover:text-purple-800 transition-colors"
+            className="bg-yellow-300 w-full py-3 text-purple-800 font-bold rounded-lg hover:cursor-pointer hover:bg-purple-800 hover:text-yellow-300 transition-colors mt-5 mb-5"
           />
         </form>
-      )}
-
-      {modifiedPassword && (
-        <Link
-          to="/"
-          className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
-        >
-          {' '}
-          Iniciar sesión
-        </Link>
       )}
     </>
   )

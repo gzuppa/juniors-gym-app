@@ -1,13 +1,13 @@
-import MembersForm from '../components/MembersForm'
+import MemberForm from '../components/MemberForm'
 
 const NewMember = () => {
   return (
     <>
-      <h1 className="text-3xl font-raleway text-yellow-300">
-        Registrar nuevo usuario
+      <h1 className="text-4xl text-yellow-300 font-raleway font-bold">
+        Crear nuevo usuario
       </h1>
       <div className="mt-10 flex justify-center">
-        <MembersForm />
+        <MemberForm />
       </div>
     </>
   )

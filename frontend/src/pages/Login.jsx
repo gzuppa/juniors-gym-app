@@ -1,114 +1,132 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from '@mui/material'
+import EmailIcon from '@mui/icons-material/Email'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Swal from 'sweetalert2'
 import axiosClient from '../config/axiosClient'
-import Alert from '../components/shared/Alert'
 import useAuth from '../hooks/useAuth'
 import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = () => setShowPassword(show => !show)
+  const handleMouseDownPassword = event => {
+    event.preventDefault()
+  }
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [alert, setAlert] = useState({})
+
   const { setAuth } = useAuth()
-  const navigate = useNavigate()
 
   const handleSubmit = async e => {
     e.preventDefault()
 
     if ([email, password].includes('')) {
-      setAlert({
-        msg: 'Todos los campos son obligatorios',
-        error: true,
+      Swal.fire({
+        title: 'Atención!',
+        text: 'Todos los campos son obligatorios',
+        icon: 'warning',
+        confirmButtonText: 'Reintentar',
       })
       return
     }
+
     try {
       const { data } = await axiosClient.post('/users/login', {
         email,
         password,
       })
+
       localStorage.setItem('token', data.token)
       setAuth(data)
-      navigate('/members')
     } catch (error) {
-      setAlert({
-        msg: error.response.data.msg,
-        error: true,
+      Swal.fire({
+        title: 'Atención!',
+        text: error.response.data.msg,
+        icon: 'error',
+        confirmButtonText: 'Reintentar',
       })
     }
   }
 
-  const { msg } = alert
-
   return (
     <>
       <div className="flex justify-center items-center">
-        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-32 mr-2" />
-        <h1 className="text-purple-800 font-black text-4xl font-raleway">
-          Inicia sesión para
-          <span className="text-yellow-300"> administrar usuarios</span>
+        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-32 mr-5" />
+        <h1 className="text-yellow-300 font-black text-5xl">
+          Bienvenido a <span className="text-purple-800">Junior's Gym</span>
         </h1>
       </div>
 
-      {msg && <Alert alert={alert} />}
-
       <form
-        className="my-10 bg-white shadow rounded-lg p-10"
+        className="bg-white my-10 shadow-yellow-400 rounded-lg p-10"
         onSubmit={handleSubmit}
       >
-        <div className="my-5">
-          <label
-            htmlFor="email"
-            className="uppercase text-purple-800 block text-xl font-nunito"
-          >
-            Email
-          </label>
-          <input
+        <FormControl sx={{ width: '100%' }}>
+          <InputLabel htmlFor="email">Email</InputLabel>
+          <OutlinedInput
+            endAdornment={
+              <InputAdornment position="end" sx={{ color: '#6b21a8' }}>
+                <EmailIcon />
+              </InputAdornment>
+            }
             id="email"
-            type="email"
-            placeholder="Email de registro"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
-            value={email}
+            label="Email"
             onChange={e => setEmail(e.target.value)}
+            sx={{ label: { color: '#6b21a8' } }}
+            type="text"
+            value={email}
           />
-        </div>
-        <div className="my-5">
-          <label
-            htmlFor="password"
-            className="uppercase text-purple-800 block text-xl font-nunito"
-          >
-            Password
-          </label>
-          <input
+        </FormControl>
+
+        <FormControl sx={{ width: '100%', mt: 3 }}>
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <OutlinedInput
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  sx={{ color: '#6b21a8' }}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
             id="password"
-            type="password"
-            placeholder="Tu password"
-            className="w-full mt-3 p-3 border rounded-xl bg-gray-50 font-nunito"
-            value={password}
             onChange={e => setPassword(e.target.value)}
+            type={showPassword ? 'text' : 'password'}
+            value={password}
           />
-        </div>
+        </FormControl>
         <input
           type="submit"
           value="Iniciar sesión"
-          className="mb-5 bg-purple-800 text-yellow-300 w-full py-3 uppercase font-bold rounded-xl hover:cursor-pointer hover:bg-yellow-300 hover:text-purple-800 transition-colors"
+          className="bg-yellow-300 w-full py-3 text-purple-800 font-bold rounded-lg hover:cursor-pointer hover:bg-purple-800 hover:text-yellow-300 transition-colors mt-5 mb-5"
         />
       </form>
 
       <nav className="lg:flex lg:justify-between">
         <Link
           to="/register"
-          className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
+          className="block text-center my-5 text-yellow-300 uppercase text-sm"
         >
-          {' '}
-          Registrar cuenta
+          ¿No tienes una cuenta? Registrate
         </Link>
         <Link
           to="/forgot-password"
-          className="block text-center my-3 uppercase text-sm font-raleway text-yellow-300"
+          className="block text-center my-5 text-yellow-300 uppercase text-sm"
         >
-          {' '}
-          Recuperar password
+          Olvidé mi password
         </Link>
       </nav>
     </>

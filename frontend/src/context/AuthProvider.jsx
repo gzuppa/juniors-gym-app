@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosClient from '../config/axiosClient'
 
@@ -9,8 +9,9 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const authenticateUser = async () => {
+    const authUser = async () => {
       const token = localStorage.getItem('token')
+
       if (!token) {
         setLoading(false)
         return
@@ -24,16 +25,16 @@ const AuthProvider = ({ children }) => {
       }
 
       try {
-        const data = await axiosClient('/users/profile', config)
-        setAuth(data.data)
-        navigate('/members')
+        const { data } = await axiosClient('/users/profile', config)
+        setAuth(data)
+        navigate('/admin')
       } catch (error) {
         setAuth({})
       } finally {
         setLoading(false)
       }
     }
-    authenticateUser()
+    authUser()
   }, [])
 
   return (

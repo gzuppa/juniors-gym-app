@@ -1,29 +1,47 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import LogoTransparent from '../assets/images/logo-transparent.png'
-import SharedButton from './shared/SharedButton'
+import MenuIcon from '@mui/icons-material/Menu'
+import JuniorsLogo from '../assets/images/juniors-gym-logo.png'
+import '../styles/Header.css'
 
 const Header = () => {
+  const [isNavExpanded, setIsNavExpanded] = useState(false)
+
   return (
-    <header className="px-4 py-5 border-b bg-purple-950">
-      <div className="md:flex md:justify-between items-center">
-        <img src={LogoTransparent} alt="JuniorsLogo" className="h-20 mr-2" />
-        <h2 className="text-4xl text-yellow-300 text-center font-raleway">
-          Junior's Gym Admin
-        </h2>
-        <input
-          type="search"
-          placeholder="Buscar usuario"
-          className="rounded-lg lg:w-96 p-2 border"
-        />
-        <div className="flex items-center gap-6">
-          <Link to="/members" className="font-bold uppercase text-yellow-300">
-            {' '}
-            Usuarios{' '}
-          </Link>
-          <SharedButton text={'Cerrar sesión'} />
-        </div>
+    <nav className="navigation bg-black">
+      <a href="/">
+        {' '}
+        <img src={JuniorsLogo} alt="JuniorsLogo" className="h-20 p-3" />
+      </a>
+      <a href="/" className="brand-name text-yellow-300 font-raleway">
+        Junior's Gym
+      </a>
+      <button
+        className="hamburger cursor-pointer bg-yellow-300 text-purple-800 hover:bg-purple-800 hover:text-yellow-300 transition-colors"
+        onClick={() => {
+          setIsNavExpanded(!isNavExpanded)
+        }}
+      >
+        <MenuIcon />
+      </button>
+      <div
+        className={
+          isNavExpanded ? 'navigation-menu expanded' : 'navigation-menu'
+        }
+      >
+        <ul className="font-raleway">
+          <li className="text-yellow-300 hover:text-purple-800">
+            <Link to="/admin/members">Iniciar sesión</Link>
+          </li>
+          <li className="text-yellow-300 hover:text-purple-800">
+            <Link to="/admin">Panel inicial</Link>
+          </li>
+          <li className="text-yellow-300 hover:text-purple-800">
+            <Link to="/">Cerrar sesión</Link>
+          </li>
+        </ul>
       </div>
-    </header>
+    </nav>
   )
 }
 

@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2'
 import useMembers from '../hooks/useMembers'
 import MemberPreview from '../components/MemberPreview'
 
@@ -6,16 +7,17 @@ const Members = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-raleway text-yellow-300">Usuarios</h1>
-
+      <h1 className="text-4xl text-yellow-300 font-raleway font-bold">
+        Usuarios
+      </h1>
       <div className="bg-white shadow mt-10 rounded-lg">
         {members.length ? (
           members.map(member => (
-            <MemberPreview key={member._id} member={member} />
+            <MemberPreview key={members._id} member={member} />
           ))
         ) : (
-          <p className="mt-1 text-center text-purple-800 uppercase">
-            No has registrado ningún usuario
+          <p className="mt-5 text-center text-purple-800 uppercase">
+            Aún no hay usuarios creados
           </p>
         )}
       </div>

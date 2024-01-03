@@ -1,43 +1,49 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import AuthLayout from './layouts/AuthLayout'
-import ProtectedRoutes from './layouts/ProtectedRoutes'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import ForgotPassword from './pages/ForgotPassword'
-import NewPassword from './pages/NewPassword'
-import ConfirmAccount from './pages/ConfirmAccount'
-import Members from './pages/Members'
-import Member from './pages/Member'
-import NewMember from './pages/NewMember'
-import EditMember from './pages/EditMember'
+import { LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { AuthProvider } from './context/AuthProvider'
-import { MembersProvider } from './context/MembersProvider'
+import { MemberProvider } from './context/MemberProvider'
+import AuthLayout from './layouts/AuthLayout'
+import ProtectedRoute from './layouts/ProtectedRoute'
+import AdminWelcome from './pages/AdminWelcome'
+import ConfirmAccount from './pages/ConfirmAccount'
+import ForgotPassword from './pages/ForgotPassword'
+import Login from './pages/Login'
+import Member from './pages/Member'
+import Members from './pages/Members'
+import NewMember from './pages/NewMember'
+import NewPassword from './pages/NewPassword'
+import Register from './pages/Register'
+import './App.css'
 
 function App() {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <MembersProvider>
-          <Routes>
-            <Route path="/" element={<AuthLayout />}>
-              <Route index element={<Login />} />
-              <Route path="register" element={<Register />} />
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="forgot-password/:token" element={<NewPassword />} />
-              <Route
-                path="confirm-account/:token"
-                element={<ConfirmAccount />}
-              />
-            </Route>
-            <Route path="/members" element={<ProtectedRoutes />}>
-              <Route index element={<Members />} />
-              <Route path="create-member" element={<NewMember />} />
-              <Route path=":id" element={<Member />} />
-              <Route path="edit/:id" element={<EditMember />} />
-            </Route>
-          </Routes>
-        </MembersProvider>
-      </AuthProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <AuthProvider>
+          <MemberProvider>
+            <Routes>
+              <Route path="/" element={<AuthLayout />}>
+                <Route index element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="forgot-password" element={<ForgotPassword />} />
+                <Route
+                  path="forgot-password/:token"
+                  element={<NewPassword />}
+                />
+                <Route path="confirm/:id" element={<ConfirmAccount />} />
+              </Route>
+              {/* TODO: Verificar rutas */}
+              <Route path="/admin" element={<ProtectedRoute />}>
+                <Route index element={<AdminWelcome />} />
+                <Route path="members" element={<Members />} />
+                <Route path="create-member" element={<NewMember />} />
+                <Route path="members/:id" element={<Member />} />
+              </Route>
+            </Routes>
+          </MemberProvider>
+        </AuthProvider>
+      </LocalizationProvider>
     </BrowserRouter>
   )
 }
