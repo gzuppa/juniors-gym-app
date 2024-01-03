@@ -19,7 +19,7 @@ export const registerMail = async data => {
     html: `
       <p>Hola ${name}, comprueba tu cuenta en Junior's Gym</p>
       <p>Tu cuenta ya está lista, da click en el siguiente enlace:</p>
-      <a href="${process.env.FRONTEND_URL}/confirm-account/${token}">Comprobar cuenta</a>
+      <a href="${process.env.FRONTEND_URL}/confirm/${token}">Comprobar cuenta</a>
     `,
   })
 }

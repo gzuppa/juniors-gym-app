@@ -56,8 +56,25 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const getMember = async id => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const {data} = await axiosClient(`/members/${id}`, config)
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
-    <MemberContext.Provider value={{ members, submitMember }}>
+    <MemberContext.Provider value={{ getMember, members, submitMember }}>
       {children}
     </MemberContext.Provider>
   )

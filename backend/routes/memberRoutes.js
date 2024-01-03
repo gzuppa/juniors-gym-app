@@ -1,12 +1,11 @@
 import express from 'express'
-
 import {
-  changeStatus,
-  deleteMember,
+  addSecondaryTrainer,
+  deleteMembers,
+  deleteSecondaryTrainer,
   editMember,
   getMember,
   getMembers,
-  // getTrainings,
   newMember,
 } from '../controllers/memberController.js'
 import checkAuth from '../middleware/checkAuth.js'
@@ -18,8 +17,8 @@ router
   .route('/:id')
   .get(checkAuth, getMember)
   .put(checkAuth, editMember)
-  .delete(checkAuth, deleteMember)
-// router.get('/trainings/:id', checkAuth, getTrainings)
-router.post('/changeStatus/:id', checkAuth, changeStatus)
+  .delete(checkAuth, deleteMembers)
+router.post('/add-secondary-trainer/:id', checkAuth, addSecondaryTrainer)
+router.post('/delete-secondary-trainer/:id', checkAuth, deleteSecondaryTrainer)
 
 export default router

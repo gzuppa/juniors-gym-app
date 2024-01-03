@@ -13,7 +13,7 @@ const Members = () => {
       <div className="bg-white shadow mt-10 rounded-lg">
         {members.length ? (
           members.map(member => (
-            <MemberPreview key={members._id} member={member} />
+            <MemberPreview key={member._id} member={member} />
           ))
         ) : (
           <p className="mt-5 text-center text-purple-800 uppercase">

@@ -9,13 +9,11 @@ import trainingRoutes from './routes/trainingRoutes.js'
 const app = express()
 app.use(express.json())
 dotenv.config()
-
 connectDB()
 
-const whitelist = ['http://localhost:5173']
+const whitelist = [process.env.FRONTEND_URL]
 const corsOptions = {
   origin: function (origin, callback) {
-    console.log(origin)
     if (whitelist.includes(origin)) {
       callback(null, true)
     } else {
@@ -25,12 +23,14 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
+
 //Routing
 app.use('/api/users', userRoutes)
 app.use('/api/members', memberRoutes)
-app.use('/api/training', trainingRoutes)
+app.use('/api/trainings', trainingRoutes)
 
 const PORT = process.env.PORT || 4000
+
 app.listen(PORT, () => {
-  console.log(`corriendo server en puerto ${PORT}`)
+  console.log(`Servidor corriendo en el puerto ${PORT}`)
 })

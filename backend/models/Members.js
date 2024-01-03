@@ -12,11 +12,6 @@ const memberSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    ingressDate: {
-      type: Date,
-      default: Date.now(),
-      required: true,
-    },
     payDate: {
       type: Date,
       default: Date.now(),
@@ -29,23 +24,27 @@ const memberSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    address: {
+    age: { type: Number, min: 12, max: 80 },
+    memberLevel: {
       type: String,
+      enum: ['Principiante', 'Intermedio', 'Avanzado'],
+      required: true,
     },
-    age: { type: Number, min: 15, max: 80 },
     status: {
       type: String,
       required: true,
       enum: ['Pagado', 'Por pagar', 'Bloqueado'],
     },
-    createdBy: {
+    principalTrainer: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    profilePhoto: {
-      data: Buffer,
-      contentType: String,
-    },
+    secondaryTrainers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,

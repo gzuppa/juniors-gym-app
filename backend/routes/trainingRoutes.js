@@ -16,6 +16,6 @@ router
   .get(checkAuth, getTraining)
   .put(checkAuth, updateTraining)
   .delete(checkAuth, deleteTraining)
-router.post('/status/:id', checkAuth, changeTrainingStatus)
+router.post('/training-status/:id', checkAuth, changeTrainingStatus)
 
 export default router
