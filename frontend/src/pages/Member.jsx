@@ -6,6 +6,7 @@ import useMembers from '../hooks/useMembers'
 import Loader from '../assets/files/Loader'
 import Training from '../components/Training'
 import TrainingFormModal from '../components/TrainingFormModal'
+import DeleteTrainingModal from '../components/DeleteTrainingModal'
 
 const Member = () => {
   const params = useParams()
@@ -52,6 +53,7 @@ const Member = () => {
         )}
       </div>
       <TrainingFormModal />
+      <DeleteTrainingModal />
     </>
   )
 }

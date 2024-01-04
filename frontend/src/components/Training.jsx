@@ -9,7 +9,7 @@ import useMembers from '../hooks/useMembers'
 
 const Training = ({ training }) => {
   const { name, description, startDate, level, status, _id } = training
-  const { handleEditTrainingModal } = useMembers()
+  const { handleEditTrainingModal, handleDeleteTrainingModal } = useMembers()
 
   const chipLevelColor = useMemo(() => {
     switch (level) {
@@ -75,7 +75,10 @@ const Training = ({ training }) => {
             Entrenamiento incompleto
           </button>
         )}
-        <button className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg">
+        <button
+          className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg"
+          onClick={() => handleDeleteTrainingModal(training)}
+        >
           Eliminar
         </button>
       </div>

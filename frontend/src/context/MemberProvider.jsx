@@ -10,6 +10,7 @@ const MemberProvider = ({ children }) => {
   const [member, setMember] = useState({})
   const [loading, setLoading] = useState(false)
   const [trainingModal, setTrainingModal] = useState(false)
+  const [deleteTrainingModal, setDeleteTrainingModal] = useState(false)
   const [training, setTraining] = useState({})
   const navigate = useNavigate()
 
@@ -214,11 +215,54 @@ const MemberProvider = ({ children }) => {
     setTrainingModal(true)
   }
 
+  const handleDeleteTrainingModal = training => {
+    setTraining(training)
+    setDeleteTrainingModal(!deleteTrainingModal)
+  }
+
+  const deleteTraining = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.delete(
+        `/trainings/${training._id}`,
+        config,
+      )
+
+      Swal.fire({
+        title: 'Éxito!',
+        text: data.msg,
+        icon: 'success',
+        confirmButtonText: 'Cerrar',
+      })
+
+      const updatedMember = { ...member }
+      updatedMember.trainings = updatedMember.trainings.filter(
+        trainingState => trainingState._id !== training._id,
+      )
+
+      setMember(updatedMember)
+      setDeleteTrainingModal(false)
+      setTraining({})
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <MemberContext.Provider
       value={{
         deleteMember,
+        deleteTraining,
+        deleteTrainingModal,
         getMember,
+        handleDeleteTrainingModal,
         handleEditTrainingModal,
         handleTrainingModal,
         loading,
