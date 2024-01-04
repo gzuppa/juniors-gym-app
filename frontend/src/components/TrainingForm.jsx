@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   FormControl,
@@ -23,10 +23,25 @@ const TrainingForm = () => {
   const [description, setDescription] = useState('')
   const [startDate, setStartDate] = useState('')
   const [level, setLevel] = useState('')
+  const [id, setId] = useState('')
 
-  const { submitTraining } = useMembers()
+  const { training, submitTraining } = useMembers()
 
   const params = useParams()
+
+  useEffect(() => {
+    if (training?._id) {
+      setId(training._id)
+      setName(training.name)
+      setDescription(training.description)
+      setLevel(training.level)
+      return
+    }
+    setId('')
+    setName('')
+    setDescription('')
+    setLevel('')
+  }, [training])
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -41,12 +56,14 @@ const TrainingForm = () => {
       return
     }
     await submitTraining({
+      id,
       name,
       description,
       startDate,
       level,
       member: params.id,
     })
+    setId('')
     setName('')
     setDescription('')
     setStartDate('')
@@ -131,7 +148,7 @@ const TrainingForm = () => {
       <input
         type="submit"
         className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"
-        value="Crear"
+        value={id ? 'Editar' : 'Crear'}
       />
     </form>
   )

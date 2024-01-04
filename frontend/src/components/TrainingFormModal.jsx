@@ -1,11 +1,11 @@
-import { Fragment, useEffect } from 'react'
+import { Fragment } from 'react'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Dialog, Transition } from '@headlessui/react'
 import useMembers from '../hooks/useMembers'
 import TrainingForm from './TrainingForm'
 
 const ModalFormularioTarea = () => {
-  const { handleTrainingModal, trainingModal } = useMembers()
+  const { handleTrainingModal, training, trainingModal } = useMembers()
 
   return (
     <Transition.Root show={trainingModal} as={Fragment}>

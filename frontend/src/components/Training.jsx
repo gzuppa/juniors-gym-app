@@ -5,9 +5,11 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined'
 import { formatDate } from '../helpers/formatDate'
+import useMembers from '../hooks/useMembers'
 
 const Training = ({ training }) => {
   const { name, description, startDate, level, status, _id } = training
+  const { handleEditTrainingModal } = useMembers()
 
   const chipLevelColor = useMemo(() => {
     switch (level) {
@@ -46,7 +48,7 @@ const Training = ({ training }) => {
       <div>
         <p className="text-xl mb-1">{name}</p>
         <p className="text-sm mb-1 text-gray-600">{description}</p>
-        <p className="text-xl mb-1">Fecha de inicio: {formatDate(startDate)}</p>
+        <p className="text-sm mb-1">Fecha de inicio: {formatDate(startDate)}</p>
         <Stack className="flex-1 items-center" direction="row" spacing={1}>
           <p className="text-xl mb-1">Nivel de entrenamiento: </p>
           <Chip
@@ -58,7 +60,10 @@ const Training = ({ training }) => {
         </Stack>
       </div>
       <div className="flex gap-3">
-        <button className="bg-purple-800 px-4 py-3 text-white font-bold text-sm rounded-lg">
+        <button
+          className="bg-purple-800 px-4 py-3 text-white font-bold text-sm rounded-lg"
+          onClick={() => handleEditTrainingModal(training)}
+        >
           Editar
         </button>
         {status ? (

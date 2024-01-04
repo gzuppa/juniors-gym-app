@@ -10,6 +10,7 @@ const MemberProvider = ({ children }) => {
   const [member, setMember] = useState({})
   const [loading, setLoading] = useState(false)
   const [trainingModal, setTrainingModal] = useState(false)
+  const [training, setTraining] = useState({})
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -151,9 +152,18 @@ const MemberProvider = ({ children }) => {
 
   const handleTrainingModal = () => {
     setTrainingModal(!trainingModal)
+    setTraining({})
   }
 
   const submitTraining = async training => {
+    if (training?.id) {
+      await editTraining(training)
+    } else {
+      await createTraining(training)
+    }
+  }
+
+  const createTraining = async training => {
     try {
       const token = localStorage.getItem('token')
       if (!token) return
@@ -173,17 +183,50 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const editTraining = async training => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.put(
+        `/trainings/${training.id}`,
+        training,
+        config,
+      )
+      const updatedMember = { ...member }
+      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
+        trainingState._id === data._id ? data : trainingState,
+      )
+      setMember(updatedMember)
+      setTrainingModal(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleEditTrainingModal = training => {
+    setTraining(training)
+    setTrainingModal(true)
+  }
+
   return (
     <MemberContext.Provider
       value={{
         deleteMember,
         getMember,
+        handleEditTrainingModal,
         handleTrainingModal,
         loading,
         member,
         members,
         submitMember,
         submitTraining,
+        training,
         trainingModal,
       }}
     >

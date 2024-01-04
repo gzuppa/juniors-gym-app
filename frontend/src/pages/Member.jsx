@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined'
@@ -10,7 +10,6 @@ import TrainingFormModal from '../components/TrainingFormModal'
 const Member = () => {
   const params = useParams()
   const { getMember, handleTrainingModal, loading, member } = useMembers()
-  const [modal, setModal] = useState(false)
   const { name, lastName } = member
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const Member = () => {
           </p>
         )}
       </div>
-      <TrainingFormModal modal={modal} setModal={setModal} />
+      <TrainingFormModal />
     </>
   )
 }
