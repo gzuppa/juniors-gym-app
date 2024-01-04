@@ -17,6 +17,8 @@ const Training = ({ training }) => {
         return 'secondary'
       case 'Avanzado':
         return 'error'
+      case 'Alto Nivel':
+        return 'success'
       default:
         return 'secondary'
     }
@@ -55,18 +57,18 @@ const Training = ({ training }) => {
           />
         </Stack>
       </div>
-      <div className='flex gap-3'>
+      <div className="flex gap-3">
         <button className="bg-purple-800 px-4 py-3 text-white font-bold text-sm rounded-lg">
           Editar
         </button>
         {status ? (
           <button className="bg-green-500 px-4 py-3 text-white font-bold text-sm rounded-lg">
-          Entrenamiento finalizado
-        </button>
+            Entrenamiento finalizado
+          </button>
         ) : (
           <button className="bg-orange-500 px-4 py-3 text-white font-bold text-sm rounded-lg">
-          Entrenamiento incompleto
-        </button>
+            Entrenamiento incompleto
+          </button>
         )}
         <button className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg">
           Eliminar

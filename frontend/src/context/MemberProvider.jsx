@@ -164,6 +164,10 @@ const MemberProvider = ({ children }) => {
         },
       }
       const { data } = await axiosClient.post('/trainings', training, config)
+      const updatedMember = { ...member }
+      updatedMember.trainings = [...member.trainings, data]
+      setMember(updatedMember)
+      setTrainingModal(false)
     } catch (error) {
       console.log(error)
     }

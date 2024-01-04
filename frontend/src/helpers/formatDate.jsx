@@ -4,7 +4,7 @@ export const formatDate = date => {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   }
 
   return newDate.toLocaleDateString('es-ES', options)

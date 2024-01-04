@@ -28,7 +28,7 @@ const TrainingForm = () => {
 
   const params = useParams()
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     if ([name, description, startDate, level].includes('')) {
@@ -40,7 +40,17 @@ const TrainingForm = () => {
       })
       return
     }
-    submitTraining({ name, description, startDate, level, member: params.id })
+    await submitTraining({
+      name,
+      description,
+      startDate,
+      level,
+      member: params.id,
+    })
+    setName('')
+    setDescription('')
+    setStartDate('')
+    setLevel('')
   }
 
   return (
@@ -63,15 +73,15 @@ const TrainingForm = () => {
       </FormControl>
 
       <FormControl sx={{ width: '100%', mt: 3 }}>
-        <InputLabel htmlFor="name">Nombre del entrenamiento</InputLabel>
+        <InputLabel htmlFor="name">Descripción del entrenamiento</InputLabel>
         <OutlinedInput
           endAdornment={
             <InputAdornment position="end" sx={{ color: '#6b21a8' }}>
               <AppRegistrationOutlinedIcon />
             </InputAdornment>
           }
-          id="name"
-          label="Nombre del entrenamiento"
+          id="description"
+          label="Descripción del entrenamiento"
           onChange={e => setDescription(e.target.value)}
           sx={{ label: { color: '#6b21a8' } }}
           type="text"

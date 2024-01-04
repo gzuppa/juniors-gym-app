@@ -44,7 +44,7 @@ const Member = () => {
       <div className="bg-white shadow mt-10 rounded-lg">
         {member.trainings?.length ? (
           member.trainings?.map(training => (
-            <Training key={member._id} training={training} />
+            <Training key={training._id} training={training} />
           ))
         ) : (
           <p className="text-center my-5 p-10 font-raleway text-purple-800 font-bold">
