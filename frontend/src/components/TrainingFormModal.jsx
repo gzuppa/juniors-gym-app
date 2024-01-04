@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from 'react'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Dialog, Transition } from '@headlessui/react'
 import useMembers from '../hooks/useMembers'
 import TrainingForm from './TrainingForm'

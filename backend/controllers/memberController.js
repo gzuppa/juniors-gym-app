@@ -2,7 +2,7 @@ import Member from '../models/Members.js'
 import Training from '../models/Training.js'
 
 const getMembers = async (req, res) => {
-  const members = await Member.find().where('principalTrainer').equals(req.user)
+  const members = await Member.find().where('principalTrainer').equals(req.user).select('-trainings')
 
   res.json(members)
 }
@@ -21,7 +21,7 @@ const newMember = async (req, res) => {
 
 const getMember = async (req, res) => {
   const { id } = req.params
-  const member = await Member.findById(id)
+  const member = await Member.findById(id).populate('trainings')
 
   if (!member) {
     const error = new Error('No encontrado')

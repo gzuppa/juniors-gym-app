@@ -1,4 +1,3 @@
-import Swal from 'sweetalert2'
 import useMembers from '../hooks/useMembers'
 import MemberPreview from '../components/MemberPreview'
 

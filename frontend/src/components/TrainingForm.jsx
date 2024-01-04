@@ -31,7 +31,7 @@ const TrainingForm = () => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    if([name, description, startDate, level].includes('')) {
+    if ([name, description, startDate, level].includes('')) {
       Swal.fire({
         title: 'Atención!',
         text: 'Todos los campos son obligatorios',
@@ -40,7 +40,7 @@ const TrainingForm = () => {
       })
       return
     }
-    submitTraining({name, description, startDate, level, member: params.id})
+    submitTraining({ name, description, startDate, level, member: params.id })
   }
 
   return (
@@ -63,7 +63,7 @@ const TrainingForm = () => {
       </FormControl>
 
       <FormControl sx={{ width: '100%', mt: 3 }}>
-      <InputLabel htmlFor="name">Nombre del entrenamiento</InputLabel>
+        <InputLabel htmlFor="name">Nombre del entrenamiento</InputLabel>
         <OutlinedInput
           endAdornment={
             <InputAdornment position="end" sx={{ color: '#6b21a8' }}>
@@ -118,7 +118,11 @@ const TrainingForm = () => {
         </Select>
       </FormControl>
 
-      <input type="submit" className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors" value="Crear"/>
+      <input
+        type="submit"
+        className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"
+        value="Crear"
+      />
     </form>
   )
 }

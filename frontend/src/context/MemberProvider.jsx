@@ -163,7 +163,7 @@ const MemberProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       }
-      const {data} = await axiosClient.post('/trainings', training, config)
+      const { data } = await axiosClient.post('/trainings', training, config)
     } catch (error) {
       console.log(error)
     }
