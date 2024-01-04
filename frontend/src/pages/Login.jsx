@@ -23,8 +23,8 @@ const Login = () => {
   }
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const { setAuth } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -47,6 +47,7 @@ const Login = () => {
 
       localStorage.setItem('token', data.token)
       setAuth(data)
+      navigate('/admin/members')
     } catch (error) {
       Swal.fire({
         title: 'Atención!',

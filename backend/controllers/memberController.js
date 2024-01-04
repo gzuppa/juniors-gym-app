@@ -33,8 +33,7 @@ const getMember = async (req, res) => {
     return res.status(404).json({ msg: error.message })
   }
 
-  const trainings = await Training.find().where('member').equals(member._id)
-  res.json({ member, trainings })
+  res.json(member)
 }
 
 const editMember = async (req, res) => {

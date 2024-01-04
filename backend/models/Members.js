@@ -39,6 +39,12 @@ const memberSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
+    trainings: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Training'
+      }
+    ],
     secondaryTrainers: [
       {
         type: mongoose.Schema.Types.ObjectId,

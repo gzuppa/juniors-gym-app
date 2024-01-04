@@ -9,6 +9,7 @@ const MemberProvider = ({ children }) => {
   const [members, setMembers] = useState([])
   const [member, setMember] = useState({})
   const [loading, setLoading] = useState(false)
+  const [trainingModal, setTrainingModal] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -117,9 +118,70 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const deleteMember = async id => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.delete(`/members/${id}`, config)
+      const updatedMembers = members.filter(
+        memberState => memberState._id !== id,
+      )
+
+      setMembers(updatedMembers)
+
+      Swal.fire({
+        title: 'Éxito!',
+        text: data.msg,
+        icon: 'success',
+        confirmButtonText: 'Cerrar',
+      })
+      setTimeout(() => {
+        navigate('/admin/members')
+      }, 3000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleTrainingModal = () => {
+    setTrainingModal(!trainingModal)
+  }
+
+  const submitTraining = async training => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const {data} = await axiosClient.post('/trainings', training, config)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <MemberContext.Provider
-      value={{ getMember, loading, member, members, submitMember }}
+      value={{
+        deleteMember,
+        getMember,
+        handleTrainingModal,
+        loading,
+        member,
+        members,
+        submitMember,
+        submitTraining,
+        trainingModal,
+      }}
     >
       {children}
     </MemberContext.Provider>

@@ -17,6 +17,8 @@ const addTraining = async (req, res) => {
 
   try {
     const savedTraining = await Training.create(req.body)
+    memberExists.trainings.push(savedTraining._id)
+    await memberExists.save()
     res.json(savedTraining)
   } catch (error) {
     console.log(error)
