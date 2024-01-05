@@ -6,10 +6,13 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined'
 import { formatDate } from '../helpers/formatDate'
 import useMembers from '../hooks/useMembers'
+import useAuth from '../hooks/useAuth'
+import useAdmin from '../hooks/useAdmin'
 
 const Training = ({ training }) => {
   const { name, description, startDate, level, status, _id } = training
   const { handleEditTrainingModal, handleDeleteTrainingModal } = useMembers()
+  const admin = useAdmin()
 
   const chipLevelColor = useMemo(() => {
     switch (level) {
@@ -60,12 +63,15 @@ const Training = ({ training }) => {
         </Stack>
       </div>
       <div className="flex gap-3">
-        <button
-          className="bg-purple-800 px-4 py-3 text-white font-bold text-sm rounded-lg"
-          onClick={() => handleEditTrainingModal(training)}
-        >
-          Editar
-        </button>
+        {admin && (
+          <button
+            className="bg-purple-800 px-4 py-3 text-white font-bold text-sm rounded-lg"
+            onClick={() => handleEditTrainingModal(training)}
+          >
+            Editar
+          </button>
+        )}
+
         {status ? (
           <button className="bg-green-500 px-4 py-3 text-white font-bold text-sm rounded-lg">
             Entrenamiento finalizado
@@ -75,12 +81,14 @@ const Training = ({ training }) => {
             Entrenamiento incompleto
           </button>
         )}
-        <button
-          className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg"
-          onClick={() => handleDeleteTrainingModal(training)}
-        >
-          Eliminar
-        </button>
+        {admin && (
+          <button
+            className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg"
+            onClick={() => handleDeleteTrainingModal(training)}
+          >
+            Eliminar
+          </button>
+        )}
       </div>
     </div>
   )
