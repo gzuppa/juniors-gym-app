@@ -14,6 +14,7 @@ import Member from './pages/Member'
 import Members from './pages/Members'
 import NewMember from './pages/NewMember'
 import NewPassword from './pages/NewPassword'
+import NewTrainer from './pages/NewTrainer'
 import Register from './pages/Register'
 import './App.css'
 
@@ -39,6 +40,10 @@ function App() {
                 <Route index element={<AdminWelcome />} />
                 <Route path="members" element={<Members />} />
                 <Route path="create-member" element={<NewMember />} />
+                <Route
+                  path="members/new-trainer/:id"
+                  element={<NewTrainer />}
+                />
                 <Route path="members/:id" element={<Member />} />
                 <Route path="members/edit/:id" element={<EditMember />} />
               </Route>

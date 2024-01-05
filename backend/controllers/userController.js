@@ -94,7 +94,9 @@ const forgotPassword = async (req, res) => {
       token: user.token,
     })
 
-    res.json({ msg: 'Hemos enviado un mail con las instrucciones para el reestablecimiento de tu password' })
+    res.json({
+      msg: 'Hemos enviado un mail con las instrucciones para el reestablecimiento de tu password',
+    })
   } catch (error) {
     console.log(error)
   }

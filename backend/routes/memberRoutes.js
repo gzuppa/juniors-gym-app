@@ -7,6 +7,7 @@ import {
   getMember,
   getMembers,
   newMember,
+  searchSecondaryTrainer,
 } from '../controllers/memberController.js'
 import checkAuth from '../middleware/checkAuth.js'
 
@@ -18,7 +19,8 @@ router
   .get(checkAuth, getMember)
   .put(checkAuth, editMember)
   .delete(checkAuth, deleteMembers)
-router.post('/add-secondary-trainer/:id', checkAuth, addSecondaryTrainer)
-router.post('/delete-secondary-trainer/:id', checkAuth, deleteSecondaryTrainer)
+router.post('/trainers', checkAuth, searchSecondaryTrainer)
+router.post('/trainers/:id', checkAuth, addSecondaryTrainer)
+router.delete('/trainers/:id', checkAuth, deleteSecondaryTrainer)
 
 export default router

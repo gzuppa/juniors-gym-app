@@ -12,6 +12,7 @@ const MemberProvider = ({ children }) => {
   const [trainingModal, setTrainingModal] = useState(false)
   const [deleteTrainingModal, setDeleteTrainingModal] = useState(false)
   const [training, setTraining] = useState({})
+  const [trainer, setTrainer] = useState({})
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -114,7 +115,12 @@ const MemberProvider = ({ children }) => {
       const { data } = await axiosClient(`/members/${id}`, config)
       setMember(data)
     } catch (error) {
-      console.log(error)
+      Swal.fire({
+        title: 'Error!',
+        text: error.response.data.msg,
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      })
     } finally {
       setLoading(false)
     }
@@ -255,9 +261,71 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const submitTrainer = async name => {
+    setLoading(true)
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.post(
+        '/members/trainers',
+        { name },
+        config,
+      )
+      setTrainer(data)
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: error.response.data.msg,
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const addTrainer = async name => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.post(
+        `/members/trainers/${member._id}`,
+        name,
+        config,
+      )
+      Swal.fire({
+        title: 'Éxito!',
+        text: data.msg,
+        icon: 'success',
+        confirmButtonText: 'Cerrar',
+      })
+      setTrainer({})
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: error.response.data.msg,
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      })
+    }
+  }
+
   return (
     <MemberContext.Provider
       value={{
+        addTrainer,
         deleteMember,
         deleteTraining,
         deleteTrainingModal,
@@ -269,7 +337,9 @@ const MemberProvider = ({ children }) => {
         member,
         members,
         submitMember,
+        submitTrainer,
         submitTraining,
+        trainer,
         training,
         trainingModal,
       }}

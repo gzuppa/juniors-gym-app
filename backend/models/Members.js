@@ -42,8 +42,8 @@ const memberSchema = mongoose.Schema(
     trainings: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Training'
-      }
+        ref: 'Training',
+      },
     ],
     secondaryTrainers: [
       {

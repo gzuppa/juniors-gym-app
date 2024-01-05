@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined'
+import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined'
 import useMembers from '../hooks/useMembers'
 import Loader from '../assets/files/Loader'
 import Training from '../components/Training'
@@ -40,7 +41,9 @@ const Member = () => {
         <LibraryAddOutlinedIcon className="mr-2" /> Agregar entrenamiento
       </button>
 
-      <p className="font-bold text-xl mt-10">Entrenamientos del usuario</p>
+      <p className="font-bold text-xl mt-10 text-yellow-300">
+        Entrenamientos del usuario
+      </p>
       <div className="bg-white shadow mt-10 rounded-lg">
         {member.trainings?.length ? (
           member.trainings?.map(training => (
@@ -51,6 +54,17 @@ const Member = () => {
             Este usuario no tiene entrenamientos registrados
           </p>
         )}
+      </div>
+      <div className="flex items-center justify-between mt-10">
+        <p className="font-bold text-xl text-yellow-300">
+          Entrenadores del usuario
+        </p>
+        <Link
+          className="text-yellow-300 hover:text-purple-600 cursor-pointer flex items-center gap-2 font-raleway"
+          to={`/admin/members/new-trainer/${member._id}`}
+        >
+          <PostAddOutlinedIcon /> Agregar
+        </Link>
       </div>
       <TrainingFormModal />
       <DeleteTrainingModal />

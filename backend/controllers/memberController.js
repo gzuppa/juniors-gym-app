@@ -1,8 +1,11 @@
 import Member from '../models/Members.js'
-import Training from '../models/Training.js'
+import User from '../models/User.js'
 
 const getMembers = async (req, res) => {
-  const members = await Member.find().where('principalTrainer').equals(req.user).select('-trainings')
+  const members = await Member.find()
+    .where('principalTrainer')
+    .equals(req.user)
+    .select('-trainings')
 
   res.json(members)
 }
@@ -89,7 +92,59 @@ const deleteMembers = async (req, res) => {
   }
 }
 
-const addSecondaryTrainer = async (req, res) => {}
+const searchSecondaryTrainer = async (req, res) => {
+  const { name } = req.body
+  const user = await User.findOne({ name }).select(
+    '-confirmed -createdAt -password -token -updatedAt -__v',
+  )
+
+  if (!user) {
+    const error = new Error('Usuario no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  res.json(user)
+}
+
+const addSecondaryTrainer = async (req, res) => {
+  const member = await Member.findById(req.params.id)
+
+  if (!member) {
+    const error = new Error('Usuario no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  if (member.principalTrainer.toString() !== req.user._id.toString()) {
+    const error = new Error('Acción no válida')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  const { name } = req.body
+  const user = await User.findOne({ name }).select(
+    '-confirmed -createdAt -password -token -updatedAt -__v',
+  )
+
+  if (!user) {
+    const error = new Error('Usuario no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  if (member.principalTrainer.toString() === user._id.toString()) {
+    const error = new Error(
+      'El entrenador principal no puede volver a agregarse',
+    )
+    return res.status(404).json({ msg: error.message })
+  }
+
+  if (member.secondaryTrainers.includes(user._id)) {
+    const error = new Error('El entrenador ya se encuentra asignado al usuario')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  member.secondaryTrainers.push(user._id)
+  await member.save()
+  res.json({msg: "Entrenador agregado correctamente"})
+}
 
 const deleteSecondaryTrainer = async (req, res) => {}
 
@@ -101,4 +156,5 @@ export {
   getMember,
   getMembers,
   newMember,
+  searchSecondaryTrainer,
 }
