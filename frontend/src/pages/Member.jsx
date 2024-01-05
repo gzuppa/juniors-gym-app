@@ -8,6 +8,8 @@ import Loader from '../assets/files/Loader'
 import Training from '../components/Training'
 import TrainingFormModal from '../components/TrainingFormModal'
 import DeleteTrainingModal from '../components/DeleteTrainingModal'
+import DeleteSecondaryTrainerModal from '../components/DeleteSecondaryTrainerModal'
+import SecondaryTrainer from '../components/SecondaryTrainer'
 
 const Member = () => {
   const params = useParams()
@@ -66,8 +68,23 @@ const Member = () => {
           <PostAddOutlinedIcon /> Agregar
         </Link>
       </div>
+      <div className="bg-white shadow mt-10 rounded-lg">
+        {member.secondaryTrainers?.length ? (
+          member.secondaryTrainers?.map(secondaryTrainer => (
+            <SecondaryTrainer
+              key={secondaryTrainer._id}
+              secondaryTrainer={secondaryTrainer}
+            />
+          ))
+        ) : (
+          <p className="text-center my-5 p-10 font-raleway text-purple-800 font-bold">
+            Este usuario no tiene entrenadores registrados
+          </p>
+        )}
+      </div>
       <TrainingFormModal />
       <DeleteTrainingModal />
+      <DeleteSecondaryTrainerModal />
     </>
   )
 }

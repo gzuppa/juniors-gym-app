@@ -11,6 +11,8 @@ const MemberProvider = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [trainingModal, setTrainingModal] = useState(false)
   const [deleteTrainingModal, setDeleteTrainingModal] = useState(false)
+  const [deleteSecondaryTrainerModal, setDeleteSecondaryTrainerModal] =
+    useState(false)
   const [training, setTraining] = useState({})
   const [trainer, setTrainer] = useState({})
   const navigate = useNavigate()
@@ -322,15 +324,59 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const handleDeleteSecondaryTrainerModal = trainer => {
+    setDeleteSecondaryTrainerModal(!deleteSecondaryTrainerModal)
+    setTrainer(trainer)
+  }
+
+  const deleteSecondaryTrainer = async () => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.post(
+        `/members/delete-trainers/${member._id}`,
+        { id: trainer._id },
+        config,
+      )
+      const updatedMember = { ...member }
+      updatedMember.secondaryTrainers = updatedMember.secondaryTrainers.filter(
+        secondaryTrainerState => secondaryTrainerState._id !== trainer._id,
+      )
+
+      setMember(updatedMember)
+
+      Swal.fire({
+        title: 'Éxito!',
+        text: data.msg,
+        icon: 'success',
+        confirmButtonText: 'Cerrar',
+      })
+
+      setTrainer({})
+      setDeleteSecondaryTrainerModal(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <MemberContext.Provider
       value={{
         addTrainer,
         deleteMember,
+        deleteSecondaryTrainerModal,
         deleteTraining,
         deleteTrainingModal,
+        deleteSecondaryTrainer,
         getMember,
         handleDeleteTrainingModal,
+        handleDeleteSecondaryTrainerModal,
         handleEditTrainingModal,
         handleTrainingModal,
         loading,

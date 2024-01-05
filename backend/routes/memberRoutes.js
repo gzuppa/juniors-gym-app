@@ -21,6 +21,6 @@ router
   .delete(checkAuth, deleteMembers)
 router.post('/trainers', checkAuth, searchSecondaryTrainer)
 router.post('/trainers/:id', checkAuth, addSecondaryTrainer)
-router.delete('/trainers/:id', checkAuth, deleteSecondaryTrainer)
+router.post('/delete-trainers/:id', checkAuth, deleteSecondaryTrainer)
 
 export default router

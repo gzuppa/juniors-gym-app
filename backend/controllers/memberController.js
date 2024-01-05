@@ -24,7 +24,9 @@ const newMember = async (req, res) => {
 
 const getMember = async (req, res) => {
   const { id } = req.params
-  const member = await Member.findById(id).populate('trainings')
+  const member = await Member.findById(id)
+    .populate('trainings')
+    .populate('secondaryTrainers', 'name email')
 
   if (!member) {
     const error = new Error('No encontrado')
@@ -143,10 +145,26 @@ const addSecondaryTrainer = async (req, res) => {
 
   member.secondaryTrainers.push(user._id)
   await member.save()
-  res.json({msg: "Entrenador agregado correctamente"})
+  res.json({ msg: 'Entrenador agregado correctamente' })
 }
 
-const deleteSecondaryTrainer = async (req, res) => {}
+const deleteSecondaryTrainer = async (req, res) => {
+  const member = await Member.findById(req.params.id)
+
+  if (!member) {
+    const error = new Error('Usuario no encontrado')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  if (member.principalTrainer.toString() !== req.user._id.toString()) {
+    const error = new Error('Acción no válida')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  member.secondaryTrainers.pull(req.body.id)
+  await member.save()
+  res.json({ msg: 'Entrenador eliminado correctamente' })
+}
 
 export {
   addSecondaryTrainer,
