@@ -2,10 +2,12 @@ import Member from '../models/Members.js'
 import User from '../models/User.js'
 
 const getMembers = async (req, res) => {
-  const members = await Member.find()
-    .where('principalTrainer')
-    .equals(req.user)
-    .select('-trainings')
+  const members = await Member.find({
+    $or: [
+      { secondaryTrainers: { $in: req.user } },
+      { principalTrainer: { $in: req.user } },
+    ],
+  }).select('-trainings')
 
   res.json(members)
 }
@@ -25,7 +27,7 @@ const newMember = async (req, res) => {
 const getMember = async (req, res) => {
   const { id } = req.params
   const member = await Member.findById(id)
-    .populate('trainings')
+    .populate({path: 'trainings', populate: {path: 'completed', select: 'name'}})
     .populate('secondaryTrainers', 'name email')
 
   if (!member) {
@@ -33,7 +35,13 @@ const getMember = async (req, res) => {
     return res.status(404).json({ msg: error.message })
   }
 
-  if (member.principalTrainer.toString() !== req.user._id.toString()) {
+  if (
+    member.principalTrainer.toString() !== req.user._id.toString() &&
+    !member.secondaryTrainers.some(
+      secondaryTrainer =>
+        secondaryTrainer._id.toString() === req.user._id.toString(),
+    )
+  ) {
     const error = new Error('Acción no valida')
     return res.status(404).json({ msg: error.message })
   }

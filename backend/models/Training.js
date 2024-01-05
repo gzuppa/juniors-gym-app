@@ -30,6 +30,10 @@ const trainingSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
     },
+    completed: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,

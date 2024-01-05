@@ -1,17 +1,17 @@
 import { useMemo } from 'react'
 import { Chip, Stack } from '@mui/material'
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined'
 import { formatDate } from '../helpers/formatDate'
 import useMembers from '../hooks/useMembers'
-import useAuth from '../hooks/useAuth'
 import useAdmin from '../hooks/useAdmin'
 
 const Training = ({ training }) => {
-  const { name, description, startDate, level, status, _id } = training
-  const { handleEditTrainingModal, handleDeleteTrainingModal } = useMembers()
+  const { name, description, startDate, level, status, _id, completed } = training
+  const { completeTraining, handleEditTrainingModal, handleDeleteTrainingModal } = useMembers()
   const admin = useAdmin()
 
   const chipLevelColor = useMemo(() => {
@@ -61,6 +61,14 @@ const Training = ({ training }) => {
             icon={chipLevelIcon}
           />
         </Stack>
+        {status && (
+          <Chip
+          label={`$Completado por: ${completed}`}
+          size="medium"
+          color='info'
+          icon={<CheckOutlinedIcon />}
+        />
+        )}
       </div>
       <div className="flex gap-3">
         {admin && (
@@ -71,16 +79,9 @@ const Training = ({ training }) => {
             Editar
           </button>
         )}
-
-        {status ? (
-          <button className="bg-green-500 px-4 py-3 text-white font-bold text-sm rounded-lg">
-            Entrenamiento finalizado
+        <button className={`${status ? 'bg-green-500' : 'bg-orange-500'} px-4 py-3 text-white font-bold text-sm rounded-lg`} onClick={() => completeTraining(_id)}>
+            {status ? 'Entrenamiento finalizado' : 'Entrenamiento incompleto'}
           </button>
-        ) : (
-          <button className="bg-orange-500 px-4 py-3 text-white font-bold text-sm rounded-lg">
-            Entrenamiento incompleto
-          </button>
-        )}
         {admin && (
           <button
             className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg"

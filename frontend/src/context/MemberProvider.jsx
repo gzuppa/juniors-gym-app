@@ -123,6 +123,7 @@ const MemberProvider = ({ children }) => {
         icon: 'error',
         confirmButtonText: 'Cerrar',
       })
+      navigate('/members')
     } finally {
       setLoading(false)
     }
@@ -365,10 +366,32 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const completeTraining = async id => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const {data} = await axiosClient.post(`/trainings/training-status/${id}`, {}, config)
+      const updatedMember = {...member}
+      updatedMember.trainings = updatedMember.trainings.map(trainingState => trainingState._id === data._id ? data : trainingState)
+      setMember(updatedMember)
+      setTraining({})
+
+    } catch (error) {
+      console.log(error)
+  }
+}
+
   return (
     <MemberContext.Provider
       value={{
         addTrainer,
+        completeTraining,
         deleteMember,
         deleteSecondaryTrainerModal,
         deleteTraining,
