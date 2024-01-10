@@ -115,7 +115,11 @@ const changeTrainingStatus = async (req, res) => {
   training.status = !training.status
   training.completed = req.user._id
   await training.save()
-  res.json(training)
+
+  const savedTraining = await Training.findById(id)
+    .populate('member')
+    .populate('completed')
+  res.json(savedTraining)
 }
 
 export {

@@ -27,7 +27,10 @@ const newMember = async (req, res) => {
 const getMember = async (req, res) => {
   const { id } = req.params
   const member = await Member.findById(id)
-    .populate({path: 'trainings', populate: {path: 'completed', select: 'name'}})
+    .populate({
+      path: 'trainings',
+      populate: { path: 'completed', select: 'name' },
+    })
     .populate('secondaryTrainers', 'name email')
 
   if (!member) {
