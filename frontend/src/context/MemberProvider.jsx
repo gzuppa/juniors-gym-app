@@ -43,7 +43,7 @@ const MemberProvider = ({ children }) => {
 
   useEffect(() => {
     socket = io(import.meta.env.VITE_BACKEND_URL)
-  },[])
+  }, [])
 
   const submitMember = async member => {
     if (member.id) {
@@ -389,40 +389,47 @@ const MemberProvider = ({ children }) => {
   const handleSearching = () => [setSearcher(!searcher)]
 
   //socket.io
-  const submitTrainingMember = (training) => {
+  const submitTrainingMember = training => {
     const updatedMember = { ...member }
     updatedMember.trainings = [...updatedMember.trainings, training]
     setMember(updatedMember)
   }
 
   const deleteTrainingMember = training => {
-  const updatedMember = { ...member }
-      updatedMember.trainings = updatedMember.trainings.filter(
-        trainingState => trainingState._id !== training._id,
-      )
-      setMember(updatedMember)
+    const updatedMember = { ...member }
+    updatedMember.trainings = updatedMember.trainings.filter(
+      trainingState => trainingState._id !== training._id,
+    )
+    setMember(updatedMember)
   }
 
   const updateTrainingMember = training => {
     const updatedMember = { ...member }
-      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
-        trainingState._id === training._id ? training : trainingState,
-      )
-      setMember(updatedMember)
+    updatedMember.trainings = updatedMember.trainings.map(trainingState =>
+      trainingState._id === training._id ? training : trainingState,
+    )
+    setMember(updatedMember)
   }
 
   const changeStatusTrainingMember = training => {
     const updatedMember = { ...member }
-      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
-        trainingState._id === training._id ? training : trainingState,
-      )
-      setMember(updatedMember)
+    updatedMember.trainings = updatedMember.trainings.map(trainingState =>
+      trainingState._id === training._id ? training : trainingState,
+    )
+    setMember(updatedMember)
   }
+
+  const closeSession = () => {
+    setMembers([])
+    setMember({})
+  }
+
   return (
     <MemberContext.Provider
       value={{
         addTrainer,
         changeStatusTrainingMember,
+        closeSession,
         completeTraining,
         deleteMember,
         deleteSecondaryTrainerModal,
@@ -447,7 +454,7 @@ const MemberProvider = ({ children }) => {
         trainer,
         training,
         trainingModal,
-        updateTrainingMember
+        updateTrainingMember,
       }}
     >
       {children}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import PeopleIcon from '@mui/icons-material/People'
@@ -11,8 +10,15 @@ import '../styles/Sidebar.css'
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { auth } = useAuth()
+  const { auth, closeSessionAuth } = useAuth()
+
   const toggle = () => setIsOpen(!isOpen)
+
+  const handleCloseSession = () => {
+    closeSessionAuth()
+    localStorage.removeItem('token')
+  }
+
   const menuItem = [
     {
       path: 'members',
@@ -28,11 +34,6 @@ const Sidebar = ({ children }) => {
       path: '',
       name: 'Panel inicial',
       icon: <AdminPanelSettingsIcon />,
-    },
-    {
-      path: '',
-      name: 'Cerrar sesión',
-      icon: <CancelPresentationIcon />,
     },
   ]
   return (
@@ -75,6 +76,13 @@ const Sidebar = ({ children }) => {
             </div>
           </NavLink>
         ))}
+        <button
+          tyoe="button"
+          className="text-yellow-300"
+          onClick={handleCloseSession}
+        >
+          Cerrar sesión
+        </button>
       </div>
       <main>{children}</main>
     </div>

@@ -17,7 +17,16 @@ let socket
 
 const Member = () => {
   const params = useParams()
-  const { changeStatusTrainingMember, deleteTrainingMember, getMember, handleTrainingModal, loading, member, submitTrainingMember, updateTrainingMember } = useMembers()
+  const {
+    changeStatusTrainingMember,
+    deleteTrainingMember,
+    getMember,
+    handleTrainingModal,
+    loading,
+    member,
+    submitTrainingMember,
+    updateTrainingMember,
+  } = useMembers()
   const admin = useAdmin()
   const { name, lastName } = member
 
@@ -32,22 +41,22 @@ const Member = () => {
 
   useEffect(() => {
     socket.on('added training', newTraining => {
-      if(newTraining.member === member._id) {
+      if (newTraining.member === member._id) {
         submitTrainingMember(newTraining)
       }
     })
     socket.on('deleted training', deletedTraining => {
-      if(deletedTraining.member === member._id) {
+      if (deletedTraining.member === member._id) {
         deleteTrainingMember(deletedTraining)
       }
     })
     socket.on('updated training', updatedTraining => {
-      if(updatedTraining.member._id === member._id) {
+      if (updatedTraining.member._id === member._id) {
         updateTrainingMember(updatedTraining)
       }
     })
     socket.on('new status', newStatus => {
-      if(newStatus.member._id === member._id) {
+      if (newStatus.member._id === member._id) {
         changeStatusTrainingMember(newStatus)
       }
     })
