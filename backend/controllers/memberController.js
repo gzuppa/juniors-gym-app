@@ -12,6 +12,12 @@ const getMembers = async (req, res) => {
   res.json(members)
 }
 
+const getAllMembers = async (req, res) => {
+  const members = await Member.find()
+
+  res.json(members)
+}
+
 const newMember = async (req, res) => {
   const member = new Member(req.body)
   member.principalTrainer = req.user._id
@@ -182,6 +188,7 @@ export {
   deleteMembers,
   deleteSecondaryTrainer,
   editMember,
+  getAllMembers,
   getMember,
   getMembers,
   newMember,

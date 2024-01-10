@@ -13,7 +13,7 @@ import '../styles/Sidebar.css'
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { auth, closeSessionAuth } = useAuth()
-  const {closeSession} = useMembers()
+  const { closeSession } = useMembers()
 
   const toggle = () => setIsOpen(!isOpen)
 
@@ -80,7 +80,11 @@ const Sidebar = ({ children }) => {
             </div>
           </NavLink>
         ))}
-        <button tyoe='button' className='text-yellow-300' onClick={handleCloseSession}>
+        <button
+          tyoe="button"
+          className="text-yellow-300"
+          onClick={handleCloseSession}
+        >
           Cerrar sesión
         </button>
       </div>

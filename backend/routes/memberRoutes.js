@@ -4,6 +4,7 @@ import {
   deleteMembers,
   deleteSecondaryTrainer,
   editMember,
+  getAllMembers,
   getMember,
   getMembers,
   newMember,
@@ -14,6 +15,7 @@ import checkAuth from '../middleware/checkAuth.js'
 const router = express.Router()
 
 router.route('/').get(checkAuth, getMembers).post(checkAuth, newMember)
+router.get('/all-members', checkAuth, getAllMembers)
 router
   .route('/:id')
   .get(checkAuth, getMember)

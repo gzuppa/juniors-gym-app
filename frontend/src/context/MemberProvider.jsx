@@ -10,6 +10,7 @@ let socket
 const MemberContext = createContext()
 
 const MemberProvider = ({ children }) => {
+  const [allMembers, setAllMembers] = useState([])
   const [members, setMembers] = useState([])
   const [member, setMember] = useState({})
   const [loading, setLoading] = useState(false)
@@ -22,7 +23,27 @@ const MemberProvider = ({ children }) => {
   const [searcher, setSearcher] = useState(false)
   const navigate = useNavigate()
 
-  const {auth } = useAuth()
+  const { auth } = useAuth()
+
+  useEffect(() => {
+    const getAllMembers = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        if (!token) return
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        const { data } = await axiosClient('/members/all-members', config)
+        setAllMembers(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAllMembers()
+  }, [])
 
   useEffect(() => {
     const getMembers = async () => {
@@ -431,6 +452,7 @@ const MemberProvider = ({ children }) => {
     <MemberContext.Provider
       value={{
         addTrainer,
+        allMembers,
         changeStatusTrainingMember,
         closeSession,
         completeTraining,

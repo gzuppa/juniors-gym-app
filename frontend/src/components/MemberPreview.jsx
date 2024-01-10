@@ -11,6 +11,8 @@ import PriceCheckIcon from '@mui/icons-material/PriceCheck'
 const MemberPreview = ({ member }) => {
   const { name, lastName, _id, memberLevel, status, payDate } = member
 
+  console.log(payDate)
+
   const addDaysToDate = () => {
     const date = new Date(payDate)
     date.setDate(date.getDate() + 30)
