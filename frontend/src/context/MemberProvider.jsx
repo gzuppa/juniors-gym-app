@@ -15,6 +15,7 @@ const MemberProvider = ({ children }) => {
     useState(false)
   const [training, setTraining] = useState({})
   const [trainer, setTrainer] = useState({})
+  const [searcher, setSearcher] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -392,6 +393,8 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const handleSearching = () => [setSearcher(!searcher)]
+
   return (
     <MemberContext.Provider
       value={{
@@ -406,10 +409,12 @@ const MemberProvider = ({ children }) => {
         handleDeleteTrainingModal,
         handleDeleteSecondaryTrainerModal,
         handleEditTrainingModal,
+        handleSearching,
         handleTrainingModal,
         loading,
         member,
         members,
+        searcher,
         submitMember,
         submitTrainer,
         submitTraining,
