@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import LibraryAddOutlinedIcon from '@mui/icons-material/LibraryAddOutlined'
 import PostAddOutlinedIcon from '@mui/icons-material/PostAddOutlined'
+import io from 'socket.io-client'
 import useMembers from '../hooks/useMembers'
 import useAdmin from '../hooks/useAdmin'
 import Loader from '../assets/files/Loader'
@@ -12,15 +13,30 @@ import DeleteTrainingModal from '../components/DeleteTrainingModal'
 import DeleteSecondaryTrainerModal from '../components/DeleteSecondaryTrainerModal'
 import SecondaryTrainer from '../components/SecondaryTrainer'
 
+let socket
+
 const Member = () => {
   const params = useParams()
-  const { getMember, handleTrainingModal, loading, member } = useMembers()
+  const { getMember, handleTrainingModal, loading, member, submitTrainingMember } = useMembers()
   const admin = useAdmin()
   const { name, lastName } = member
 
   useEffect(() => {
     getMember(params.id)
   }, [])
+
+  useEffect(() => {
+    socket = io(import.meta.env.VITE_BACKEND_URL)
+    socket.emit('Open member', params.id)
+  }, [])
+
+  useEffect(() => {
+    socket.on('added training', newTraining => {
+      if(newTraining.member === member._id) {
+        submitTrainingMember(newTraining)
+      }
+    })
+  })
 
   return loading ? (
     <Loader />

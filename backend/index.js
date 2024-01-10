@@ -31,6 +31,25 @@ app.use('/api/trainings', trainingRoutes)
 
 const PORT = process.env.PORT || 4000
 
-app.listen(PORT, () => {
+const mainServer = app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`)
+})
+
+import {Server} from 'socket.io'
+
+const io = new Server(mainServer, {
+  pingTimeout: 60000,
+  cors: {
+    origin: process.env.FRONTEND_URL,
+  },
+})
+
+io.on('connection', (socket) => {
+  socket.on('Open member', (member) => {
+    socket.join(member)
+  })
+  socket.on('new training', (training) => {
+    const member = training.member
+    socket.to(member).emit('added training', training)
+  })
 })

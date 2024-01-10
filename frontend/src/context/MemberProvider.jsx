@@ -1,7 +1,10 @@
 import { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+import io from 'socket.io-client'
 import axiosClient from '../config/axiosClient'
+
+let socket
 
 const MemberContext = createContext()
 
@@ -37,6 +40,10 @@ const MemberProvider = ({ children }) => {
     }
     getMembers()
   }, [])
+
+  useEffect(() => {
+    socket = io(import.meta.env.VITE_BACKEND_URL)
+  },[])
 
   const submitMember = async member => {
     if (member.id) {
@@ -185,10 +192,9 @@ const MemberProvider = ({ children }) => {
         },
       }
       const { data } = await axiosClient.post('/trainings', training, config)
-      const updatedMember = { ...member }
-      updatedMember.trainings = [...member.trainings, data]
-      setMember(updatedMember)
       setTrainingModal(false)
+
+      socket.emit('new training', data)
     } catch (error) {
       console.log(error)
     }
@@ -395,6 +401,13 @@ const MemberProvider = ({ children }) => {
 
   const handleSearching = () => [setSearcher(!searcher)]
 
+  //socket.io
+  const submitTrainingMember = (training) => {
+    const updatedMember = { ...member }
+    updatedMember.trainings = [...updatedMember.trainings, training]
+    setMember(updatedMember)
+  }
+
   return (
     <MemberContext.Provider
       value={{
@@ -418,6 +431,7 @@ const MemberProvider = ({ children }) => {
         submitMember,
         submitTrainer,
         submitTraining,
+        submitTrainingMember,
         trainer,
         training,
         trainingModal,
