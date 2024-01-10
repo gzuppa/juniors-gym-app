@@ -79,25 +79,29 @@ const MemberPreview = ({ member }) => {
   }, [member.memberLevel])
 
   return (
-    <div className="border-b p-5 flex">
-      <Stack className="flex-1" direction="row" spacing={1}>
-        <p className="font-raleway text-purple-800">
-          {name} {lastName}
-        </p>
-        <Chip
-          label={memberLevel}
-          size="small"
-          color={chipLevelColor}
-          icon={chipLevelIcon}
-        />
-        <Chip
-          label={status}
-          size="small"
-          variant="outlined"
-          color={chipStatusColor}
-          icon={chipStatusIcon}
-        />
-        <Chip label={addDaysToDate()} size="small" variant="outlined" />
+    <div className="border-b p-5 flex flex-col md:flex-row justify-between">
+      <Stack className="flex items-center gap-2" direction="row" spacing={1}>
+        <div className="flex-1 md:flex">
+          <p className="font-raleway text-purple-800">
+            {name} {lastName}
+          </p>
+          <div className="mt-2 md:mt-0 mb-2 md:mb-0 md:ml-2 flex gap-3">
+            <Chip
+              label={memberLevel}
+              size="small"
+              color={chipLevelColor}
+              icon={chipLevelIcon}
+            />
+            <Chip
+              label={status}
+              size="small"
+              variant="outlined"
+              color={chipStatusColor}
+              icon={chipStatusIcon}
+            />
+            <Chip label={addDaysToDate()} size="small" variant="outlined" />
+          </div>
+        </div>
       </Stack>
       <Link
         to={`${_id}`}

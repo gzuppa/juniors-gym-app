@@ -30,7 +30,7 @@ const TrainerForm = () => {
 
   return (
     <form
-      className="bg-white py-10 px-5 md:w-1/2 rounded-lg shadow"
+      className="bg-white py-10 px-5 w-full md:w-1/2 rounded-lg shadow"
       onSubmit={handleSubmit}
     >
       <FormControl sx={{ width: '100%' }}>

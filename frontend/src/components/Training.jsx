@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Chip, Stack } from '@mui/material'
+import { Chip, Stack, Typography } from '@mui/material'
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined'
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
@@ -8,6 +8,7 @@ import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined
 import { formatDate } from '../helpers/formatDate'
 import useMembers from '../hooks/useMembers'
 import useAdmin from '../hooks/useAdmin'
+import { fontSize } from '@mui/system'
 
 const Training = ({ training }) => {
   const { name, description, startDate, level, status, _id, completed } =
@@ -57,15 +58,19 @@ const Training = ({ training }) => {
         <p className="text-xl mb-1">{name}</p>
         <p className="text-sm mb-1 text-gray-600">{description}</p>
         <p className="text-sm mb-1">Fecha de inicio: {formatDate(startDate)}</p>
-        <Stack className="flex-1 items-center" direction="row" spacing={1}>
-          <p className="text-xl mb-1">Nivel de entrenamiento: </p>
+        <div
+          className="flex-1 md:flex flex-col md:flex-row items-center"
+          direction="row"
+          spacing={1}
+        >
+          <p className="text-sm mb-1 mr-2">Nivel de entrenamiento: </p>
           <Chip
             label={level}
             size="small"
             color={chipLevelColor}
             icon={chipLevelIcon}
           />
-        </Stack>
+        </div>
         {status && (
           <Chip
             sx={{ mt: 1 }}
@@ -76,29 +81,33 @@ const Training = ({ training }) => {
           />
         )}
       </div>
-      <div className="flex gap-3">
+      <div className="flex flex-col md:flex-row gap-3">
         {admin && (
           <button
-            className="bg-purple-800 px-4 py-3 text-white font-bold text-sm rounded-lg"
+            className="bg-purple-800 px-4 py-3 text-white rounded-lg"
             onClick={() => handleEditTrainingModal(training)}
           >
-            Editar
+            <Typography sx={{ fontSize: '10px' }}>Editar</Typography>
           </button>
         )}
         <button
           className={`${
             status ? 'bg-green-500' : 'bg-orange-500'
-          } px-4 py-3 text-white font-bold text-sm rounded-lg`}
+          } px-4 py-3 text-white rounded-lg`}
           onClick={() => completeTraining(_id)}
         >
-          {status ? 'Entrenamiento finalizado' : 'Entrenamiento incompleto'}
+          {status ? (
+            <Typography sx={{ fontSize: '10px' }}>Finalizado</Typography>
+          ) : (
+            <Typography sx={{ fontSize: '10px' }}>Incompleto</Typography>
+          )}
         </button>
         {admin && (
           <button
-            className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg"
+            className="bg-red-600 px-4 py-3 text-white rounded-lg"
             onClick={() => handleDeleteTrainingModal(training)}
           >
-            Eliminar
+            <Typography sx={{ fontSize: '10px' }}>Eliminar</Typography>
           </button>
         )}
       </div>
