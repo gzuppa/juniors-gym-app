@@ -68,7 +68,7 @@ const Training = ({ training }) => {
         </Stack>
         {status && (
           <Chip
-            sx={{mt:1}}
+            sx={{ mt: 1 }}
             label={`Completado por: ${completed.name}`}
             size="medium"
             color="info"

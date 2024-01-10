@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   FormControl,
@@ -26,8 +26,24 @@ const TrainingFormModal = () => {
   const [description, setDescription] = useState('')
   const [startDate, setStartDate] = useState('')
   const [level, setLevel] = useState('')
-  const { handleTrainingModal, submitTraining, trainingModal } = useMembers()
+  const [id, setId] = useState('')
+  const { handleTrainingModal, training, submitTraining, trainingModal } =
+    useMembers()
   const params = useParams()
+
+  useEffect(() => {
+    if (training?._id) {
+      setId(training._id)
+      setName(training.name)
+      setDescription(training.description)
+      setLevel(training.level)
+      return
+    }
+    setId('')
+    setName('')
+    setDescription('')
+    setLevel('')
+  }, [training])
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -42,18 +58,18 @@ const TrainingFormModal = () => {
       return
     }
     await submitTraining({
-      // id,
+      id,
       name,
       description,
       startDate,
       level,
       member: params.id,
     })
-    // setId('')
-    // setName('')
-    // setDescription('')
-    // setStartDate('')
-    // setLevel('')
+    setId('')
+    setName('')
+    setDescription('')
+    setStartDate('')
+    setLevel('')
   }
 
   return (
@@ -110,7 +126,7 @@ const TrainingFormModal = () => {
                     as="h3"
                     className="text-xl leading-6 font-bold text-purple-800"
                   >
-                    Crear entrenamiento
+                    {id ? 'Editar entrenamiento' : 'Crear entrenamiento'}
                   </Dialog.Title>
                   <form className="my-10" onSubmit={handleSubmit}>
                     <FormControl sx={{ width: '100%' }}>
@@ -208,7 +224,9 @@ const TrainingFormModal = () => {
                     <input
                       type="submit"
                       className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"
-                      value='Crear entrenamiento'
+                      value={
+                        id ? 'Editar entrenamiento' : 'Crear entrenamiento'
+                      }
                     />
                   </form>
                 </div>

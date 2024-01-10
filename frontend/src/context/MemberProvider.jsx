@@ -165,28 +165,11 @@ const MemberProvider = ({ children }) => {
     setTraining({})
   }
 
-  // const submitTraining = async training => {
-  //   if (training?.id) {
-  //     await editTraining(training)
-  //   } else {
-  //     await createTraining(training)
-  //   }
-  // }
-
   const submitTraining = async training => {
-    try {
-      const token = localStorage.getItem('token')
-      if (!token) return
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-      const {data} = await axiosClient.post('/trainings', training, config)
-      console.log(data)
-    } catch (error) {
-      console.log(error)
+    if (training?.id) {
+      await editTraining(training)
+    } else {
+      await createTraining(training)
     }
   }
 
