@@ -41,9 +41,7 @@ const DashboardTable = () => {
                 <p className="font-raleway text-purple-800 font-bold">Status</p>
               </TableCell>
               <TableCell>
-                <p className="font-raleway text-purple-800 font-bold">
-                  Edad
-                </p>
+                <p className="font-raleway text-purple-800 font-bold">Edad</p>
               </TableCell>
               <TableCell>
                 <p className="font-raleway text-purple-800 font-bold">
