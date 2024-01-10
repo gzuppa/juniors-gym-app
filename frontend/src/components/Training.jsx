@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Chip, Stack } from '@mui/material'
-import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined'
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
@@ -10,8 +10,13 @@ import useMembers from '../hooks/useMembers'
 import useAdmin from '../hooks/useAdmin'
 
 const Training = ({ training }) => {
-  const { name, description, startDate, level, status, _id, completed } = training
-  const { completeTraining, handleEditTrainingModal, handleDeleteTrainingModal } = useMembers()
+  const { name, description, startDate, level, status, _id, completed } =
+    training
+  const {
+    completeTraining,
+    handleEditTrainingModal,
+    handleDeleteTrainingModal,
+  } = useMembers()
   const admin = useAdmin()
 
   const chipLevelColor = useMemo(() => {
@@ -63,11 +68,12 @@ const Training = ({ training }) => {
         </Stack>
         {status && (
           <Chip
-          label={`$Completado por: ${completed}`}
-          size="medium"
-          color='info'
-          icon={<CheckOutlinedIcon />}
-        />
+            sx={{mt:1}}
+            label={`Completado por: ${completed.name}`}
+            size="medium"
+            color="info"
+            icon={<CheckOutlinedIcon />}
+          />
         )}
       </div>
       <div className="flex gap-3">
@@ -79,9 +85,14 @@ const Training = ({ training }) => {
             Editar
           </button>
         )}
-        <button className={`${status ? 'bg-green-500' : 'bg-orange-500'} px-4 py-3 text-white font-bold text-sm rounded-lg`} onClick={() => completeTraining(_id)}>
-            {status ? 'Entrenamiento finalizado' : 'Entrenamiento incompleto'}
-          </button>
+        <button
+          className={`${
+            status ? 'bg-green-500' : 'bg-orange-500'
+          } px-4 py-3 text-white font-bold text-sm rounded-lg`}
+          onClick={() => completeTraining(_id)}
+        >
+          {status ? 'Entrenamiento finalizado' : 'Entrenamiento incompleto'}
+        </button>
         {admin && (
           <button
             className="bg-red-600 px-4 py-3 text-white font-bold text-sm rounded-lg"

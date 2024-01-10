@@ -165,11 +165,28 @@ const MemberProvider = ({ children }) => {
     setTraining({})
   }
 
+  // const submitTraining = async training => {
+  //   if (training?.id) {
+  //     await editTraining(training)
+  //   } else {
+  //     await createTraining(training)
+  //   }
+  // }
+
   const submitTraining = async training => {
-    if (training?.id) {
-      await editTraining(training)
-    } else {
-      await createTraining(training)
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const {data} = await axiosClient.post('/trainings', training, config)
+      console.log(data)
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -376,16 +393,21 @@ const MemberProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       }
-      const {data} = await axiosClient.post(`/trainings/training-status/${id}`, {}, config)
-      const updatedMember = {...member}
-      updatedMember.trainings = updatedMember.trainings.map(trainingState => trainingState._id === data._id ? data : trainingState)
+      const { data } = await axiosClient.post(
+        `/trainings/training-status/${id}`,
+        {},
+        config,
+      )
+      const updatedMember = { ...member }
+      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
+        trainingState._id === data._id ? data : trainingState,
+      )
       setMember(updatedMember)
       setTraining({})
-
     } catch (error) {
       console.log(error)
+    }
   }
-}
 
   return (
     <MemberContext.Provider
