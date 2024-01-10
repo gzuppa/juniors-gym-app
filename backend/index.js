@@ -52,4 +52,18 @@ io.on('connection', (socket) => {
     const member = training.member
     socket.to(member).emit('added training', training)
   })
+  socket.on('delete training', training => {
+    const member = training.member
+    socket.to(member).emit('deleted training', training)
+  })
+  socket.on('update training', (training) => {
+    const member = training.member._id
+    socket.to(member).emit('updated training', training)
+  })
+  socket.on('change status', training => {
+    const member = training.member._id
+    socket.to(member).emit('new status', training)
+  })
 })
+
+

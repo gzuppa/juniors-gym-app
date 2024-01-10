@@ -215,12 +215,8 @@ const MemberProvider = ({ children }) => {
         training,
         config,
       )
-      const updatedMember = { ...member }
-      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
-        trainingState._id === data._id ? data : trainingState,
-      )
-      setMember(updatedMember)
       setTrainingModal(false)
+      socket.emit('update training', data)
     } catch (error) {
       console.log(error)
     }
@@ -258,13 +254,8 @@ const MemberProvider = ({ children }) => {
         confirmButtonText: 'Cerrar',
       })
 
-      const updatedMember = { ...member }
-      updatedMember.trainings = updatedMember.trainings.filter(
-        trainingState => trainingState._id !== training._id,
-      )
-
-      setMember(updatedMember)
       setDeleteTrainingModal(false)
+      socket.emit('delete training', training)
       setTraining({})
     } catch (error) {
       console.log(error)
@@ -388,11 +379,7 @@ const MemberProvider = ({ children }) => {
         {},
         config,
       )
-      const updatedMember = { ...member }
-      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
-        trainingState._id === data._id ? data : trainingState,
-      )
-      setMember(updatedMember)
+      socket.emit('change status', data)
       setTraining({})
     } catch (error) {
       console.log(error)
@@ -408,14 +395,39 @@ const MemberProvider = ({ children }) => {
     setMember(updatedMember)
   }
 
+  const deleteTrainingMember = training => {
+  const updatedMember = { ...member }
+      updatedMember.trainings = updatedMember.trainings.filter(
+        trainingState => trainingState._id !== training._id,
+      )
+      setMember(updatedMember)
+  }
+
+  const updateTrainingMember = training => {
+    const updatedMember = { ...member }
+      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
+        trainingState._id === training._id ? training : trainingState,
+      )
+      setMember(updatedMember)
+  }
+
+  const changeStatusTrainingMember = training => {
+    const updatedMember = { ...member }
+      updatedMember.trainings = updatedMember.trainings.map(trainingState =>
+        trainingState._id === training._id ? training : trainingState,
+      )
+      setMember(updatedMember)
+  }
   return (
     <MemberContext.Provider
       value={{
         addTrainer,
+        changeStatusTrainingMember,
         completeTraining,
         deleteMember,
         deleteSecondaryTrainerModal,
         deleteTraining,
+        deleteTrainingMember,
         deleteTrainingModal,
         deleteSecondaryTrainer,
         getMember,
@@ -435,6 +447,7 @@ const MemberProvider = ({ children }) => {
         trainer,
         training,
         trainingModal,
+        updateTrainingMember
       }}
     >
       {children}
