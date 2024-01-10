@@ -35,7 +35,7 @@ const mainServer = app.listen(PORT, () => {
   console.log(`Servidor corriendo en el puerto ${PORT}`)
 })
 
-import {Server} from 'socket.io'
+import { Server } from 'socket.io'
 
 const io = new Server(mainServer, {
   pingTimeout: 60000,
@@ -44,11 +44,11 @@ const io = new Server(mainServer, {
   },
 })
 
-io.on('connection', (socket) => {
-  socket.on('Open member', (member) => {
+io.on('connection', socket => {
+  socket.on('Open member', member => {
     socket.join(member)
   })
-  socket.on('new training', (training) => {
+  socket.on('new training', training => {
     const member = training.member
     socket.to(member).emit('added training', training)
   })
@@ -56,7 +56,7 @@ io.on('connection', (socket) => {
     const member = training.member
     socket.to(member).emit('deleted training', training)
   })
-  socket.on('update training', (training) => {
+  socket.on('update training', training => {
     const member = training.member._id
     socket.to(member).emit('updated training', training)
   })
@@ -65,5 +65,3 @@ io.on('connection', (socket) => {
     socket.to(member).emit('new status', training)
   })
 })
-
-
