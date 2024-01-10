@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import io from 'socket.io-client'
 import axiosClient from '../config/axiosClient'
+import useAuth from '../hooks/useAuth'
 
 let socket
 
@@ -20,6 +21,8 @@ const MemberProvider = ({ children }) => {
   const [trainer, setTrainer] = useState({})
   const [searcher, setSearcher] = useState(false)
   const navigate = useNavigate()
+
+  const {auth } = useAuth()
 
   useEffect(() => {
     const getMembers = async () => {
@@ -39,7 +42,7 @@ const MemberProvider = ({ children }) => {
       }
     }
     getMembers()
-  }, [])
+  }, [auth])
 
   useEffect(() => {
     socket = io(import.meta.env.VITE_BACKEND_URL)

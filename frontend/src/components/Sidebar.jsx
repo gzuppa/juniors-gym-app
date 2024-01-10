@@ -1,20 +1,24 @@
 import React, { useState } from 'react'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import PeopleIcon from '@mui/icons-material/People'
 import { NavLink } from 'react-router-dom'
 import JuniorsLogo from '../assets/images/logo-transparent.png'
 import useAuth from '../hooks/useAuth'
+import useMembers from '../hooks/useMembers'
 import '../styles/Sidebar.css'
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { auth, closeSessionAuth } = useAuth()
+  const {closeSession} = useMembers()
 
   const toggle = () => setIsOpen(!isOpen)
 
   const handleCloseSession = () => {
+    closeSession()
     closeSessionAuth()
     localStorage.removeItem('token')
   }
@@ -76,11 +80,7 @@ const Sidebar = ({ children }) => {
             </div>
           </NavLink>
         ))}
-        <button
-          tyoe="button"
-          className="text-yellow-300"
-          onClick={handleCloseSession}
-        >
+        <button tyoe='button' className='text-yellow-300' onClick={handleCloseSession}>
           Cerrar sesión
         </button>
       </div>
