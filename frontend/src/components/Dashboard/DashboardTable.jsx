@@ -15,7 +15,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import MoneyOffIcon from '@mui/icons-material/MoneyOff'
 import PriceCheckIcon from '@mui/icons-material/PriceCheck'
-import useMembers from '../hooks/useMembers'
+import useMembers from '../../hooks/useMembers'
 
 const DashboardTable = () => {
   const { allMembers } = useMembers()

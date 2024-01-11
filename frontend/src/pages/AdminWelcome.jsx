@@ -1,15 +1,16 @@
 import { Grid } from '@mui/material'
 import ChartWrapper from '../styles/ChartWrapper'
-import DashboardTable from '../components/DashboardTable'
+import DashboardTable from '../components/Dashboard/DashboardTable'
+import WelcomeCard from '../components/Dashboard/WelcomeCard'
 
 const AdminWelcome = () => {
   return (
     <ChartWrapper>
       <Grid container spacing={6}>
-        {/* <Grid item xs={12} md={4}>
-          <Trophy />
+        <Grid item xs={12} md={4}>
+          <WelcomeCard />
         </Grid>
-        <Grid item xs={12} md={8}>
+        {/* <Grid item xs={12} md={8}>
           <StatisticsCard />
         </Grid>
         <Grid item xs={12} md={6} lg={4}>

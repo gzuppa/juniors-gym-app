@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
-import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import PeopleIcon from '@mui/icons-material/People'
