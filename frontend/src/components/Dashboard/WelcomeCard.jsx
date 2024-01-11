@@ -27,20 +27,20 @@ const WelcomeCard = () => {
   return (
     <Card sx={{ position: 'relative' }}>
       <CardContent>
-        <Typography variant="h6">Hola {auth.name}🏋️‍♂️</Typography>
-        <Typography variant="body2" sx={{ letterSpacing: '0.25px', mb:2 }}>
+        <Typography variant="h5" className="text-purple-800" sx={{ mb: 2 }}>
+          Hola {auth.name}🏋️‍♂️
+        </Typography>
+        <Typography variant="body1" sx={{ letterSpacing: '0.25px', mb: 8 }}>
           Panel de bienvenida
         </Typography>
         <Link
-        to="/admin/members"
-        className="text-purple-800 hover:text-purple-600 uppercase cursor-pointer text-sm font-raleway font-bold"
-      >
-       Tus usuarios
-      </Link>
-        <TriangleImg
-          src={TriangleImage}
-        />
-        <TrophyImg src={JuniorsLogo}/>
+          to="/admin/members"
+          className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer text-xl font-raleway font-bold"
+        >
+          Tus usuarios
+        </Link>
+        <TriangleImg src={TriangleImage} />
+        <TrophyImg src={JuniorsLogo} />
       </CardContent>
     </Card>
   )

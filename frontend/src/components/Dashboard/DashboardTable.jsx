@@ -99,9 +99,9 @@ const DashboardTable = () => {
                     size="small"
                     color={
                       members.status === 'Pagado'
-                        ? 'secondary'
+                        ? 'info'
                         : members.status === 'Por pagar'
-                          ? 'warning'
+                          ? 'secondary'
                           : members.status === 'Bloqueado'
                             ? 'error'
                             : 'success'

@@ -27,9 +27,9 @@ const MemberPreview = ({ member }) => {
   const chipStatusColor = useMemo(() => {
     switch (member.status) {
       case 'Pagado':
-        return 'secondary'
+        return 'info'
       case 'Por pagar':
-        return 'warning'
+        return 'secondary'
       case 'Bloqueado':
         return 'error'
       default:
