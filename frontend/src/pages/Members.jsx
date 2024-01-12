@@ -1,5 +1,5 @@
 import useMembers from '../hooks/useMembers'
-import MemberPreview from '../components/MemberPreview'
+import MemberPreview from '../components/Previews/MemberPreview'
 import Searching from '../components/Searching'
 
 const Members = () => {

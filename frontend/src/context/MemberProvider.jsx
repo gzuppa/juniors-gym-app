@@ -19,8 +19,13 @@ const MemberProvider = ({ children }) => {
   const [deleteSecondaryTrainerModal, setDeleteSecondaryTrainerModal] =
     useState(false)
   const [blockedUsersModal, setBlockedUsersModal] = useState(false)
+  const [newWarehouseArticleModal, setNewWarehouseArticleModal] =
+    useState(false)
+  const [productCardModal, setProductCardModal] = useState(false)
   const [training, setTraining] = useState({})
   const [trainer, setTrainer] = useState({})
+  const [article, setArticle] = useState({})
+  const [allArticles, setAllArticles] = useState({})
   const [searcher, setSearcher] = useState(false)
   const navigate = useNavigate()
 
@@ -44,7 +49,7 @@ const MemberProvider = ({ children }) => {
       }
     }
     getAllMembers()
-  }, [])
+  }, [auth])
 
   useEffect(() => {
     const getMembers = async () => {
@@ -64,6 +69,26 @@ const MemberProvider = ({ children }) => {
       }
     }
     getMembers()
+  }, [auth])
+
+  useEffect(() => {
+    const getAllArticles = async () => {
+      try {
+        const token = localStorage.getItem('token')
+        if (!token) return
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        const { data } = await axiosClient('/warehouse', config)
+        setAllArticles(data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAllArticles()
   }, [auth])
 
   useEffect(() => {
@@ -130,6 +155,33 @@ const MemberProvider = ({ children }) => {
       })
       setTimeout(() => {
         navigate('/admin/members')
+      }, 3000)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const newArticle = async member => {
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient.post('/warehouse', member, config)
+      setArticle(data)
+
+      Swal.fire({
+        title: 'Éxito!',
+        text: 'El artículo se agregó al inventario',
+        icon: 'success',
+        confirmButtonText: 'Cerrar',
+      })
+      setTimeout(() => {
+        navigate('/admin/warehouse')
       }, 3000)
     } catch (error) {
       console.log(error)
@@ -453,11 +505,21 @@ const MemberProvider = ({ children }) => {
     setBlockedUsersModal(!blockedUsersModal)
   }
 
+  const handleNewWarehouseArticleModal = () => {
+    setNewWarehouseArticleModal(!newWarehouseArticleModal)
+  }
+
+  const handleProductCardModal = () => {
+    setProductCardModal(!productCardModal)
+  }
+
   return (
     <MemberContext.Provider
       value={{
         addTrainer,
+        allArticles,
         allMembers,
+        article,
         blockedUsersModal,
         changeStatusTrainingMember,
         closeSession,
@@ -473,11 +535,16 @@ const MemberProvider = ({ children }) => {
         handleDeleteTrainingModal,
         handleDeleteSecondaryTrainerModal,
         handleEditTrainingModal,
+        handleNewWarehouseArticleModal,
+        handleProductCardModal,
         handleSearching,
         handleTrainingModal,
         loading,
         member,
         members,
+        newArticle,
+        newWarehouseArticleModal,
+        productCardModal,
         searcher,
         submitMember,
         submitTrainer,

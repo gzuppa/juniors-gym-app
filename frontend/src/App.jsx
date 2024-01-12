@@ -16,6 +16,8 @@ import NewMember from './pages/NewMember'
 import NewPassword from './pages/NewPassword'
 import NewTrainer from './pages/NewTrainer'
 import Register from './pages/Register'
+import Warehouse from './pages/Warehouse'
+import WarehouseArticleDetail from './pages/WarehouseArticleDetail'
 import './App.css'
 
 function App() {
@@ -46,6 +48,11 @@ function App() {
                 />
                 <Route path="members/:id" element={<Member />} />
                 <Route path="members/edit/:id" element={<EditMember />} />
+                <Route path="warehouse" element={<Warehouse />} />
+                <Route
+                  path="warehouse/:id"
+                  element={<WarehouseArticleDetail />}
+                />
               </Route>
             </Routes>
           </MemberProvider>

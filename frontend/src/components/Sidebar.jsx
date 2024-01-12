@@ -3,6 +3,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import PeopleIcon from '@mui/icons-material/People'
+import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined'
 import { NavLink } from 'react-router-dom'
 import JuniorsLogo from '../assets/images/logo-transparent.png'
 import useAuth from '../hooks/useAuth'
@@ -38,6 +39,11 @@ const Sidebar = ({ children }) => {
       name: 'Panel inicial',
       icon: <AdminPanelSettingsIcon />,
     },
+    {
+      path: 'warehouse',
+      name: 'Inventario',
+      icon: <WarehouseOutlinedIcon />,
+    },
   ]
   return (
     <div>
@@ -58,11 +64,6 @@ const Sidebar = ({ children }) => {
           <div style={{ marginLeft: isOpen ? '50px' : '0px' }} className="bars">
             <MenuOpenIcon onClick={toggle} />
           </div>
-        </div>
-        <div style={{ display: isOpen ? 'block' : 'none' }}>
-          <p className="text-yellow-300 ml-4 mb-3 font-bold">
-            Hola {auth.name}
-          </p>
         </div>
         {menuItem.map((item, index) => (
           <NavLink
