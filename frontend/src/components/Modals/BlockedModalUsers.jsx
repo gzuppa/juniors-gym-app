@@ -104,7 +104,7 @@ const BlockedModalUsers = () => {
                           }}
                         >
                           <Typography
-                            className='text-purple-800'
+                            className="text-purple-800"
                             sx={{ fontWeight: 600, fontSize: '0.875rem' }}
                           >
                             {user.name} {user.lastName}

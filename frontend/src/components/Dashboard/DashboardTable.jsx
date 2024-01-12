@@ -128,9 +128,9 @@ const DashboardTable = () => {
                   <p className="font-raleway">{members.phone}</p>
                 </TableCell>
                 <TableCell>
-                <Link to={`/admin/members/${members._id}`}>
-                          <VisibilityOutlinedIcon />
-                        </Link>
+                  <Link to={`/admin/members/${members._id}`}>
+                    <VisibilityOutlinedIcon />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
