@@ -18,6 +18,7 @@ const MemberProvider = ({ children }) => {
   const [deleteTrainingModal, setDeleteTrainingModal] = useState(false)
   const [deleteSecondaryTrainerModal, setDeleteSecondaryTrainerModal] =
     useState(false)
+  const [blockedUsersModal, setBlockedUsersModal] = useState(false)
   const [training, setTraining] = useState({})
   const [trainer, setTrainer] = useState({})
   const [searcher, setSearcher] = useState(false)
@@ -448,11 +449,16 @@ const MemberProvider = ({ children }) => {
     setMember({})
   }
 
+  const handleBlockedUsersModal = () => {
+    setBlockedUsersModal(!blockedUsersModal)
+  }
+
   return (
     <MemberContext.Provider
       value={{
         addTrainer,
         allMembers,
+        blockedUsersModal,
         changeStatusTrainingMember,
         closeSession,
         completeTraining,
@@ -463,6 +469,7 @@ const MemberProvider = ({ children }) => {
         deleteTrainingModal,
         deleteSecondaryTrainer,
         getMember,
+        handleBlockedUsersModal,
         handleDeleteTrainingModal,
         handleDeleteSecondaryTrainerModal,
         handleEditTrainingModal,

@@ -1,21 +1,18 @@
 import { Fragment } from 'react'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Dialog, Transition } from '@headlessui/react'
-import useMembers from '../hooks/useMembers'
+import useMembers from '../../hooks/useMembers'
 
-const DeleteSecondaryTrainerModal = () => {
-  const {
-    deleteSecondaryTrainer,
-    deleteSecondaryTrainerModal,
-    handleDeleteSecondaryTrainerModal,
-  } = useMembers()
+const DeleteTrainingModal = () => {
+  const { deleteTraining, deleteTrainingModal, handleDeleteTrainingModal } =
+    useMembers()
 
   return (
-    <Transition.Root show={deleteSecondaryTrainerModal} as={Fragment}>
+    <Transition.Root show={deleteTrainingModal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
-        onClose={handleDeleteSecondaryTrainerModal}
+        onClose={handleDeleteTrainingModal}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -51,7 +48,7 @@ const DeleteSecondaryTrainerModal = () => {
                 <button
                   type="button"
                   className="bg-white rounded-md text-purple-800 hover:text-purple-500 focus:outline-none"
-                  onClick={handleDeleteSecondaryTrainerModal}
+                  onClick={handleDeleteTrainingModal}
                 >
                   <span className="sr-only">Cerrar</span>
                   <CloseOutlinedIcon />
@@ -78,12 +75,11 @@ const DeleteSecondaryTrainerModal = () => {
                     as="h3"
                     className="text-xl leading-6 font-bold text-purple-800"
                   >
-                    Eliminar entrenador
+                    Eliminar entrenamiento
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-purple-800">
-                      Una vez eliminado el entrenador, no podrá acceder a los
-                      entrenamientos del usuario
+                      Un entrenamiento eliminado no podrá ser recuperado
                     </p>
                   </div>
                 </div>
@@ -92,14 +88,14 @@ const DeleteSecondaryTrainerModal = () => {
                 <button
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  onClick={deleteSecondaryTrainer}
+                  onClick={deleteTraining}
                 >
                   Eliminar
                 </button>
                 <button
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-purple-800 hover:text-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:w-auto sm:text-sm"
-                  onClick={handleDeleteSecondaryTrainerModal}
+                  onClick={handleDeleteTrainingModal}
                 >
                   {' '}
                   Cancelar
@@ -113,4 +109,4 @@ const DeleteSecondaryTrainerModal = () => {
   )
 }
 
-export default DeleteSecondaryTrainerModal
+export default DeleteTrainingModal

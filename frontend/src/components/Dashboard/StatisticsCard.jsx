@@ -16,6 +16,7 @@ import CurrencyUsdOff from 'mdi-material-ui/CurrencyUsdOff'
 import Dumbbell from 'mdi-material-ui/Dumbbell'
 import WeightLifter from 'mdi-material-ui/WeightLifter'
 import useMembers from '../../hooks/useMembers'
+import BlockedModalUsers from '../Modals/BlockedModalUsers'
 
 const StatsGrid = props => {
   return (
@@ -93,7 +94,8 @@ const RenderStatusStats = () => {
 }
 
 const RenderLevelStats = () => {
-  const { allMembers } = useMembers()
+  const { allMembers, handleBlockedUsersModal } = useMembers()
+
   const paid = allMembers.filter(element => {
     return element.status === 'Pagado'
   })
@@ -126,17 +128,24 @@ const RenderLevelStats = () => {
       stats: blocked.length,
       color: 'error',
       title: 'Bloqueado',
-      icon: <AlertOctagon sx={{ fontSize: '1.75rem' }} />,
+      icon: (
+        <button type="button" onClick={handleBlockedUsersModal}>
+          <AlertOctagon sx={{ fontSize: '1.75rem' }} />
+        </button>
+      ),
     },
   ]
   return statsData.map((item, index) => (
-    <StatsGrid
-      color={item.color}
-      title={item.title}
-      stats={item.stats}
-      icon={item.icon}
-      index={index}
-    />
+    <>
+      <StatsGrid
+        color={item.color}
+        title={item.title}
+        stats={item.stats}
+        icon={item.icon}
+        index={index}
+      />
+      <BlockedModalUsers />
+    </>
   ))
 }
 

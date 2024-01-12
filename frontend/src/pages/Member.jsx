@@ -8,9 +8,9 @@ import useMembers from '../hooks/useMembers'
 import useAdmin from '../hooks/useAdmin'
 import Loader from '../assets/files/Loader'
 import Training from '../components/Training'
-import TrainingFormModal from '../components/TrainingFormModal'
-import DeleteTrainingModal from '../components/DeleteTrainingModal'
-import DeleteSecondaryTrainerModal from '../components/DeleteSecondaryTrainerModal'
+import TrainingFormModal from '../components/Modals/TrainingFormModal'
+import DeleteTrainingModal from '../components/Modals/DeleteTrainingModal'
+import DeleteSecondaryTrainerModal from '../components/Modals/DeleteSecondaryTrainerModal'
 import SecondaryTrainer from '../components/SecondaryTrainer'
 
 let socket

@@ -18,8 +18,7 @@ import LiveHelpIcon from '@mui/icons-material/LiveHelp'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import { Dialog, Transition } from '@headlessui/react'
 import Swal from 'sweetalert2'
-import useMembers from '../hooks/useMembers'
-import TrainingForm from './TrainingForm'
+import useMembers from '../../hooks/useMembers'
 
 const TrainingFormModal = () => {
   const [name, setName] = useState('')

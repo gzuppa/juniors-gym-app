@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Chip, Stack, Typography } from '@mui/material'
+import { Chip, Typography } from '@mui/material'
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined'
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike'
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
@@ -8,7 +8,6 @@ import SportsKabaddiOutlinedIcon from '@mui/icons-material/SportsKabaddiOutlined
 import { formatDate } from '../helpers/formatDate'
 import useMembers from '../hooks/useMembers'
 import useAdmin from '../hooks/useAdmin'
-import { fontSize } from '@mui/system'
 
 const Training = ({ training }) => {
   const { name, description, startDate, level, status, _id, completed } =
