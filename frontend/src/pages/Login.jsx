@@ -47,7 +47,7 @@ const Login = () => {
 
       localStorage.setItem('token', data.token)
       setAuth(data)
-      navigate('/admin/members')
+      navigate('/admin')
     } catch (error) {
       Swal.fire({
         title: 'Atención!',

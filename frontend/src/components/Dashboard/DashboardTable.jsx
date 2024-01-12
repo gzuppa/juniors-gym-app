@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   Box,
   Card,
@@ -15,6 +16,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import MoneyOffIcon from '@mui/icons-material/MoneyOff'
 import PriceCheckIcon from '@mui/icons-material/PriceCheck'
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import useMembers from '../../hooks/useMembers'
 
 const DashboardTable = () => {
@@ -124,6 +126,11 @@ const DashboardTable = () => {
                 </TableCell>
                 <TableCell>
                   <p className="font-raleway">{members.phone}</p>
+                </TableCell>
+                <TableCell>
+                <Link to={`/admin/members/${members._id}`}>
+                          <VisibilityOutlinedIcon />
+                        </Link>
                 </TableCell>
               </TableRow>
             ))}
