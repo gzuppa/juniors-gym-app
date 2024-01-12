@@ -5,6 +5,7 @@ import connectDB from './config/db.js'
 import userRoutes from './routes/userRoutes.js'
 import memberRoutes from './routes/memberRoutes.js'
 import trainingRoutes from './routes/trainingRoutes.js'
+import warehouseRoutes from './routes/warehouseRoutes.js'
 
 const app = express()
 app.use(express.json())
@@ -28,6 +29,7 @@ app.use(cors(corsOptions))
 app.use('/api/users', userRoutes)
 app.use('/api/members', memberRoutes)
 app.use('/api/trainings', trainingRoutes)
+app.use('/api/warehouse', warehouseRoutes)
 
 const PORT = process.env.PORT || 4000
 

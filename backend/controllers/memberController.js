@@ -14,7 +14,6 @@ const getMembers = async (req, res) => {
 
 const getAllMembers = async (req, res) => {
   const members = await Member.find()
-
   res.json(members)
 }
 
