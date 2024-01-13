@@ -13,7 +13,6 @@ const newArticle = async (req, res) => {
 
 const getAllArticles = async (req, res) => {
   const articles = await Warehouse.find()
-  console.log(articles)
   res.json(articles)
 }
 

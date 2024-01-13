@@ -25,7 +25,7 @@ const MemberProvider = ({ children }) => {
   const [training, setTraining] = useState({})
   const [trainer, setTrainer] = useState({})
   const [article, setArticle] = useState({})
-  const [allArticles, setAllArticles] = useState({})
+  const [allArticles, setAllArticles] = useState([])
   const [searcher, setSearcher] = useState(false)
   const navigate = useNavigate()
 
@@ -180,8 +180,9 @@ const MemberProvider = ({ children }) => {
         icon: 'success',
         confirmButtonText: 'Cerrar',
       })
+      setNewWarehouseArticleModal(false)
       setTimeout(() => {
-        navigate('/admin/warehouse')
+        location.reload()
       }, 3000)
     } catch (error) {
       console.log(error)
@@ -209,6 +210,32 @@ const MemberProvider = ({ children }) => {
         confirmButtonText: 'Cerrar',
       })
       navigate('/members')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getArticle = async id => {
+    setLoading(true)
+    try {
+      const token = localStorage.getItem('token')
+      if (!token) return
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      const { data } = await axiosClient(`/warehouse/${id}`, config)
+      setArticle(data)
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: error.response.data.msg,
+        icon: 'error',
+        confirmButtonText: 'Cerrar',
+      })
+      navigate('/warehouse')
     } finally {
       setLoading(false)
     }
@@ -530,6 +557,7 @@ const MemberProvider = ({ children }) => {
         deleteTrainingMember,
         deleteTrainingModal,
         deleteSecondaryTrainer,
+        getArticle,
         getMember,
         handleBlockedUsersModal,
         handleDeleteTrainingModal,

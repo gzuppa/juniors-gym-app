@@ -22,6 +22,16 @@ const warehouseSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
+    stock: {
+      type: Number,
+      trim: true,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ['Disponible', 'No disponible'],
+      required: true,
+    },
   },
   {
     timestamps: true,

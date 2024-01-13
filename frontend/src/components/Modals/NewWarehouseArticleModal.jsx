@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
 import {
   FormControl,
   InputAdornment,
@@ -10,6 +9,8 @@ import {
 } from '@mui/material'
 import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined'
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined'
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import { Dialog, Transition } from '@headlessui/react'
 import Swal from 'sweetalert2'
 import useMembers from '../../hooks/useMembers'
@@ -19,6 +20,8 @@ const NewWarehouseArticleModal = () => {
   const [description, setDescription] = useState('')
   const [type, setType] = useState('')
   const [price, setPrice] = useState('')
+  const [stock, setStock] = useState('')
+  const [status, setStatus] = useState('')
   const {
     article,
     handleNewWarehouseArticleModal,
@@ -32,18 +35,22 @@ const NewWarehouseArticleModal = () => {
       setDescription(article.description)
       setType(article.type)
       setPrice(article.price)
+      setStock(article.stock)
+      setStatus(article.status)
       return
     }
     setName('')
     setDescription('')
     setType('')
     setPrice('')
+    setStock('')
+    setStatus('')
   }, [article])
 
   const handleSubmit = async e => {
     e.preventDefault()
 
-    if ([name, description, type, price].includes('')) {
+    if ([name, description, type, price, stock, status].includes('')) {
       Swal.fire({
         title: 'Atención!',
         text: 'Todos los campos son obligatorios',
@@ -58,6 +65,8 @@ const NewWarehouseArticleModal = () => {
       description,
       type,
       price,
+      stock,
+      status,
       // member: params.id,
     })
     // setId('')
@@ -65,6 +74,8 @@ const NewWarehouseArticleModal = () => {
     setDescription('')
     setType('')
     setPrice('')
+    setStock('')
+    setStatus('')
   }
 
   return (
@@ -199,17 +210,60 @@ const NewWarehouseArticleModal = () => {
                             position="end"
                             sx={{ color: '#6b21a8' }}
                           >
-                            <AppRegistrationOutlinedIcon />
+                            <PaidOutlinedIcon />
                           </InputAdornment>
                         }
                         id="price"
-                        label="Nombre del artículo"
+                        label="Precio del artículo"
                         onChange={e => setPrice(e.target.value)}
                         sx={{ label: { color: '#6b21a8' } }}
-                        type="text"
+                        type="number"
                         value={price}
                       />
                     </FormControl>
+
+                    <FormControl sx={{ width: '100%', mt: 3 }}>
+                      <InputLabel htmlFor="stock">Cantidad en stock</InputLabel>
+                      <OutlinedInput
+                        endAdornment={
+                          <InputAdornment
+                            position="end"
+                            sx={{ color: '#6b21a8' }}
+                          >
+                            <Inventory2OutlinedIcon />
+                          </InputAdornment>
+                        }
+                        id="stock"
+                        label="Cantidad en stock"
+                        onChange={e => setStock(e.target.value)}
+                        sx={{ label: { color: '#6b21a8' } }}
+                        type="number"
+                        value={stock}
+                      />
+                    </FormControl>
+
+                    <FormControl sx={{ width: '100%', mt: 3 }}>
+                      <InputLabel
+                        id="status"
+                        sx={{ mb: '12px', fontSize: '0.875rem' }}
+                      >
+                        Status de artículo
+                      </InputLabel>
+                      <Select
+                        labelId="status"
+                        fullWidth
+                        id="status"
+                        value={status}
+                        label="Status de artículo"
+                        onChange={e => setStatus(e.target.value)}
+                      >
+                        <MenuItem value={'Disponible'}>Disponible</MenuItem>
+                        <MenuItem value={'No disponible'}>
+                          No disponible
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+
                     <input
                       type="submit"
                       className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"

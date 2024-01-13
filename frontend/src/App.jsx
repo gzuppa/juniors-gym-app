@@ -18,6 +18,7 @@ import NewTrainer from './pages/NewTrainer'
 import Register from './pages/Register'
 import Warehouse from './pages/Warehouse'
 import WarehouseArticleDetail from './pages/WarehouseArticleDetail'
+import WarehouseArticleEdit from './pages/WarehouseArticleEdit'
 import './App.css'
 
 function App() {
@@ -52,6 +53,10 @@ function App() {
                 <Route
                   path="warehouse/:id"
                   element={<WarehouseArticleDetail />}
+                />
+                <Route
+                  path="warehouse/edit/:id"
+                  element={<WarehouseArticleEdit />}
                 />
               </Route>
             </Routes>

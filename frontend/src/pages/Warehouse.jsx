@@ -6,13 +6,13 @@ import ArticlePreview from '../components/Previews/ArticlePreview'
 const Warehouse = () => {
   const { allArticles, handleNewWarehouseArticleModal } = useMembers()
 
-  const machines = allArticles?.filter(element => {
+  const machines = allArticles.filter(element => {
     return element.type === 'Aparato'
   })
-  const miscelaneous = allArticles?.filter(element => {
+  const miscelaneous = allArticles.filter(element => {
     return element.type === 'Mercancía'
   })
-  const other = allArticles?.filter(element => {
+  const other = allArticles.filter(element => {
     return element.type === 'Otro'
   })
 
