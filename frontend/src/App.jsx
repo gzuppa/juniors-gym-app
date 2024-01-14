@@ -19,6 +19,7 @@ import Register from './pages/Register'
 import Warehouse from './pages/Warehouse'
 import WarehouseArticleDetail from './pages/WarehouseArticleDetail'
 import WarehouseArticleEdit from './pages/WarehouseArticleEdit'
+import WhatsappReminder from './pages/WhatsappReminder'
 import './App.css'
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
                   path="warehouse/edit/:id"
                   element={<WarehouseArticleEdit />}
                 />
+                <Route path="send-reminder" element={<WhatsappReminder />} />
               </Route>
             </Routes>
           </MemberProvider>

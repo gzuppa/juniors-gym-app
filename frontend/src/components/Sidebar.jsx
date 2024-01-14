@@ -4,6 +4,7 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import PeopleIcon from '@mui/icons-material/People'
 import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined'
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { NavLink } from 'react-router-dom'
 import JuniorsLogo from '../assets/images/logo-transparent.png'
 import useAuth from '../hooks/useAuth'
@@ -25,6 +26,11 @@ const Sidebar = ({ children }) => {
 
   const menuItem = [
     {
+      path: '',
+      name: 'Panel inicial',
+      icon: <AdminPanelSettingsIcon />,
+    },
+    {
       path: 'members',
       name: 'Usuarios',
       icon: <PeopleIcon />,
@@ -35,9 +41,9 @@ const Sidebar = ({ children }) => {
       icon: <GroupAddOutlinedIcon />,
     },
     {
-      path: '',
-      name: 'Panel inicial',
-      icon: <AdminPanelSettingsIcon />,
+      path: 'send-reminder',
+      name: 'Recordatorios de pago',
+      icon: <WhatsAppIcon />,
     },
     {
       path: 'warehouse',
