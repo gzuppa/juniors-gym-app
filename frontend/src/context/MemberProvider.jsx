@@ -19,6 +19,8 @@ const MemberProvider = ({ children }) => {
   const [deleteSecondaryTrainerModal, setDeleteSecondaryTrainerModal] =
     useState(false)
   const [blockedUsersModal, setBlockedUsersModal] = useState(false)
+  const [pendingUsersModal, setPendingUsersModal] = useState(false)
+  const [paidUsersModal, setPaidUsersModal] = useState(false)
   const [newWarehouseArticleModal, setNewWarehouseArticleModal] =
     useState(false)
   const [productCardModal, setProductCardModal] = useState(false)
@@ -532,6 +534,14 @@ const MemberProvider = ({ children }) => {
     setBlockedUsersModal(!blockedUsersModal)
   }
 
+  const handlePendingUsersModal = () => {
+    setPendingUsersModal(!pendingUsersModal)
+  }
+
+  const handlePaidUsersModal = () => {
+    setPaidUsersModal(!paidUsersModal)
+  }
+
   const handleNewWarehouseArticleModal = () => {
     setNewWarehouseArticleModal(!newWarehouseArticleModal)
   }
@@ -543,19 +553,14 @@ const MemberProvider = ({ children }) => {
   return (
     <MemberContext.Provider
       value={{
+        //functions
         addTrainer,
-        allArticles,
-        allMembers,
-        article,
-        blockedUsersModal,
         changeStatusTrainingMember,
         closeSession,
         completeTraining,
         deleteMember,
-        deleteSecondaryTrainerModal,
         deleteTraining,
         deleteTrainingMember,
-        deleteTrainingModal,
         deleteSecondaryTrainer,
         getArticle,
         getMember,
@@ -564,24 +569,35 @@ const MemberProvider = ({ children }) => {
         handleDeleteSecondaryTrainerModal,
         handleEditTrainingModal,
         handleNewWarehouseArticleModal,
+        handlePaidUsersModal,
+        handlePendingUsersModal,
         handleProductCardModal,
         handleSearching,
         handleTrainingModal,
-        loading,
-        member,
-        members,
         newArticle,
-        newWarehouseArticleModal,
-        productCardModal,
-        searcher,
         submitMember,
         submitTrainer,
         submitTraining,
         submitTrainingMember,
+        updateTrainingMember,
+        //state
+        allArticles,
+        allMembers,
+        article,
+        blockedUsersModal,
+        deleteSecondaryTrainerModal,
+        deleteTrainingModal,
+        loading,
+        member,
+        members,
+        newWarehouseArticleModal,
+        paidUsersModal,
+        pendingUsersModal,
+        productCardModal,
+        searcher,
         trainer,
         training,
         trainingModal,
-        updateTrainingMember,
       }}
     >
       {children}

@@ -14,35 +14,35 @@ const WhatsappReminder = () => {
     return element.status === 'Por pagar'
   })
 
-  const DataBlock = (props) => {
-    return(
+  const DataBlock = props => {
+    return (
       <div className="flex items-center justify-between border-b p-3 text-lg">
-            <div className="flex items-center">
-              <div className="flex items-center">
-                <SupervisedUserCircleOutlinedIcon className="mr-3 text-red-600" />
-                <p className="text-purple-800">
-                  {props.name} {props.lastName}
-                </p>
-              </div>
-              <div className="flex items-center ml-8">
-                <CalendarMonthOutlinedIcon className="mr-3 text-orange-500" />
-                <p className="text-purple-800">{props.payDate}</p>
-              </div>
-              <div className="flex items-center ml-8">
-                <WhatsAppIcon className="mr-2 text-green-600" />
-                <p className="text-purple-800">{props.phone}</p>
-              </div>
-            </div>
-            <div>
-              <WhatsappSend
-                className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer"
-                number={props.phone}
-                message={props.message}
-              >
-                Enviar recordatorio
-              </WhatsappSend>
-            </div>
+        <div className="flex items-center">
+          <div className="flex items-center">
+            <SupervisedUserCircleOutlinedIcon className="mr-3 text-red-600" />
+            <p className="text-purple-800">
+              {props.name} {props.lastName}
+            </p>
           </div>
+          <div className="flex items-center ml-8">
+            <CalendarMonthOutlinedIcon className="mr-3 text-orange-500" />
+            <p className="text-purple-800">{props.payDate}</p>
+          </div>
+          <div className="flex items-center ml-8">
+            <WhatsAppIcon className="mr-2 text-green-600" />
+            <p className="text-purple-800">{props.phone}</p>
+          </div>
+        </div>
+        <div>
+          <WhatsappSend
+            className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer"
+            number={props.phone}
+            message={props.message}
+          >
+            Enviar recordatorio
+          </WhatsappSend>
+        </div>
+      </div>
     )
   }
 
@@ -60,7 +60,13 @@ const WhatsappReminder = () => {
       </p>
       <section className="bg-white rounded-lg py-5 px-5">
         {blockedUsers.map(user => (
-          <DataBlock name={user.name} lastName={user.lastName} phone={user.phone} payDate={user.payDate.split('T')[0]} message={`Estimado usuario: ${user.name} ${user.lastName}, la fecha de pago de tu mensualidad venció el día ${user.payDate.split('T')[0]}. Por favor, realiza el pago correspondiente para continuar tus entrenamientos. Junior's Gym`}/>
+          <DataBlock
+            name={user.name}
+            lastName={user.lastName}
+            phone={user.phone}
+            payDate={user.payDate.split('T')[0]}
+            message={`Estimado usuario: ${user.name} ${user.lastName}, la fecha de pago de tu mensualidad venció el día ${user.payDate.split('T')[0]}. Por favor, realiza el pago correspondiente para continuar tus entrenamientos. Junior's Gym`}
+          />
         ))}
       </section>
 
@@ -69,7 +75,13 @@ const WhatsappReminder = () => {
       </p>
       <section className="bg-white rounded-lg py-5 px-5 mt-8">
         {payPendingUsers.map(user => (
-          <DataBlock name={user.name} lastName={user.lastName} phone={user.phone} payDate={user.payDate.split('T')[0]} message={`Estimado usuario: ${user.name} ${user.lastName}, la fecha de vencimiento de tu mensualidad se acerca. Realiza tu pago antes del ${user.payDate.split('T')[0]} para continuar tus entrenamientos. Junior's Gym`}/>
+          <DataBlock
+            name={user.name}
+            lastName={user.lastName}
+            phone={user.phone}
+            payDate={user.payDate.split('T')[0]}
+            message={`Estimado usuario: ${user.name} ${user.lastName}, la fecha de vencimiento de tu mensualidad se acerca. Realiza tu pago antes del ${user.payDate.split('T')[0]} para continuar tus entrenamientos. Junior's Gym`}
+          />
         ))}
       </section>
     </div>

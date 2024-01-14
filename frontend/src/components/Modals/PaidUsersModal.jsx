@@ -6,21 +6,20 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import useMembers from '../../hooks/useMembers'
 
-const BlockedModalUsers = () => {
-  const { allMembers, blockedUsersModal, handleBlockedUsersModal } =
-    useMembers()
+const PaidUsersModal = () => {
+  const { allMembers, paidUsersModal, handlePaidUsersModal } = useMembers()
 
-  const blockedUsers = allMembers.filter(element => {
-    return element.status === 'Bloqueado'
+  const paidUsers = allMembers.filter(element => {
+    return element.status === 'Pagado'
   })
 
   return (
     <>
-      <Transition appear show={blockedUsersModal} as={Fragment}>
+      <Transition appear show={paidUsersModal} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-10"
-          onClose={handleBlockedUsersModal}
+          onClose={handlePaidUsersModal}
         >
           <Transition.Child
             as={Fragment}
@@ -50,7 +49,7 @@ const BlockedModalUsers = () => {
                     <button
                       type="button"
                       className="bg-white rounded-md text-purple-800 hover:text-purple-500 focus:outline-none"
-                      onClick={!blockedUsersModal}
+                      onClick={!paidUsersModal}
                     >
                       <span className="sr-only">Cerrar</span>
                       <CloseOutlinedIcon />
@@ -60,15 +59,14 @@ const BlockedModalUsers = () => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-purple-800"
                   >
-                    Usuarios bloqueados 🚫
+                    Usuarios puntuales ⭐
                   </Dialog.Title>
                   <div className="mt-2 mb-4">
                     <p className="text-sm text-gray-500">
-                      Los siguientes usuarios se encuentran bloqueados ya que su
-                      pago ha vencido
+                      Los siguientes usuarios tienen su mensualidad al corriente
                     </p>
                   </div>
-                  {blockedUsers.map(user => (
+                  {paidUsers.map(user => (
                     <Box
                       key={user._id}
                       sx={{
@@ -84,7 +82,7 @@ const BlockedModalUsers = () => {
                           justifyContent: 'center',
                         }}
                       >
-                        🚫
+                        ✅
                       </Box>
                       <Box
                         sx={{
@@ -119,12 +117,6 @@ const BlockedModalUsers = () => {
                       </Box>
                     </Box>
                   ))}
-                  <Link
-                    to="/admin/send-reminder"
-                    className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer text-md font-raleway flex justify-center"
-                  >
-                    Enviar recordatorio
-                  </Link>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
@@ -135,4 +127,4 @@ const BlockedModalUsers = () => {
   )
 }
 
-export default BlockedModalUsers
+export default PaidUsersModal

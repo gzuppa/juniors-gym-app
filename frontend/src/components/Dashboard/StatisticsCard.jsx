@@ -17,6 +17,8 @@ import Dumbbell from 'mdi-material-ui/Dumbbell'
 import WeightLifter from 'mdi-material-ui/WeightLifter'
 import useMembers from '../../hooks/useMembers'
 import BlockedModalUsers from '../Modals/BlockedModalUsers'
+import PendingPayUsersModal from '../Modals/PendingPayUsersModal'
+import PaidUsersModal from '../Modals/PaidUsersModal'
 
 const StatsGrid = props => {
   return (
@@ -94,7 +96,12 @@ const RenderStatusStats = () => {
 }
 
 const RenderLevelStats = () => {
-  const { allMembers, handleBlockedUsersModal } = useMembers()
+  const {
+    allMembers,
+    handlePaidUsersModal,
+    handleBlockedUsersModal,
+    handlePendingUsersModal,
+  } = useMembers()
 
   const paid = allMembers.filter(element => {
     return element.status === 'Pagado'
@@ -116,13 +123,21 @@ const RenderLevelStats = () => {
       stats: paid.length,
       title: 'Pagado',
       color: 'info',
-      icon: <Cash100 sx={{ fontSize: '1.75rem' }} />,
+      icon: (
+        <button type="button" onClick={handlePaidUsersModal}>
+          <Cash100 sx={{ fontSize: '1.75rem' }} />
+        </button>
+      ),
     },
     {
       stats: paidPending.length,
       color: 'secondary',
       title: 'Por pagar',
-      icon: <CurrencyUsdOff sx={{ fontSize: '1.75rem' }} />,
+      icon: (
+        <button type="button" onClick={handlePendingUsersModal}>
+          <CurrencyUsdOff sx={{ fontSize: '1.75rem' }} />
+        </button>
+      ),
     },
     {
       stats: blocked.length,
@@ -144,6 +159,8 @@ const RenderLevelStats = () => {
         icon={item.icon}
         index={index}
       />
+      <PaidUsersModal />
+      <PendingPayUsersModal />
       <BlockedModalUsers />
     </>
   ))

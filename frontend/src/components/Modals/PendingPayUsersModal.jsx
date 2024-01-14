@@ -6,21 +6,21 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined'
 import useMembers from '../../hooks/useMembers'
 
-const BlockedModalUsers = () => {
-  const { allMembers, blockedUsersModal, handleBlockedUsersModal } =
+const PendingPayUsersModal = () => {
+  const { allMembers, pendingUsersModal, handlePendingUsersModal } =
     useMembers()
 
-  const blockedUsers = allMembers.filter(element => {
-    return element.status === 'Bloqueado'
+  const pendingPayUsers = allMembers.filter(element => {
+    return element.status === 'Por pagar'
   })
 
   return (
     <>
-      <Transition appear show={blockedUsersModal} as={Fragment}>
+      <Transition appear show={pendingUsersModal} as={Fragment}>
         <Dialog
           as="div"
           className="relative z-10"
-          onClose={handleBlockedUsersModal}
+          onClose={handlePendingUsersModal}
         >
           <Transition.Child
             as={Fragment}
@@ -50,7 +50,7 @@ const BlockedModalUsers = () => {
                     <button
                       type="button"
                       className="bg-white rounded-md text-purple-800 hover:text-purple-500 focus:outline-none"
-                      onClick={!blockedUsersModal}
+                      onClick={!pendingUsersModal}
                     >
                       <span className="sr-only">Cerrar</span>
                       <CloseOutlinedIcon />
@@ -60,15 +60,15 @@ const BlockedModalUsers = () => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-purple-800"
                   >
-                    Usuarios bloqueados 🚫
+                    Usuarios pendientes de pago 🗓️
                   </Dialog.Title>
                   <div className="mt-2 mb-4">
                     <p className="text-sm text-gray-500">
-                      Los siguientes usuarios se encuentran bloqueados ya que su
-                      pago ha vencido
+                      La fecha de pago de los siguientes usuarios está a punto
+                      de vencer
                     </p>
                   </div>
-                  {blockedUsers.map(user => (
+                  {pendingPayUsers.map(user => (
                     <Box
                       key={user._id}
                       sx={{
@@ -84,7 +84,7 @@ const BlockedModalUsers = () => {
                           justifyContent: 'center',
                         }}
                       >
-                        🚫
+                        🗓️
                       </Box>
                       <Box
                         sx={{
@@ -135,4 +135,4 @@ const BlockedModalUsers = () => {
   )
 }
 
-export default BlockedModalUsers
+export default PendingPayUsersModal
