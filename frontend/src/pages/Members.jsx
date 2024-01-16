@@ -3,7 +3,7 @@ import MemberPreview from '../components/Previews/MemberPreview'
 import Searching from '../components/Searching'
 
 const Members = () => {
-  const { handleSearching, members } = useMembers()
+  const { handleSearching, allMembers } = useMembers()
 
   return (
     <>
@@ -19,8 +19,8 @@ const Members = () => {
       </button>
       <Searching />
       <div className="bg-white shadow mt-10 rounded-lg">
-        {members.length ? (
-          members.map(member => (
+        {allMembers.length ? (
+          allMembers.map(member => (
             <MemberPreview key={member._id} member={member} />
           ))
         ) : (

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined'
 import useMembers from '../hooks/useMembers'
 import Loader from '../assets/files/Loader'
-import MemberForm from '../components/MemberForm'
+import MemberForm from '../components/Forms/MemberForm'
 
 const EditMember = () => {
   const params = useParams()

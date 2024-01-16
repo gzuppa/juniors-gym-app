@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
 import Swal from 'sweetalert2'
-import useMembers from '../hooks/useMembers'
+import useMembers from '../../hooks/useMembers'
 
 const TrainerForm = () => {
   const [name, setName] = useState('')

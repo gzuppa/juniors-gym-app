@@ -1,4 +1,4 @@
-import MemberForm from '../components/MemberForm'
+import MemberForm from '../components/Forms/MemberForm'
 
 const NewMember = () => {
   return (

@@ -4,6 +4,7 @@ import GroupAddOutlinedIcon from '@mui/icons-material/GroupAddOutlined'
 import MenuOpenIcon from '@mui/icons-material/MenuOpen'
 import PeopleIcon from '@mui/icons-material/People'
 import WarehouseOutlinedIcon from '@mui/icons-material/WarehouseOutlined'
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter'
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 import { NavLink } from 'react-router-dom'
 import JuniorsLogo from '../assets/images/logo-transparent.png'
@@ -13,7 +14,7 @@ import '../styles/Sidebar.css'
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
-  const { auth, closeSessionAuth } = useAuth()
+  const { closeSessionAuth } = useAuth()
   const { closeSession } = useMembers()
 
   const toggle = () => setIsOpen(!isOpen)
@@ -34,6 +35,11 @@ const Sidebar = ({ children }) => {
       path: 'members',
       name: 'Usuarios',
       icon: <PeopleIcon />,
+    },
+    {
+      path: 'user-assistance',
+      name: 'Registro de asistencia',
+      icon: <FitnessCenterIcon />,
     },
     {
       path: 'create-member',

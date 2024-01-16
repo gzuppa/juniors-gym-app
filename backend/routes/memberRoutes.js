@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  addAssistance,
   addSecondaryTrainer,
   deleteMembers,
   deleteSecondaryTrainer,
@@ -15,7 +16,7 @@ import checkAuth from '../middleware/checkAuth.js'
 const router = express.Router()
 
 router.route('/').get(checkAuth, getMembers).post(checkAuth, newMember)
-router.get('/all-members', checkAuth, getAllMembers)
+router.get('/all-members', getAllMembers)
 router
   .route('/:id')
   .get(checkAuth, getMember)
@@ -24,5 +25,6 @@ router
 router.post('/trainers', checkAuth, searchSecondaryTrainer)
 router.post('/trainers/:id', checkAuth, addSecondaryTrainer)
 router.post('/delete-trainers/:id', checkAuth, deleteSecondaryTrainer)
+router.post('/assistance/:id', addAssistance)
 
 export default router

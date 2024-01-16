@@ -43,16 +43,16 @@ const getMember = async (req, res) => {
     return res.status(404).json({ msg: error.message })
   }
 
-  if (
-    member.principalTrainer.toString() !== req.user._id.toString() &&
-    !member.secondaryTrainers.some(
-      secondaryTrainer =>
-        secondaryTrainer._id.toString() === req.user._id.toString(),
-    )
-  ) {
-    const error = new Error('Acción no valida')
-    return res.status(404).json({ msg: error.message })
-  }
+  // if (
+  //   member.principalTrainer.toString() !== req.user._id.toString() &&
+  //   !member.secondaryTrainers.some(
+  //     secondaryTrainer =>
+  //       secondaryTrainer._id.toString() === req.user._id.toString(),
+  //   )
+  // ) {
+  //   const error = new Error('Acción no valida')
+  //   return res.status(404).json({ msg: error.message })
+  // }
 
   res.json(member)
 }
@@ -66,10 +66,10 @@ const editMember = async (req, res) => {
     return res.status(404).json({ msg: error.message })
   }
 
-  if (member.principalTrainer.toString() !== req.user._id.toString()) {
-    const error = new Error('Acción no valida')
-    return res.status(404).json({ msg: error.message })
-  }
+  // if (member.principalTrainer.toString() !== req.user._id.toString()) {
+  //   const error = new Error('Acción no valida')
+  //   return res.status(404).json({ msg: error.message })
+  // }
 
   member.name = req.body.name || member.name
   member.lastName = req.body.lastName || member.lastName
@@ -97,10 +97,10 @@ const deleteMembers = async (req, res) => {
     return res.status(404).json({ msg: error.message })
   }
 
-  if (member.principalTrainer.toString() !== req.user._id.toString()) {
-    const error = new Error('Acción no valida')
-    return res.status(404).json({ msg: error.message })
-  }
+  // if (member.principalTrainer.toString() !== req.user._id.toString()) {
+  //   const error = new Error('Acción no valida')
+  //   return res.status(404).json({ msg: error.message })
+  // }
 
   try {
     await member.deleteOne()
@@ -182,7 +182,22 @@ const deleteSecondaryTrainer = async (req, res) => {
   res.json({ msg: 'Entrenador eliminado correctamente' })
 }
 
+const addAssistance = async (req, res) => {
+  const member = await Member.findById(req.params.id)
+
+  if (!member) {
+    const error = new Error('Usuario no encontradoz')
+    return res.status(404).json({ msg: error.message })
+  }
+
+  const assistanceDate = new Date()
+  member.assistance.push(assistanceDate)
+  await member.save()
+  res.json({ msg: 'Entrenador agregado correctamente' })
+}
+
 export {
+  addAssistance,
   addSecondaryTrainer,
   deleteMembers,
   deleteSecondaryTrainer,

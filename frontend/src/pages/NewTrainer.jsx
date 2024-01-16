@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import useMembers from '../hooks/useMembers'
-import TrainerForm from '../components/TrainerForm'
+import TrainerForm from '../components/Forms/TrainerForm'
 import Loader from '../assets/files/Loader'
 
 const NewTrainer = () => {

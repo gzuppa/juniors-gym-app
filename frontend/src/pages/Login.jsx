@@ -130,6 +130,14 @@ const Login = () => {
           Olvidé mi password
         </Link>
       </nav>
+      <div>
+        <Link
+          to="/"
+          className="block text-center my-5 text-yellow-300 uppercase text-sm"
+        >
+          Regresar al home
+        </Link>
+      </div>
     </>
   )
 }

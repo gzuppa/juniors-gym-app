@@ -16,7 +16,7 @@ import { DemoItem } from '@mui/x-date-pickers/internals/demo'
 import AppRegistrationOutlinedIcon from '@mui/icons-material/AppRegistrationOutlined'
 import LiveHelpIcon from '@mui/icons-material/LiveHelp'
 import Swal from 'sweetalert2'
-import useMembers from '../hooks/useMembers'
+import useMembers from '../../hooks/useMembers'
 
 const TrainingForm = () => {
   const [name, setName] = useState('')

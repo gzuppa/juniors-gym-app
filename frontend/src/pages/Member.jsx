@@ -18,6 +18,7 @@ let socket
 const Member = () => {
   const params = useParams()
   const {
+    addAssistance,
     changeStatusTrainingMember,
     deleteTrainingMember,
     getMember,
@@ -79,6 +80,13 @@ const Member = () => {
           </Link>
         )}
       </div>
+      <button
+        type="button"
+        onClick={() => addAssistance()}
+        className="text-sm px-5 py-3 mt-5 w-full md:w-auto rounded-lg font-bold font-raleway bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer flex items-center justify-center"
+      >
+        <LibraryAddOutlinedIcon className="mr-2" /> Agregar asistencia
+      </button>
       {admin && (
         <button
           type="button"

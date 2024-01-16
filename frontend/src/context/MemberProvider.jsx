@@ -397,6 +397,16 @@ const MemberProvider = ({ children }) => {
     }
   }
 
+  const addAssistance = async () => {
+    const { data } = await axiosClient.post(`/members/assistance/${member._id}`)
+    Swal.fire({
+      title: 'Éxito!',
+      text: 'Asistencia agregada',
+      icon: 'success',
+      confirmButtonText: 'Cerrar',
+    })
+  }
+
   const addTrainer = async name => {
     try {
       const token = localStorage.getItem('token')
@@ -554,6 +564,7 @@ const MemberProvider = ({ children }) => {
     <MemberContext.Provider
       value={{
         //functions
+        addAssistance,
         addTrainer,
         changeStatusTrainingMember,
         closeSession,
