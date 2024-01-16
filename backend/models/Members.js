@@ -18,8 +18,7 @@ const memberSchema = mongoose.Schema(
     },
     assistance: [
       {
-        type: Date,
-        default: Date.now(),
+        type: String
       },
     ],
     payAmount: {

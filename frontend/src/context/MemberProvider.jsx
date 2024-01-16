@@ -401,7 +401,7 @@ const MemberProvider = ({ children }) => {
     const { data } = await axiosClient.post(`/members/assistance/${member._id}`)
     Swal.fire({
       title: 'Éxito!',
-      text: 'Asistencia agregada',
+      text: data.msg,
       icon: 'success',
       confirmButtonText: 'Cerrar',
     })

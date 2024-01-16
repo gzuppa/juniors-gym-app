@@ -191,9 +191,12 @@ const addAssistance = async (req, res) => {
   }
 
   const assistanceDate = new Date()
-  member.assistance.push(assistanceDate)
+  const locale = 'es-MX'
+  const mexicoDate = assistanceDate.toLocaleString(locale);
+
+  member.assistance.push(mexicoDate)
   await member.save()
-  res.json({ msg: 'Entrenador agregado correctamente' })
+  res.json({ msg: 'Asistencia agregada correctamente' })
 }
 
 export {

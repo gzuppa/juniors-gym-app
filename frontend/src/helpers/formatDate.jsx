@@ -7,5 +7,5 @@ export const formatDate = date => {
     day: 'numeric',
   }
 
-  return newDate.toLocaleDateString('es-ES', options)
+  return newDate.toLocaleString('es-MX', options)
 }

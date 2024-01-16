@@ -7,6 +7,7 @@ import io from 'socket.io-client'
 import useMembers from '../hooks/useMembers'
 import useAdmin from '../hooks/useAdmin'
 import Loader from '../assets/files/Loader'
+import Assistance from '../components/Assistance'
 import Training from '../components/Training'
 import TrainingFormModal from '../components/Modals/TrainingFormModal'
 import DeleteTrainingModal from '../components/Modals/DeleteTrainingModal'
@@ -87,6 +88,18 @@ const Member = () => {
       >
         <LibraryAddOutlinedIcon className="mr-2" /> Agregar asistencia
       </button>
+      <p className="font-bold text-xl mt-5 text-yellow-300">
+        Asistencias del usuario
+      </p>
+      <div className="bg-white shadow mt-10 rounded-lg">
+        {member.assistance?.length ? (
+          <Assistance key={member.assistance} assistance={member.assistance} />
+        ) : (
+          <p className="text-center my-5 p-10 font-raleway text-purple-800 font-bold">
+            Este usuario no tiene asistencias registradas
+          </p>
+        )}
+      </div>
       {admin && (
         <button
           type="button"
