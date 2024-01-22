@@ -18,7 +18,7 @@ const memberSchema = mongoose.Schema(
     },
     assistance: [
       {
-        type: String
+        type: String,
       },
     ],
     payAmount: {
@@ -56,6 +56,12 @@ const memberSchema = mongoose.Schema(
         ref: 'User',
       },
     ],
+    avatar: {
+      type: String,
+    },
+    avatar_url: {
+      type: String,
+    },
   },
   {
     timestamps: true,

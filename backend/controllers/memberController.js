@@ -1,3 +1,5 @@
+import { v2 as cloudinary } from 'cloudinary'
+import cloudinaryConfig from '../helpers/cloudinary.js'
 import Member from '../models/Members.js'
 import User from '../models/User.js'
 
@@ -20,6 +22,19 @@ const getAllMembers = async (req, res) => {
 const newMember = async (req, res) => {
   const member = new Member(req.body)
   member.principalTrainer = req.user._id
+  const { avatar } = member
+
+  cloudinaryConfig()
+  cloudinary.uploader.upload(
+    avatar,
+    { public_id: `${member.name}_avatar` },
+    function (error, result) {
+      if (result) {
+        member.avatar_url = result.secure_url
+      }
+      console.log(member.avatar)
+    },
+  )
 
   try {
     const savedMember = await member.save()
@@ -71,6 +86,15 @@ const editMember = async (req, res) => {
   //   return res.status(404).json({ msg: error.message })
   // }
 
+  cloudinaryConfig()
+  cloudinary.uploader.upload(
+    member.avatar,
+    { public_id: `${member.name}_avatar` },
+    // function (error, result) {
+    //   avatar === result.url
+    // },
+  )
+
   member.name = req.body.name || member.name
   member.lastName = req.body.lastName || member.lastName
   member.payDate = req.body.payDate || member.payDate
@@ -79,6 +103,7 @@ const editMember = async (req, res) => {
   member.age = req.body.age || member.age
   member.memberLevel = req.body.memberLevel || member.memberLevel
   member.status = req.body.status || member.status
+  member.avatar = req.body.avatar || member.avatar
 
   try {
     const savedMember = await member.save()
@@ -192,7 +217,7 @@ const addAssistance = async (req, res) => {
 
   const assistanceDate = new Date()
   const locale = 'es-MX'
-  const mexicoDate = assistanceDate.toLocaleString(locale);
+  const mexicoDate = assistanceDate.toLocaleString(locale)
 
   member.assistance.push(mexicoDate)
   await member.save()

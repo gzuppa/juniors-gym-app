@@ -31,7 +31,7 @@ function App() {
           <MemberProvider>
             <Routes>
               <Route path="/" element={<AuthLayout />}>
-                <Route index element={<Home />} />
+                <Route path="/home" element={<Home />} />
                 <Route path="/admin-login" element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />

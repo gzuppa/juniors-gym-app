@@ -13,6 +13,7 @@ import TrainingFormModal from '../components/Modals/TrainingFormModal'
 import DeleteTrainingModal from '../components/Modals/DeleteTrainingModal'
 import DeleteSecondaryTrainerModal from '../components/Modals/DeleteSecondaryTrainerModal'
 import SecondaryTrainer from '../components/SecondaryTrainer'
+import noImage from '../assets/misc/no-image.jpg'
 
 let socket
 
@@ -30,7 +31,7 @@ const Member = () => {
     updateTrainingMember,
   } = useMembers()
   const admin = useAdmin()
-  const { name, lastName } = member
+  const { name, lastName, avatar } = member
 
   useEffect(() => {
     getMember(params.id)
@@ -69,9 +70,16 @@ const Member = () => {
   ) : (
     <>
       <div className="flex justify-between">
-        <h1 className="font-bold text-yellow-300 text-4xl font-raleway">
-          {name} {lastName}
-        </h1>
+        <div className="flex items-center">
+          <h1 className="font-bold text-yellow-300 text-4xl font-raleway">
+            {name} {lastName}
+          </h1>
+          <img
+            className="h-24 ml-10"
+            src={member.avatar ? member.avatar : noImage}
+            alt="avatar"
+          />
+        </div>
         {admin && (
           <Link
             className="text-yellow-300 hover:text-purple-600 cursor-pointer flex items-center gap-2 font-raleway"
