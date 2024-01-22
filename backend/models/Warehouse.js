@@ -32,6 +32,12 @@ const warehouseSchema = mongoose.Schema(
       enum: ['Disponible', 'No disponible'],
       required: true,
     },
+    image: {
+      type: String,
+    },
+    image_url: {
+      type: String,
+    },
   },
   {
     timestamps: true,
