@@ -35,7 +35,7 @@ const WelcomeCard = () => {
         </Typography>
         <Link
           to="/admin/members"
-          className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer text-xl font-raleway font-bold"
+          className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer text-xl font-raleway"
         >
           Tus usuarios
         </Link>

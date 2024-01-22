@@ -29,7 +29,7 @@ const WarehouseArticleDetail = () => {
               <div className="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-6">
                 <img
                   className="w-full h-full object-cover"
-                  src="https://cdn.pixabay.com/photo/2015/01/09/11/22/fitness-594143_960_720.jpg"
+                  src={article.image}
                   alt="Product Image"
                 />
               </div>

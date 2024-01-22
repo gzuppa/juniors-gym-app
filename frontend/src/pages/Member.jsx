@@ -89,6 +89,9 @@ const Member = () => {
           </Link>
         )}
       </div>
+      <p className="font-bold text-xl mt-5 text-yellow-300">
+        Asistencias del usuario
+      </p>
       <button
         type="button"
         onClick={() => addAssistance()}
@@ -96,9 +99,6 @@ const Member = () => {
       >
         <LibraryAddOutlinedIcon className="mr-2" /> Agregar asistencia
       </button>
-      <p className="font-bold text-xl mt-5 text-yellow-300">
-        Asistencias del usuario
-      </p>
       <div className="bg-white shadow mt-10 rounded-lg">
         {member.assistance?.length ? (
           <Assistance key={member.assistance} assistance={member.assistance} />
@@ -108,6 +108,9 @@ const Member = () => {
           </p>
         )}
       </div>
+      <p className="font-bold text-xl mt-10 text-yellow-300">
+        Entrenamientos del usuario
+      </p>
       {admin && (
         <button
           type="button"
@@ -117,9 +120,6 @@ const Member = () => {
           <LibraryAddOutlinedIcon className="mr-2" /> Agregar entrenamiento
         </button>
       )}
-      <p className="font-bold text-xl mt-10 text-yellow-300">
-        Entrenamientos del usuario
-      </p>
       <div className="bg-white shadow mt-10 rounded-lg">
         {member.trainings?.length ? (
           member.trainings?.map(training => (

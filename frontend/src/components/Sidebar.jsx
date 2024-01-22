@@ -87,7 +87,7 @@ const Sidebar = ({ children }) => {
           </NavLink>
         ))}
         <button
-          tyoe="button"
+          type="button"
           className="text-yellow-300"
           onClick={handleCloseSession}
         >

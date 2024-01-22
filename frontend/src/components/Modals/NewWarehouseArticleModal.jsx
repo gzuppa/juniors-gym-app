@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import {
   FormControl,
+  Grid,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -14,6 +15,7 @@ import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined'
 import { Dialog, Transition } from '@headlessui/react'
 import Swal from 'sweetalert2'
 import useMembers from '../../hooks/useMembers'
+import noImage from '../../assets/misc/no-image.jpg'
 
 const NewWarehouseArticleModal = () => {
   const [name, setName] = useState('')
@@ -22,6 +24,7 @@ const NewWarehouseArticleModal = () => {
   const [price, setPrice] = useState('')
   const [stock, setStock] = useState('')
   const [status, setStatus] = useState('')
+  const [image, setImage] = useState('')
   const {
     article,
     handleNewWarehouseArticleModal,
@@ -37,6 +40,7 @@ const NewWarehouseArticleModal = () => {
       setPrice(article.price)
       setStock(article.stock)
       setStatus(article.status)
+      setImage(article.image)
       return
     }
     setName('')
@@ -45,7 +49,23 @@ const NewWarehouseArticleModal = () => {
     setPrice('')
     setStock('')
     setStatus('')
+    setImage('')
   }, [article])
+
+  const previewFiles = file => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+
+    reader.onloadend = () => {
+      setImage(reader.result)
+    }
+  }
+
+  const handleChange = e => {
+    const file = e.target.files[0]
+    setImage(file)
+    previewFiles(file)
+  }
 
   const handleSubmit = async e => {
     e.preventDefault()
@@ -67,6 +87,7 @@ const NewWarehouseArticleModal = () => {
       price,
       stock,
       status,
+      image,
       // member: params.id,
     })
     // setId('')
@@ -76,6 +97,7 @@ const NewWarehouseArticleModal = () => {
     setPrice('')
     setStock('')
     setStatus('')
+    setImage('')
   }
 
   return (
@@ -179,91 +201,134 @@ const NewWarehouseArticleModal = () => {
                       />
                     </FormControl>
 
-                    <FormControl sx={{ width: '100%', mt: 3 }}>
-                      <InputLabel
-                        id="type"
-                        sx={{ mb: '12px', fontSize: '0.875rem' }}
-                      >
-                        Tipo de artículo
-                      </InputLabel>
-                      <Select
-                        labelId="type"
-                        fullWidth
-                        id="type"
-                        value={type}
-                        label="Tipo de artículo"
-                        onChange={e => setType(e.target.value)}
-                      >
-                        <MenuItem value={'Aparato'}>Aparato</MenuItem>
-                        <MenuItem value={'Mercancía'}>Mercancía</MenuItem>
-                        <MenuItem value={'Otro'}>Otro</MenuItem>
-                      </Select>
-                    </FormControl>
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <FormControl sx={{ width: '100%', mt: 3 }}>
+                          <InputLabel htmlFor="price">
+                            Precio del artículo
+                          </InputLabel>
+                          <OutlinedInput
+                            endAdornment={
+                              <InputAdornment
+                                position="end"
+                                sx={{ color: '#6b21a8' }}
+                              >
+                                <PaidOutlinedIcon />
+                              </InputAdornment>
+                            }
+                            id="price"
+                            label="Precio del artículo"
+                            onChange={e => setPrice(e.target.value)}
+                            sx={{ label: { color: '#6b21a8' } }}
+                            type="number"
+                            value={price}
+                          />
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <FormControl sx={{ width: '100%', mt: 3 }}>
+                          <InputLabel htmlFor="stock">
+                            Cantidad en stock
+                          </InputLabel>
+                          <OutlinedInput
+                            endAdornment={
+                              <InputAdornment
+                                position="end"
+                                sx={{ color: '#6b21a8' }}
+                              >
+                                <Inventory2OutlinedIcon />
+                              </InputAdornment>
+                            }
+                            id="stock"
+                            label="Cantidad en stock"
+                            onChange={e => setStock(e.target.value)}
+                            sx={{ label: { color: '#6b21a8' } }}
+                            type="number"
+                            value={stock}
+                          />
+                        </FormControl>
+                      </Grid>
+                    </Grid>
 
-                    <FormControl sx={{ width: '100%', mt: 3 }}>
-                      <InputLabel htmlFor="price">
-                        Precio del artículo
-                      </InputLabel>
-                      <OutlinedInput
-                        endAdornment={
-                          <InputAdornment
-                            position="end"
-                            sx={{ color: '#6b21a8' }}
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <FormControl sx={{ width: '100%', mt: 3 }}>
+                          <InputLabel
+                            id="status"
+                            sx={{ mb: '12px', fontSize: '0.875rem' }}
                           >
-                            <PaidOutlinedIcon />
-                          </InputAdornment>
-                        }
-                        id="price"
-                        label="Precio del artículo"
-                        onChange={e => setPrice(e.target.value)}
-                        sx={{ label: { color: '#6b21a8' } }}
-                        type="number"
-                        value={price}
-                      />
-                    </FormControl>
-
-                    <FormControl sx={{ width: '100%', mt: 3 }}>
-                      <InputLabel htmlFor="stock">Cantidad en stock</InputLabel>
-                      <OutlinedInput
-                        endAdornment={
-                          <InputAdornment
-                            position="end"
-                            sx={{ color: '#6b21a8' }}
+                            Status de artículo
+                          </InputLabel>
+                          <Select
+                            labelId="status"
+                            fullWidth
+                            id="status"
+                            value={status}
+                            label="Status de artículo"
+                            onChange={e => setStatus(e.target.value)}
                           >
-                            <Inventory2OutlinedIcon />
-                          </InputAdornment>
-                        }
-                        id="stock"
-                        label="Cantidad en stock"
-                        onChange={e => setStock(e.target.value)}
-                        sx={{ label: { color: '#6b21a8' } }}
-                        type="number"
-                        value={stock}
-                      />
-                    </FormControl>
+                            <MenuItem value={'Disponible'}>Disponible</MenuItem>
+                            <MenuItem value={'No disponible'}>
+                              No disponible
+                            </MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <FormControl sx={{ width: '100%', mt: 3 }}>
+                          <InputLabel
+                            id="type"
+                            sx={{ mb: '12px', fontSize: '0.875rem' }}
+                          >
+                            Tipo de artículo
+                          </InputLabel>
+                          <Select
+                            labelId="type"
+                            fullWidth
+                            id="type"
+                            value={type}
+                            label="Tipo de artículo"
+                            onChange={e => setType(e.target.value)}
+                          >
+                            <MenuItem value={'Aparato'}>Aparato</MenuItem>
+                            <MenuItem value={'Mercancía'}>Mercancía</MenuItem>
+                            <MenuItem value={'Otro'}>Otro</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                    </Grid>
 
-                    <FormControl sx={{ width: '100%', mt: 3 }}>
-                      <InputLabel
-                        id="status"
-                        sx={{ mb: '12px', fontSize: '0.875rem' }}
-                      >
-                        Status de artículo
-                      </InputLabel>
-                      <Select
-                        labelId="status"
-                        fullWidth
-                        id="status"
-                        value={status}
-                        label="Status de artículo"
-                        onChange={e => setStatus(e.target.value)}
-                      >
-                        <MenuItem value={'Disponible'}>Disponible</MenuItem>
-                        <MenuItem value={'No disponible'}>
-                          No disponible
-                        </MenuItem>
-                      </Select>
-                    </FormControl>
-
+                    <Grid
+                      className="font-raleway flex items-center justify-between"
+                      container
+                      spacing={2}
+                      sx={{ mt: 2 }}
+                    >
+                      <Grid item xs={8}>
+                        <label
+                          for="images"
+                          class="drop-container"
+                          id="dropcontainer"
+                        >
+                          <span class="drop-title">
+                            Selecciona la foto del artículo
+                          </span>
+                          <input
+                            type="file"
+                            id="fileInput"
+                            accept="image/*"
+                            onChange={e => handleChange(e)}
+                          />
+                        </label>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <img
+                          src={image ? image : noImage}
+                          alt=""
+                          className="h-32"
+                        />
+                      </Grid>
+                    </Grid>
                     <input
                       type="submit"
                       className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"

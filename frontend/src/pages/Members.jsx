@@ -11,7 +11,7 @@ const Members = () => {
         Usuarios
       </h1>
       <button
-        className="text-yellow-300 font-raleway"
+        className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer py-2 px-3 rounded-lg transition-colors mt-5 font-raleway"
         type="button"
         onClick={handleSearching}
       >
