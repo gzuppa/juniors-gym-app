@@ -35,7 +35,7 @@ const WhatsappReminder = () => {
         </div>
         <div>
           <WhatsappSend
-            className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer"
+            className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer"
             number={props.phone}
             message={props.message}
           >
@@ -48,14 +48,14 @@ const WhatsappReminder = () => {
 
   return (
     <div className="font-raleway ">
-      <h1 className="text-4xl text-yellow-300 font-bold">
+      <h1 className="text-4xl text-purple-400 font-bold">
         Envío de recordatorios
       </h1>
-      <p className="text-lg text-yellow-300 mt-4">
+      <p className="text-lg text-purple-500 mt-4">
         En esta sección se podrán enviar los recordatorios de pago para los
         usuarios que aún no lo han realizado o están por realizarlo
       </p>
-      <p className="text-lg text-yellow-300 mt-4 mb-4 font-bold">
+      <p className="text-lg text-purple-500 mt-4 mb-4 font-bold">
         Usuarios que superaron su fecha de pago ⛔
       </p>
       <section className="bg-white rounded-lg py-5 px-5">
@@ -70,7 +70,7 @@ const WhatsappReminder = () => {
         ))}
       </section>
 
-      <p className="text-lg text-yellow-300 mt-7 mb-4 font-bold">
+      <p className="text-lg text-purple-500 mt-7 mb-4 font-bold">
         Usuarios que están próximos a superar su fecha de pago ⚠️
       </p>
       <section className="bg-white rounded-lg py-5 px-5 mt-8">

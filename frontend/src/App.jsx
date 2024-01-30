@@ -9,7 +9,6 @@ import AdminWelcome from './pages/AdminWelcome'
 import ConfirmAccount from './pages/ConfirmAccount'
 import EditMember from './pages/EditMember'
 import ForgotPassword from './pages/ForgotPassword'
-import Home from './pages/LandingPage/pages/Home'
 import Login from './pages/Login'
 import Member from './pages/Member'
 import Members from './pages/Members'
@@ -31,8 +30,7 @@ function App() {
           <MemberProvider>
             <Routes>
               <Route path="/" element={<AuthLayout />}>
-                <Route path="/home" element={<Home />} />
-                <Route path="/admin-login" element={<Login />} />
+                <Route index element={<Login />} />
                 <Route path="register" element={<Register />} />
                 <Route path="forgot-password" element={<ForgotPassword />} />
                 <Route

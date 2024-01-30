@@ -86,7 +86,7 @@ const MemberForm = () => {
       memberLevel,
       status,
       avatar,
-      avatar_url,
+      // avatar_url,
     })
     setId(null)
     setName('')
@@ -316,7 +316,7 @@ const MemberForm = () => {
           </Grid>
         </Grid>
         <input
-          className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"
+          className="w-full mt-10 px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer font-raleway"
           type="submit"
           value={id ? 'Actualizar usuario' : 'Crear usuario'}
         />

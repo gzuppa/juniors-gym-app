@@ -9,6 +9,8 @@ main {
   padding: 20px;
 }
 
+/* DROP IMAGE CONTAINER */
+
 input[type='file'] {
   width: 350px;
   max-width: 100%;
@@ -62,4 +64,30 @@ input[type='file']::file-selector-button:hover {
   font-weight: bold;
   text-align: center;
   transition: color 0.2s ease-in-out;
+}
+
+/* HERO BANNER */
+.inset {
+  position: absolute;
+  inset: 0;
+}
+.white {
+  color: white;
+}
+.gray {
+  color: #446;
+}
+
+.full {
+  height: 100vh;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient {
+  background: linear-gradient(rgba(14, 62, 151, 0.5) 50%, black);
 }

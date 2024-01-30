@@ -66,13 +66,13 @@ const WarehouseArticleDetail = () => {
               </div>
               <div className="mr-4 mt-6">
                 <Link
-                  className="w-full bg-purple-800 text-yellow-300 py-2 px-4 rounded-full font-bold hover:bg-yellow-300 hover:text-purple-800"
+                  className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer font-raleway"
                   to={`/admin/warehouse/edit/${params.id}`}
                 >
                   <EditOutlinedIcon /> Editar
                 </Link>
                 <Link
-                  className="w-full bg-purple-800 text-yellow-300 py-2 px-4 ml-4 rounded-full font-bold hover:bg-yellow-300 hover:text-purple-800"
+                  className="ml-4 px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer font-raleway"
                   to={`/admin/warehouse`}
                 >
                   <EditOutlinedIcon /> Volver a inventario

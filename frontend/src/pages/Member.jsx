@@ -71,7 +71,7 @@ const Member = () => {
     <>
       <div className="flex justify-between">
         <div className="flex items-center">
-          <h1 className="font-bold text-yellow-300 text-4xl font-raleway">
+          <h1 className="font-bold text-purple-400 text-4xl font-raleway">
             {name} {lastName}
           </h1>
           <img
@@ -89,13 +89,13 @@ const Member = () => {
           </Link>
         )}
       </div>
-      <p className="font-bold text-xl mt-5 text-yellow-300">
+      <p className="text-xl mt-5 text-purple-500">
         Asistencias del usuario
       </p>
       <button
         type="button"
         onClick={() => addAssistance()}
-        className="text-sm px-5 py-3 mt-5 w-full md:w-auto rounded-lg font-bold font-raleway bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer flex items-center justify-center"
+        className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer  mt-5 w-full md:w-auto font-raleway  flex items-center justify-center"
       >
         <LibraryAddOutlinedIcon className="mr-2" /> Agregar asistencia
       </button>
@@ -108,14 +108,14 @@ const Member = () => {
           </p>
         )}
       </div>
-      <p className="font-bold text-xl mt-10 text-yellow-300">
+      <p className="font-bold text-xl mt-10 text-purple-500">
         Entrenamientos del usuario
       </p>
       {admin && (
         <button
           type="button"
           onClick={handleTrainingModal}
-          className="text-sm px-5 py-3 mt-5 w-full md:w-auto rounded-lg font-bold font-raleway bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer flex items-center justify-center"
+          className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer  mt-5 w-full md:w-auto font-raleway  flex items-center justify-center"
         >
           <LibraryAddOutlinedIcon className="mr-2" /> Agregar entrenamiento
         </button>
@@ -134,7 +134,7 @@ const Member = () => {
       {admin && (
         <>
           <div className="flex items-center justify-between mt-10">
-            <p className="font-bold text-xl text-yellow-300">
+            <p className="font-bold text-xl text-purple-500">
               Entrenadores del usuario
             </p>
             <Link

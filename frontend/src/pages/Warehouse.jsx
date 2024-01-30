@@ -24,7 +24,7 @@ const Warehouse = () => {
       <button
         type="button"
         onClick={handleNewWarehouseArticleModal}
-        className="text-sm px-5 py-3 mt-5 mb-8 w-full md:w-auto rounded-lg font-bold font-raleway bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer flex items-center justify-center"
+        className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer font-raleway mt-5 mb-8 w-full md:w-auto flex items-center justify-center"
       >
         <LibraryAddOutlinedIcon className="mr-2" />
         Agregar artículo

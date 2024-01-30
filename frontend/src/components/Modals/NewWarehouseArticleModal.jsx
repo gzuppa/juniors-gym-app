@@ -331,7 +331,7 @@ const NewWarehouseArticleModal = () => {
                     </Grid>
                     <input
                       type="submit"
-                      className="bg-yellow-300 hover:bg-purple-800 text-purple-800 hover:text-yellow-300 cursor-pointer w-full p-3 font-bold font-raleway mt-10 rounded transition-colors"
+                      className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 rounded-lg cursor-pointer font-raleway w-full mt-10"
                       value="Agregar artículo al inventario"
                     />
                   </form>

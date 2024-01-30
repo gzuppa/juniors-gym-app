@@ -121,7 +121,7 @@ const PendingPayUsersModal = () => {
                   ))}
                   <Link
                     to="/admin/send-reminder"
-                    className="text-purple-800 hover:text-yellow-300 bg-yellow-300 hover:bg-purple-800 transition-colors py-2 px-2 rounded-lg cursor-pointer text-md font-raleway flex justify-center"
+                    className="px-10 font-medium text-white py-2.5 bg-gradient-to-r whitespace-nowrap from-purple-950 to-purple-200 cursor-pointer font-raleway flex justify-center rounded-lg"
                   >
                     Enviar recordatorio
                   </Link>
